@@ -6,4 +6,7 @@
     </style>
 
     <style name="Theme.YouToDo" parent="Base.Theme.YouToDo" />
+    <style name="Theme.MyApp" parent="Theme.Material3.DayNight">
+        <!-- ... -->
+    </style>
 </resources>

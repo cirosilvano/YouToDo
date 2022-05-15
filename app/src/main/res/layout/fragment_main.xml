@@ -9,6 +9,36 @@
     tools:context=".MainFragment">
 
 
+    <LinearLayout
+        android:layout_width="200dp"
+        android:layout_height="250dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:src="@drawable/relax" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="10dp" />
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/alike"
+            android:gravity="center"
+            android:text="You're free :)"
+            android:textSize="20sp" />
+
+    </LinearLayout>
+
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigationView"
         android:layout_width="405dp"
@@ -40,9 +70,11 @@
         android:layout_marginEnd="24dp"
         android:backgroundTint="#00FFFFFF"
         android:contentDescription="@string/add_a_new_todo"
+        android:foregroundTint="#101010"
         android:src="@drawable/ic_baseline_add_30"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="#000000" />
 
     <ImageButton
         android:id="@+id/moreButton"
@@ -58,7 +90,7 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/itemsList"
-        android:layout_width="409dp"
+        android:layout_width="match_parent"
         android:layout_height="580dp"
         android:layout_marginTop="10dp"
         app:layout_constraintEnd_toEndOf="parent"

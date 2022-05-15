@@ -29,6 +29,8 @@ class MainFragment : Fragment() {
        val addBtn=view.findViewById<ImageButton>(R.id.addButton)
         todoRecyclerView = view.findViewById(R.id.itemsList)
 
+        
+
         /*Evento click dell'addButton*/
         addBtn.setOnClickListener {
             val action=MainFragmentDirections.actionMainFragmentToAddFragment()

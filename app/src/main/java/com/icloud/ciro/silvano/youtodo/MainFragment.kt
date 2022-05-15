@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageButton
 import androidx.navigation.findNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -21,10 +22,11 @@ class MainFragment : Fragment() {
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle? ): View? {
         // Inflate the layout for this fragment
         val view=inflater.inflate(R.layout.fragment_main, container, false)
-        val fabMain=view.findViewById<FloatingActionButton>(R.id.fabMain)
 
-        /*Evento click del floatingActionButton*/
-        fabMain.setOnClickListener {
+       val addBtn=view.findViewById<ImageButton>(R.id.addButton)
+
+        /*Evento click dell'addButton*/
+        addBtn.setOnClickListener {
             val action=MainFragmentDirections.actionMainFragmentToAddFragment()
                 view.findNavController().navigate(action)
         }

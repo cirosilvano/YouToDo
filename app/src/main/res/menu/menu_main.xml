@@ -2,10 +2,15 @@
     <item
         android:id="@+id/page_1"
         android:enabled="true"
+        android:icon="@drawable/ic_baseline_format_list_bulleted_35"
+        android:title="To do"/>
+    <item
+        android:id="@+id/page_2"
+        android:enabled="true"
         android:icon="@drawable/ic_baseline_done_35"
         android:title="Done"/>
     <item
-        android:id="@+id/page_2"
+        android:id="@+id/page_3"
         android:enabled="true"
         android:icon="@drawable/ic_baseline_settings_35"
         android:title="Settings"/>

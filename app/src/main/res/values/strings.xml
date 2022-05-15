@@ -8,6 +8,9 @@
     <string name="previous">Previous</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="welcome_text">What\'s next?</string>
+    <string name="add_a_new_todo">Add a new todo</string>
+    <string name="more_actions">More actions</string>
 
 
 </resources>

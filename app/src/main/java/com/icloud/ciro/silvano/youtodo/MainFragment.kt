@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.findNavController
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 
@@ -27,6 +28,7 @@ class MainFragment : Fragment() {
             val action=MainFragmentDirections.actionMainFragmentToAddFragment()
                 view.findNavController().navigate(action)
         }
+
         return view
     }
 

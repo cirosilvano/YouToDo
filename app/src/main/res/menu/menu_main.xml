@@ -2,11 +2,11 @@
     <item
         android:id="@+id/page_1"
         android:enabled="true"
-        android:icon="@drawable/ic_launcher_background"
-        android:title="@string/title"/>
+        android:icon="@drawable/ic_baseline_done_35"
+        android:title="Done"/>
     <item
         android:id="@+id/page_2"
         android:enabled="true"
-        android:icon="@drawable/ic_launcher_background"
-        android:title="@string/title"/>
+        android:icon="@drawable/ic_baseline_settings_35"
+        android:title="Settings"/>
 </menu>

@@ -57,7 +57,7 @@ class MainFragment : Fragment() {
           when (menuItem.itemId) {
               R.id.settings_nav -> {
                   // Handle search icon press
-                  findNavController().navigate(R.id.action_settingsFragment_to_mainFragment)
+                  findNavController().navigate(R.id.action_mainFragment_to_settingsFragment)
                   true
               }
               else -> false

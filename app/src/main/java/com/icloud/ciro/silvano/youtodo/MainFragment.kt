@@ -5,17 +5,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageButton
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.youtodo.ItemAdapter
 import com.example.youtodo.databaseUtilities.ItemViewModel
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.icloud.ciro.silvano.youtodo.databinding.FragmentMainBinding
 
 
@@ -52,6 +49,19 @@ class MainFragment : Fragment() {
 
       binding.addButton.setOnClickListener {
           findNavController().navigate(R.id.action_mainFragment_to_addFragment)
+      }
+
+      val bottomAppBar: BottomNavigationView = binding.bottomNavigationView
+
+      bottomAppBar.setOnItemSelectedListener { menuItem ->
+          when (menuItem.itemId) {
+              R.id.settings_nav -> {
+                  // Handle search icon press
+                  findNavController().navigate(R.id.action_mainFragment_to_settingsFragment)
+                  true
+              }
+              else -> false
+          }
       }
 
       return binding.root

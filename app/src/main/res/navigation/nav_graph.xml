@@ -16,6 +16,9 @@
         <action
             android:id="@+id/action_mainFragment_to_editFragment"
             app:destination="@id/editFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_settingsFragment"
+            app:destination="@id/settingsFragment" />
     </fragment>
 
     <fragment
@@ -38,6 +41,14 @@
         <argument
             android:name="currentItem"
             app:argType="com.example.youtodo.databaseUtilities.Item" />
+    </fragment>
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.icloud.ciro.silvano.youtodo.SettingsFragment"
+        android:label="SettingsFragment" >
+        <action
+            android:id="@+id/action_settingsFragment_to_mainFragment"
+            app:destination="@id/mainFragment" />
     </fragment>
 
 </navigation>

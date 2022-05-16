@@ -7,7 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageButton
+import android.widget.Toast
+import androidx.navigation.Navigation.findNavController
 import androidx.navigation.findNavController
+import com.example.youtodo.databaseUtilities.Item
 
 class AddFragment : Fragment() {
 
@@ -26,6 +29,32 @@ class AddFragment : Fragment() {
        }
 
        return view
+    }
+
+    private fun insertItemToDatabase() {
+        val name = binding.addName.text.toString()
+        val category = binding.addCategory.text.toString()
+        val deadline = binding.addDeadline.text.toString()
+
+        if(inputCheck(name, category, deadline)){
+            // Create Item Object
+            val item = Item(0, name, category, deadline)
+
+            // Add Data to Database
+            itemViewModel.addItem(item)
+
+            Toast.makeText(requireContext(), "Successfully added!", Toast.LENGTH_LONG).show()
+
+            // Navigate Back
+            findNavController().navigate(R.id.action_addFragment_to_mainFragment)
+        }
+        else{
+            Toast.makeText(requireContext(), "Please fill out all fields.", Toast.LENGTH_LONG).show()
+        }
+    }
+
+    private fun inputCheck(name : String, category: String, deadline : String) : Boolean {
+        return !(TextUtils.isEmpty(name) || TextUtils.isEmpty(category) || TextUtils.isEmpty(deadline))
     }
 
 

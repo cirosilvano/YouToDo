@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.DatePicker
 import android.widget.ImageButton
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
@@ -26,6 +27,7 @@ class AddFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
     }
 
    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -42,13 +44,21 @@ class AddFragment : Fragment() {
            insertItemToDatabase()
        }
 
+
+
        return binding.root
     }
 
     private fun insertItemToDatabase() {
         val name = binding.addName.text.toString()
         val category = binding.addCategory.text.toString()
-        val deadline = binding.addDeadline.text.toString()
+       // val deadline = binding.addDeadline.text.toString()
+
+        /*Gestione del calendario*/
+        val day=binding.datePicker.dayOfMonth.toString()
+        val month=binding.datePicker.month.toString()
+        val year=binding.datePicker.year.toString()
+        val deadline="${day}/${month}/${year}"
 
         if(inputCheck(name, category, deadline)){
             // Create Item Object
@@ -65,6 +75,8 @@ class AddFragment : Fragment() {
         else{
             Toast.makeText(requireContext(), "Please fill out all fields.", Toast.LENGTH_LONG).show()
         }
+
+
     }
 
     private fun inputCheck(name : String, category: String, deadline : String) : Boolean {

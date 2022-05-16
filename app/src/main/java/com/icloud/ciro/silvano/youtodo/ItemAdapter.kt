@@ -19,7 +19,7 @@ class ItemAdapter : RecyclerView.Adapter<ItemAdapter.MyViewHolder>() {
         val name: TextView = itemView.findViewById(R.id.itemName)
         val category: TextView = itemView.findViewById(R.id.itemCategory)
         val deadline: TextView = itemView.findViewById(R.id.itemDeadline)
-        val cardLayout : ConstraintLayout = itemView.findViewById(R.id.cardview_item)
+        val cardLayout : ConstraintLayout = itemView.findViewById(R.id.itemConstraintLayout)
 
         fun bind(name_tx : String, category_tx : String, deadline_tx : String) {
             name.text = name_tx

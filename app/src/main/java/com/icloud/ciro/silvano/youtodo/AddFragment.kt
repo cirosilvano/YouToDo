@@ -38,6 +38,10 @@ class AddFragment : Fragment() {
            findNavController().navigate(R.id.action_addFragment_to_mainFragment)
        }
 
+       binding.btnAdd.setOnClickListener {
+           insertItemToDatabase()
+       }
+
        return binding.root
     }
 

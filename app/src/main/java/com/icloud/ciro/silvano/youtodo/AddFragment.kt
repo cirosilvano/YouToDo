@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ImageButton
 import androidx.navigation.findNavController
 
 class AddFragment : Fragment() {
@@ -17,12 +18,13 @@ class AddFragment : Fragment() {
 
    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
        val view=inflater.inflate(R.layout.fragment_add, container, false)
-       val btnAdd=view.findViewById<Button>(R.id.btn_add)
+       val btnBack = view.findViewById<ImageButton>(R.id.backAddButton)
 
-       btnAdd.setOnClickListener {
+       btnBack.setOnClickListener {
            val action=AddFragmentDirections.actionAddFragmentToMainFragment()
            view.findNavController().navigate(action)
        }
+
        return view
     }
 

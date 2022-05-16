@@ -1,6 +1,7 @@
 package com.icloud.ciro.silvano.youtodo
 
 import android.os.Bundle
+import android.text.TextUtils
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -8,27 +9,36 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.Toast
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation.findNavController
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import com.example.youtodo.databaseUtilities.Item
+import com.example.youtodo.databaseUtilities.ItemViewModel
+import com.icloud.ciro.silvano.youtodo.databinding.FragmentAddBinding
 
 class AddFragment : Fragment() {
 
+    private var _binding: FragmentAddBinding? = null
+    private val binding get() = _binding!!
+
+    private lateinit var itemViewModel: ItemViewModel
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
     }
 
    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-       val view=inflater.inflate(R.layout.fragment_add, container, false)
-       val btnBack = view.findViewById<ImageButton>(R.id.backAddButton)
+       _binding = FragmentAddBinding.inflate(inflater, container, false)
+       val btnBack = binding.backAddButton
+
+       itemViewModel = ViewModelProvider(this).get(ItemViewModel::class.java)
 
        btnBack.setOnClickListener {
-           val action=AddFragmentDirections.actionAddFragmentToMainFragment()
-           view.findNavController().navigate(action)
+           findNavController().navigate(R.id.action_addFragment_to_mainFragment)
        }
 
-       return view
+       return binding.root
     }
 
     private fun insertItemToDatabase() {

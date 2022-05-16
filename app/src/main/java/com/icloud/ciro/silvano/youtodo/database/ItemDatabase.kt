@@ -1,4 +1,4 @@
-package com.example.youtodo.databaseUtilities
+package com.icloud.ciro.silvano.youtodo.database
 
 import android.content.Context
 import androidx.room.Database
@@ -14,7 +14,7 @@ abstract class ItemDatabase : RoomDatabase() {
         @Volatile
         private var INSTANCE: ItemDatabase? = null
 
-        fun getDatabase(context: Context): ItemDatabase{
+        fun getDatabase(context: Context): ItemDatabase {
             val tempInstance = INSTANCE
             if(tempInstance != null){
                 return tempInstance

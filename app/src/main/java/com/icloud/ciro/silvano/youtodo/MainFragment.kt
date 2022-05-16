@@ -11,7 +11,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.youtodo.ItemAdapter
-import com.example.youtodo.databaseUtilities.ItemViewModel
+import com.icloud.ciro.silvano.youtodo.database.ItemViewModel
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.icloud.ciro.silvano.youtodo.databinding.FragmentMainBinding
 

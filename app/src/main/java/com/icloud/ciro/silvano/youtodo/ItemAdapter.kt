@@ -7,9 +7,9 @@ import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
-import com.example.youtodo.databaseUtilities.Item
 import com.icloud.ciro.silvano.youtodo.MainFragmentDirections
 import com.icloud.ciro.silvano.youtodo.R
+import com.icloud.ciro.silvano.youtodo.database.Item
 
 class ItemAdapter : RecyclerView.Adapter<ItemAdapter.MyViewHolder>() {
 

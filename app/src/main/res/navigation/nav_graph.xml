@@ -40,7 +40,7 @@
             app:destination="@id/mainFragment" />
         <argument
             android:name="currentItem"
-            app:argType="com.example.youtodo.databaseUtilities.Item" />
+            app:argType="com.icloud.ciro.silvano.youtodo.database.Item" />
     </fragment>
     <fragment
         android:id="@+id/settingsFragment"

@@ -7,39 +7,30 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import com.google.android.material.bottomappbar.BottomAppBar
+import com.icloud.ciro.silvano.youtodo.databinding.FragmentMainBinding
+import com.icloud.ciro.silvano.youtodo.databinding.FragmentSettingsBinding
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [SettingsFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class SettingsFragment : Fragment() {
+
+    private var _binding: FragmentSettingsBinding? = null
+    private val binding get() = _binding!!
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
-        val view=inflater.inflate(R.layout.fragment_edit, container, false)
-        val btnBack=view.findViewById<Button>(R.id.backSettingsButton)
+        _binding = FragmentSettingsBinding.inflate(inflater, container, false)
 
-        btnBack.setOnClickListener {
-            val action=EditFragmentDirections.actionEditFragmentToMainFragment()
-            view.findNavController().navigate(action)
+        binding.backSettingsButton.setOnClickListener {
+            findNavController().navigate(R.id.action_settingsFragment_to_mainFragment)
         }
 
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_settings, container, false)
+        return binding.root
     }
 
 

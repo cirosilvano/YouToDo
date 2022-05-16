@@ -1,4 +1,4 @@
-package com.example.youtodo.databaseUtilities
+package com.icloud.ciro.silvano.youtodo.database
 
 import android.os.Parcelable
 import androidx.room.ColumnInfo

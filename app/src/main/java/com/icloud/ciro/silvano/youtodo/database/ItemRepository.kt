@@ -1,6 +1,7 @@
-package com.example.youtodo.databaseUtilities
+package com.icloud.ciro.silvano.youtodo.database
 
 import androidx.lifecycle.LiveData
+import com.icloud.ciro.silvano.youtodo.database.ItemDao
 
 class ItemRepository(private val itemDao: ItemDao) {
 

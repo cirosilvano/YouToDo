@@ -1,31 +1,104 @@
 package com.icloud.ciro.silvano.youtodo
 
+import android.app.AlertDialog
 import android.os.Bundle
+import android.text.TextUtils
+import android.view.*
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.widget.Button
-import androidx.navigation.findNavController
-import com.google.android.material.floatingactionbutton.FloatingActionButton
+import android.widget.Toast
+import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
+import com.icloud.ciro.silvano.youtodo.database.ItemViewModel
+import com.icloud.ciro.silvano.youtodo.database.Item
+import com.icloud.ciro.silvano.youtodo.databinding.FragmentEditBinding
 
 class EditFragment : Fragment() {
+    private var _binding: FragmentEditBinding? = null
+    private val binding get() = _binding!!
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    private lateinit var itemViewModel: ItemViewModel
+    private val args by navArgs<EditFragmentArgs>()
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        // Inflate the layout for this fragment
+        _binding = FragmentEditBinding.inflate(inflater, container, false)
+
+        itemViewModel = ViewModelProvider(this).get(ItemViewModel::class.java)
+        binding.editName.setText(args.currentItem.name)
+        binding.editCategory.setText(args.currentItem.category)
+
+        binding.btnEdit.setOnClickListener{
+            updateItem()
+        }
+
+        //setHasOptionsMenu(true)
+
+        return binding.root
+    }
+
+    /*
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.menu_main, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if(item.itemId == R.id.action_settings) {
+            deleteCard()
+            findNavController().navigate(R.id.action_editFragment_to_mainFragment)
+        }
+
+        return super.onOptionsItemSelected(item)
+    }*/
+
+    private fun updateItem() {
+        val name = binding.editName.text.toString()
+        val category = binding.editCategory.text.toString()
+        // val deadline = binding.addDeadline.text.toString()
+
+        /*Gestione del calendario*/
+        val day=binding.datePicker.dayOfMonth.toString()
+        val month=binding.datePicker.month.toString()
+        val year=binding.datePicker.year.toString()
+        val deadline="${day}/${month}/${year}"
+
+        if(inputCheck(name, category)){
+            // Create Item Object
+            val item = Item(args.currentItem.id, name, category, deadline)
+
+            // Add Data to Database
+            itemViewModel.updateItem(item)
+
+            Toast.makeText(requireContext(), "Successfully updated!", Toast.LENGTH_LONG).show()
+
+            // Navigate Back
+            findNavController().navigate(R.id.action_editFragment_to_mainFragment)
+        }
+        else{
+            Toast.makeText(requireContext(), "Please fill out all fields.", Toast.LENGTH_LONG).show()
+        }
+
 
     }
 
-   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-       val view=inflater.inflate(R.layout.fragment_edit, container, false)
-       val btnEdit=view.findViewById<Button>(R.id.btn_edit)
-
-       btnEdit.setOnClickListener {
-           val action=EditFragmentDirections.actionEditFragmentToMainFragment()
-           view.findNavController().navigate(action)
-       }
-       return view
+    private fun inputCheck(name : String, category: String) : Boolean {
+        return !(TextUtils.isEmpty(name) || TextUtils.isEmpty(category))
     }
 
+    private fun deleteCard() {
+        val builder = AlertDialog.Builder(requireContext())
+        builder.setPositiveButton("Yes") { _,_ ->
+            itemViewModel.deleteItem(args.currentItem)
+            Toast.makeText(requireContext(), "Successfully removed ${args.currentItem.name}!", Toast.LENGTH_LONG).show()
+        }
 
+        builder.setNegativeButton("No") { _,_ ->
+
+        }
+
+        builder.setTitle("Are you sure you want to delete ${args.currentItem.name} ?")
+        builder.setMessage("Are you sure you want to delete ${args.currentItem.name} ?")
+
+        builder.create().show()
+    }
 }

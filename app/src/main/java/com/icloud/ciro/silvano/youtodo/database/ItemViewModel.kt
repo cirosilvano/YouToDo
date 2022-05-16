@@ -1,9 +1,11 @@
-package com.example.youtodo.databaseUtilities
+package com.icloud.ciro.silvano.youtodo.database
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
+import com.icloud.ciro.silvano.youtodo.database.ItemDatabase
+import com.icloud.ciro.silvano.youtodo.database.ItemRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 

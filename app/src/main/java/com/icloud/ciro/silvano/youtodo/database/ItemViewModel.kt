@@ -16,12 +16,16 @@ import kotlinx.coroutines.launch
 class ItemViewModel(application: Application): AndroidViewModel(application) {
 
     val showAllItems: LiveData<List<Item>>
+    val showAllCategories: LiveData<List<Category>>
+
     private val repository: ItemRepository
 
     init {
-        val userDao = ItemDatabase.getDatabase(application).itemDao()
-        repository = ItemRepository(userDao)
-        showAllItems = repository.readAllData
+        val itemDao = ItemDatabase.getDatabase(application).itemDao()
+        val categoryDao = ItemDatabase.getDatabase(application).categoryDao()
+        repository = ItemRepository(itemDao, categoryDao)
+        showAllItems = repository.readAllItemsData
+        showAllCategories = repository.readAllCategoryData
     }
 
     fun addItem(item: Item){
@@ -40,6 +44,12 @@ class ItemViewModel(application: Application): AndroidViewModel(application) {
     fun deleteItem(item: Item) {
         viewModelScope.launch(Dispatchers.IO) {
             repository.deleteItem(item)
+        }
+    }
+
+    fun addCategory(category: Category) {
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.addCategory(category)
         }
     }
 }

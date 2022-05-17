@@ -6,9 +6,10 @@ import com.icloud.ciro.silvano.youtodo.database.ItemDao
 /*Classe ItemRepository
 * classe che astrae l'accesso all'insieme dei dati del database
 */
-class ItemRepository(private val itemDao: ItemDao) {
+class ItemRepository(private val itemDao: ItemDao, private val categoryDao: CategoryDao) {
 
-    val readAllData: LiveData<List<Item>> = itemDao.showAllItems()
+    val readAllItemsData: LiveData<List<Item>> = itemDao.showAllItems()
+    val readAllCategoryData: LiveData<List<Category>> = categoryDao.showAllCategories()
 
     fun addItem(item: Item){
         itemDao.addItem(item)
@@ -20,5 +21,9 @@ class ItemRepository(private val itemDao: ItemDao) {
 
     fun deleteItem(item: Item){
         itemDao.deleteItem(item)
+    }
+
+    fun addCategory(category: Category) {
+        categoryDao.addCategory(category)
     }
 }

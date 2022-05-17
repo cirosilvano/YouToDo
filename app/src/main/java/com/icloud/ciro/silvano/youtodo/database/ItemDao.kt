@@ -20,5 +20,4 @@ interface ItemDao {
 
     @Query("SELECT * FROM item")
     fun showAllItems(): LiveData<List<Item>>
-
 }

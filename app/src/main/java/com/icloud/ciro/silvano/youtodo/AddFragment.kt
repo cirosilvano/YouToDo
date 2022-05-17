@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -17,8 +18,10 @@ class AddFragment : Fragment() {
 
     private var _binding: FragmentAddBinding? = null
     private val binding get() = _binding!!
-
     private lateinit var itemViewModel: ItemViewModel
+
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -60,6 +63,7 @@ class AddFragment : Fragment() {
             val item = Item(0, name, category, deadline)
 
             // Add Data to Database
+
             itemViewModel.addItem(item)
 
             Toast.makeText(requireContext(), "Successfully added!", Toast.LENGTH_LONG).show()

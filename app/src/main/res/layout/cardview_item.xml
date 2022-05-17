@@ -2,24 +2,23 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="350dp"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="#00501750"
-    android:backgroundTint="#00FFFFFF"
-    app:cardCornerRadius="10dp"
-    app:cardElevation="2dp">
+    app:cardPreventCornerOverlap="true"
+    app:cardUseCompatPadding="true">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/itemConstraintLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:elevation="5dp">
 
         <TextView
             android:id="@+id/itemName"
             android:layout_width="match_parent"
             android:layout_height="100dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="25dp"
+            android:layout_marginStart="80dp"
+            android:layout_marginTop="16dp"
             android:fontFamily="@font/alike"
             android:text="Write a chapter"
             android:textSize="30sp"
@@ -30,8 +29,8 @@
             android:id="@+id/itemDeadline"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginBottom="30dp"
+            android:layout_marginStart="80dp"
+            android:layout_marginBottom="16dp"
             android:fontFamily="@font/alike"
             android:text="Today, 10:50"
             android:textSize="20sp"
@@ -42,12 +41,20 @@
             android:id="@+id/itemCategory"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="50dp"
-            android:layout_marginBottom="30dp"
+            android:layout_marginEnd="36dp"
+            android:layout_marginBottom="20dp"
             android:fontFamily="@font/alike"
             android:text="TextView"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
+
+        <CheckBox
+            android:id="@+id/cbDone"
+            android:layout_width="56dp"
+            android:layout_height="48dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -21,6 +21,19 @@ class EditFragment : Fragment() {
     private val args by navArgs<EditFragmentArgs>()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+
+        /*
+        *  val bottomAppBar: BottomNavigationView = binding.bottomNavigationView
+
+      bottomAppBar.setOnItemSelectedListener { menuItem ->
+          when (menuItem.itemId) {
+              R.id.settings_nav -> {
+                  // Handle search icon press
+                  findNavController().navigate(R.id.action_mainFragment_to_settingsFragment)
+                  true
+              }
+              else -> false
+          }*/
         // Inflate the layout for this fragment
         _binding = FragmentEditBinding.inflate(inflater, container, false)
 
@@ -38,6 +51,9 @@ class EditFragment : Fragment() {
         }
 
         //setHasOptionsMenu(true)
+
+
+
 
         return binding.root
     }

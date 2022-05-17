@@ -32,7 +32,12 @@ class EditFragment : Fragment() {
             updateItem()
         }
 
-        setHasOptionsMenu(true)
+        binding.bottomNavigationView.setOnClickListener {
+            deleteCard()
+            findNavController().navigate(R.id.action_editFragment_to_mainFragment)
+        }
+
+        //setHasOptionsMenu(true)
 
         return binding.root
     }
@@ -113,5 +118,9 @@ class EditFragment : Fragment() {
         builder.create().show()
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
 
 }

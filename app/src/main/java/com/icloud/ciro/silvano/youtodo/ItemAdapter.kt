@@ -1,15 +1,12 @@
-package com.example.youtodo
+package com.icloud.ciro.silvano.youtodo
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
-import com.icloud.ciro.silvano.youtodo.MainFragmentDirections
-import com.icloud.ciro.silvano.youtodo.R
 import com.icloud.ciro.silvano.youtodo.database.Item
 
 class ItemAdapter : RecyclerView.Adapter<ItemAdapter.MyViewHolder>() {
@@ -69,12 +66,10 @@ class ItemAdapter : RecyclerView.Adapter<ItemAdapter.MyViewHolder>() {
 
     }
 
-
     fun setData(item: List<Item>) {
         this.itemList = item
         notifyDataSetChanged()
     }
-
 }
 
 

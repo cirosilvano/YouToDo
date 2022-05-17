@@ -31,40 +31,40 @@ class MainFragment : Fragment() {
 
     lateinit var todoRecyclerView: RecyclerView
 
-  override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle? ): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle? ): View? {
         // Inflate the layout for this fragment
 
-      _binding = FragmentMainBinding.inflate(inflater, container, false)
+        _binding = FragmentMainBinding.inflate(inflater, container, false)
 
-      val adapter = ItemAdapter()
-      val recyclerView = binding.itemsList
-      recyclerView.adapter = adapter
-      recyclerView.layoutManager = LinearLayoutManager(requireContext())
+        val adapter = ItemAdapter()
+        val recyclerView = binding.itemsList
+        recyclerView.adapter = adapter
+        recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
-      //ItemViewModel
-      itemViewModel = ViewModelProvider(this).get(ItemViewModel::class.java)
-      itemViewModel.showAllItems.observe(viewLifecycleOwner, Observer{ user ->
-          adapter.setData(user)
-      })
+        //ItemViewModel
+        itemViewModel = ViewModelProvider(this).get(ItemViewModel::class.java)
+        itemViewModel.showAllItems.observe(viewLifecycleOwner, Observer{ user ->
+            adapter.setData(user)
+        })
 
-      binding.addButton.setOnClickListener {
-          findNavController().navigate(R.id.action_mainFragment_to_addFragment)
-      }
+        binding.addButton.setOnClickListener {
+            findNavController().navigate(R.id.action_mainFragment_to_addFragment)
+        }
 
 
-      val bottomAppBar: BottomNavigationView = binding.bottomNavigationView
+        val bottomAppBar: BottomNavigationView = binding.bottomNavigationView
 
-      bottomAppBar.setOnItemSelectedListener { menuItem ->
-          when (menuItem.itemId) {
-              R.id.settings_nav -> {
-                  // Handle search icon press
-                  findNavController().navigate(R.id.action_mainFragment_to_settingsFragment)
-                  true
-              }
-              else -> false
-          }
-      }
+        bottomAppBar.setOnItemSelectedListener { menuItem ->
+            when (menuItem.itemId) {
+                R.id.settings_nav -> {
+                    // Handle search icon press
+                    findNavController().navigate(R.id.action_mainFragment_to_settingsFragment)
+                    true
+                }
+                else -> false
+            }
+        }
 
-      return binding.root
+        return binding.root
     }
 }

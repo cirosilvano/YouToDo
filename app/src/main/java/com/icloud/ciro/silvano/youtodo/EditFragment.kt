@@ -32,7 +32,7 @@ class EditFragment : Fragment() {
             updateItem()
         }
 
-        //setHasOptionsMenu(true)
+        setHasOptionsMenu(true)
 
         return binding.root
     }
@@ -56,7 +56,7 @@ class EditFragment : Fragment() {
         val category = binding.editCategory.text.toString()
         // val deadline = binding.addDeadline.text.toString()
 
-        /*Gestione del calendario*/
+        /*Calendar management*/
         val day=binding.datePicker.dayOfMonth.toString()
         val month=binding.datePicker.month.toString()
         val year=binding.datePicker.year.toString()
@@ -85,6 +85,17 @@ class EditFragment : Fragment() {
         return !(TextUtils.isEmpty(name) || TextUtils.isEmpty(category))
     }
 
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.menu_edit_delete,menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if(item.itemId==R.id.menu_delete){
+            deleteCard()
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
     private fun deleteCard() {
         val builder = AlertDialog.Builder(requireContext())
         builder.setPositiveButton("Yes") { _,_ ->
@@ -101,4 +112,6 @@ class EditFragment : Fragment() {
 
         builder.create().show()
     }
+
+
 }

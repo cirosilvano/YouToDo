@@ -3,6 +3,7 @@ package com.example.youtodo
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.navigation.findNavController
@@ -13,7 +14,9 @@ import com.icloud.ciro.silvano.youtodo.database.Item
 
 class ItemAdapter : RecyclerView.Adapter<ItemAdapter.MyViewHolder>() {
 
-    private var itemList = emptyList<Item>()
+    private var itemList= emptyList<Item>()
+    private lateinit var currentItem:Item
+
 
     class MyViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView){
         val name: TextView = itemView.findViewById(R.id.itemName)
@@ -26,6 +29,23 @@ class ItemAdapter : RecyclerView.Adapter<ItemAdapter.MyViewHolder>() {
             category.text = category_tx
             deadline.text = deadline_tx
         }
+
+        /*Swipe management*/
+       /* val swipeGesture=object: SwipeGesture(){
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+
+                when(direction) {
+                    ItemTouchHelper.LEFT -> {
+                        val itemViewModel = ViewModelProvider(this).get(ItemViewModel::class.java)
+                        itemViewModel.deleteItem(this.ite)
+                    }
+                    ItemTouchHelper.RIGHT->{
+
+                    }
+                }
+                super.onSwiped(viewHolder, direction)
+            }
+        }*/
     }
 
     override fun getItemCount(): Int {
@@ -37,7 +57,8 @@ class ItemAdapter : RecyclerView.Adapter<ItemAdapter.MyViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        val currentItem = itemList[position]
+        currentItem = itemList[position]
+
         holder.bind(currentItem.name.toString(), currentItem.category.toString(), currentItem.deadline.toString())
 
         holder.cardLayout.setOnClickListener {
@@ -45,7 +66,9 @@ class ItemAdapter : RecyclerView.Adapter<ItemAdapter.MyViewHolder>() {
             val action = MainFragmentDirections.actionMainFragmentToEditFragment(currentItem)
             holder.itemView.findNavController().navigate(action)
         }
+
     }
+
 
     fun setData(item: List<Item>) {
         this.itemList = item
@@ -53,3 +76,5 @@ class ItemAdapter : RecyclerView.Adapter<ItemAdapter.MyViewHolder>() {
     }
 
 }
+
+

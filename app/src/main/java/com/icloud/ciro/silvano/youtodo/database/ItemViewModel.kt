@@ -9,6 +9,10 @@ import com.icloud.ciro.silvano.youtodo.database.ItemRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
+/*classe ItemViewModel
+* ha il compito di fornire i dati alla UI e i cambiamenti di configurazione
+* Essa serve come intermediario fra la repository e la UI
+*/
 class ItemViewModel(application: Application): AndroidViewModel(application) {
 
     val showAllItems: LiveData<List<Item>>

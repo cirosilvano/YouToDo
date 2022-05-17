@@ -3,6 +3,9 @@ package com.icloud.ciro.silvano.youtodo.database
 import androidx.lifecycle.LiveData
 import androidx.room.*
 
+/*Interfaccia ItemDao
+* Contiene tutti i metodi utilizzati per accedere alle tabelle de database
+*/
 @Dao
 interface ItemDao {
 

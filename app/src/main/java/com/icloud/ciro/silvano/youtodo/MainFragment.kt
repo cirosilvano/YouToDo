@@ -8,11 +8,14 @@ import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.youtodo.ItemAdapter
 import com.icloud.ciro.silvano.youtodo.database.ItemViewModel
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.icloud.ciro.silvano.youtodo.Gesture.SwipeGesture
 import com.icloud.ciro.silvano.youtodo.databinding.FragmentMainBinding
 
 
@@ -22,6 +25,8 @@ class MainFragment : Fragment() {
     private val binding get() = _binding!!
 
     private lateinit var itemViewModel : ItemViewModel
+
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -64,8 +69,12 @@ class MainFragment : Fragment() {
           }
       }
 
+
+
       return binding.root
     }
+
+
 
 
 }

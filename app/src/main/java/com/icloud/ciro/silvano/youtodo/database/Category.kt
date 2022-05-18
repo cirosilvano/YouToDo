@@ -13,6 +13,6 @@ import kotlinx.android.parcel.Parcelize
 @Entity(tableName = "category")
 data class Category (
     @PrimaryKey
-    val name : String,
+    val name : String
 
 ) : Parcelable

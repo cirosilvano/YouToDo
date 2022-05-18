@@ -11,12 +11,7 @@ import kotlinx.android.parcel.Parcelize
 */
 
 @Parcelize
-@Entity(tableName = "item",  foreignKeys = [ForeignKey(
-    entity = Item::class,
-    parentColumns = arrayOf("id"),
-    childColumns = arrayOf("category"),
-    onDelete = ForeignKey.CASCADE
-)] )
+@Entity(tableName = "item")
 data class Item (
     @PrimaryKey(autoGenerate = true)
     val id : Int,

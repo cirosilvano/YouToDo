@@ -8,8 +8,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.Toast
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.icloud.ciro.silvano.youtodo.database.Category
 import com.icloud.ciro.silvano.youtodo.database.ItemViewModel
 import com.icloud.ciro.silvano.youtodo.database.Item
@@ -39,11 +41,23 @@ class AddFragment : Fragment() {
            findNavController().navigate(R.id.action_addFragment_to_mainFragment)
        }
 
+
+
+       val adapterCat=CategoryAdapter()
+       val recyclerViewCat=binding.listCatAdd
+
+       recyclerViewCat.adapter=adapterCat
+       recyclerViewCat.layoutManager = LinearLayoutManager(requireContext(),
+           LinearLayoutManager.HORIZONTAL,false)
+       itemViewModel = ViewModelProvider(this).get(ItemViewModel::class.java)
+
+       itemViewModel.showAllCategories.observe(viewLifecycleOwner, Observer{ user ->
+           adapterCat.setDataCat(user)
+       })
+
        binding.btnAdd.setOnClickListener {
            insertItemToDatabase()
        }
-
-
 
        return binding.root
     }
@@ -58,7 +72,6 @@ class AddFragment : Fragment() {
         val month=binding.datePicker.month.toString()
         val year=binding.datePicker.year.toString()
         val deadline="${day}/${month}/${year}"
-        val spinnerAdd=binding.spinnerAdd
         if(inputCheck(name, category, deadline)){
             // Create Item Object
             val item = Item(0, name, category, deadline)

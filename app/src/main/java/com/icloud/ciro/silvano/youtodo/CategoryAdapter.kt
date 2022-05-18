@@ -8,6 +8,7 @@ import android.widget.Button
 import android.widget.SpinnerAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.icloud.ciro.silvano.youtodo.database.Category
+import com.icloud.ciro.silvano.youtodo.database.Item
 
 class CategoryAdapter: RecyclerView.Adapter<CategoryAdapter.MyViewHolder>() {
 
@@ -34,14 +35,15 @@ class CategoryAdapter: RecyclerView.Adapter<CategoryAdapter.MyViewHolder>() {
         val currentCat=listCat[position]
         holder.bind(currentCat.name)
 
-        holder.btnCat.setOnClickListener {
-            /*Da mettere select*/
-        }
+
     }
 
     override fun getItemCount(): Int {
         return listCat.size
     }
 
-
+    fun setDataCat(cat: List<Category>) {
+        this.listCat = cat
+        notifyDataSetChanged()
+    }
 }

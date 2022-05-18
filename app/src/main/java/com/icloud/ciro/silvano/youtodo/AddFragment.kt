@@ -10,6 +10,7 @@ import android.widget.ImageView
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import com.icloud.ciro.silvano.youtodo.database.Category
 import com.icloud.ciro.silvano.youtodo.database.ItemViewModel
 import com.icloud.ciro.silvano.youtodo.database.Item
 import com.icloud.ciro.silvano.youtodo.databinding.FragmentAddBinding
@@ -57,14 +58,17 @@ class AddFragment : Fragment() {
         val month=binding.datePicker.month.toString()
         val year=binding.datePicker.year.toString()
         val deadline="${day}/${month}/${year}"
-
+        val spinnerAdd=binding.spinnerAdd
         if(inputCheck(name, category, deadline)){
             // Create Item Object
             val item = Item(0, name, category, deadline)
-
+            val category= Category(category)
             // Add Data to Database
 
             itemViewModel.addItem(item)
+            itemViewModel.addCategory(category)
+
+
 
             Toast.makeText(requireContext(), "Successfully added!", Toast.LENGTH_LONG).show()
 

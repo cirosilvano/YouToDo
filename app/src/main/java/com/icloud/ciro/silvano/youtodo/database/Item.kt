@@ -3,6 +3,7 @@ package com.icloud.ciro.silvano.youtodo.database
 import android.os.Parcelable
 import androidx.room.ColumnInfo
 import androidx.room.Entity
+import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
 import kotlinx.android.parcel.Parcelize
 /*Classe Entity:
@@ -10,7 +11,12 @@ import kotlinx.android.parcel.Parcelize
 */
 
 @Parcelize
-@Entity(tableName = "item")
+@Entity(tableName = "item",  foreignKeys = [ForeignKey(
+    entity = Item::class,
+    parentColumns = arrayOf("id"),
+    childColumns = arrayOf("category"),
+    onDelete = ForeignKey.CASCADE
+)] )
 data class Item (
     @PrimaryKey(autoGenerate = true)
     val id : Int,

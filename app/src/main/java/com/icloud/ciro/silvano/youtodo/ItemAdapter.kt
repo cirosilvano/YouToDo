@@ -1,8 +1,10 @@
 package com.icloud.ciro.silvano.youtodo
 
+import android.database.DataSetObserver
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.SpinnerAdapter
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.navigation.findNavController
@@ -12,7 +14,7 @@ import com.icloud.ciro.silvano.youtodo.database.Item
 class ItemAdapter : RecyclerView.Adapter<ItemAdapter.MyViewHolder>() {
 
     private var itemList= emptyList<Item>()
-    private lateinit var currentItem:Item
+
 
 
     class MyViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView){
@@ -54,7 +56,7 @@ class ItemAdapter : RecyclerView.Adapter<ItemAdapter.MyViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        currentItem = itemList[position]
+        val currentItem = itemList[position]
 
         holder.bind(currentItem.name.toString(), currentItem.category.toString(), currentItem.deadline.toString())
 
@@ -70,6 +72,7 @@ class ItemAdapter : RecyclerView.Adapter<ItemAdapter.MyViewHolder>() {
         this.itemList = item
         notifyDataSetChanged()
     }
+
 }
 
 

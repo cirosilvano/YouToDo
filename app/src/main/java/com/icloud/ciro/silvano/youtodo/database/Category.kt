@@ -15,6 +15,4 @@ data class Category (
     @PrimaryKey
     val name : String,
 
-    @ColumnInfo(name = "description")
-    val description : String?
 ) : Parcelable

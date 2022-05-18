@@ -90,12 +90,20 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/itemsList"
-        android:layout_width="match_parent"
-        android:layout_height="580dp"
-        android:layout_marginTop="10dp"
+        android:layout_width="411dp"
+        android:layout_height="436dp"
         android:clipToPadding="false"
+        app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/catList"
+        android:layout_width="412dp"
+        android:layout_height="105dp"
+        app:layout_constraintBottom_toTopOf="@+id/itemsList"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/moreButton" />
+        app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

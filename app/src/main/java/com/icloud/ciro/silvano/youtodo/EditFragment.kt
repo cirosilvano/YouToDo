@@ -9,6 +9,7 @@ import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.icloud.ciro.silvano.youtodo.database.ItemViewModel
 import com.icloud.ciro.silvano.youtodo.database.Item
 import com.icloud.ciro.silvano.youtodo.databinding.FragmentEditBinding
@@ -45,9 +46,18 @@ class EditFragment : Fragment() {
             updateItem()
         }
 
-        binding.bottomNavigationView.setOnClickListener {
-            deleteCard()
-            findNavController().navigate(R.id.action_editFragment_to_mainFragment)
+        val topAppBar:BottomNavigationView=binding.bottomNavigationView
+
+
+        topAppBar.setOnItemSelectedListener { menuItem ->
+            when(menuItem.itemId){
+                R.id.menu_delete->{
+                    deleteCard()
+                    findNavController().navigate(R.id.action_editFragment_to_mainFragment)
+                    true
+                }
+                else ->false
+            }
         }
 
         //setHasOptionsMenu(true)

@@ -6,9 +6,11 @@ import android.text.TextUtils
 import android.view.*
 import androidx.fragment.app.Fragment
 import android.widget.Toast
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.icloud.ciro.silvano.youtodo.database.ItemViewModel
 import com.icloud.ciro.silvano.youtodo.database.Item
@@ -23,22 +25,26 @@ class EditFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
-        /*
-        *  val bottomAppBar: BottomNavigationView = binding.bottomNavigationView
-
-      bottomAppBar.setOnItemSelectedListener { menuItem ->
-          when (menuItem.itemId) {
-              R.id.settings_nav -> {
-                  // Handle search icon press
-                  findNavController().navigate(R.id.action_mainFragment_to_settingsFragment)
-                  true
-              }
-              else -> false
-          }*/
-        // Inflate the layout for this fragment
         _binding = FragmentEditBinding.inflate(inflater, container, false)
 
+        //val adapterCat=CategoryAdapter()
+        val adapterCat=CategoryAdapter{model ->
+            binding.editCategory.setText(model.name)
+        }
+        val recyclerViewCat=binding.listCatEdit
+
+       recyclerViewCat.adapter=adapterCat
+        recyclerViewCat.layoutManager = LinearLayoutManager(requireContext(),
+            LinearLayoutManager.HORIZONTAL,false)
+
         itemViewModel = ViewModelProvider(this).get(ItemViewModel::class.java)
+
+        itemViewModel.showAllCategories.observe(viewLifecycleOwner, Observer{ user ->
+            adapterCat.setDataCat(user)
+        })
+
+        // Inflate the layout for this fragment
+
         binding.editName.setText(args.currentItem.name)
         binding.editCategory.setText(args.currentItem.category)
 
@@ -46,9 +52,8 @@ class EditFragment : Fragment() {
             updateItem()
         }
 
+        // Eliminazione della cardView
         val topAppBar:BottomNavigationView=binding.bottomNavigationView
-
-
         topAppBar.setOnItemSelectedListener { menuItem ->
             when(menuItem.itemId){
                 R.id.menu_delete->{
@@ -60,7 +65,6 @@ class EditFragment : Fragment() {
             }
         }
 
-        //setHasOptionsMenu(true)
 
 
 
@@ -68,19 +72,7 @@ class EditFragment : Fragment() {
         return binding.root
     }
 
-    /*
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.menu_main, menu)
-    }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if(item.itemId == R.id.action_settings) {
-            deleteCard()
-            findNavController().navigate(R.id.action_editFragment_to_mainFragment)
-        }
-
-        return super.onOptionsItemSelected(item)
-    }*/
 
     private fun updateItem() {
         val name = binding.editName.text.toString()

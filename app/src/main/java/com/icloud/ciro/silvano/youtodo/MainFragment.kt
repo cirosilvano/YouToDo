@@ -44,7 +44,9 @@ class MainFragment : Fragment() {
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
 
-        val adapterCat=CategoryAdapter()
+        val adapterCat=CategoryAdapter{
+
+        }
         val recyclerViewCat=binding.catList
         recyclerViewCat.adapter=adapterCat
         recyclerViewCat.layoutManager = LinearLayoutManager(requireContext(),LinearLayoutManager.HORIZONTAL,false)

@@ -43,7 +43,11 @@ class AddFragment : Fragment() {
 
 
 
-       val adapterCat=CategoryAdapter()
+       //val adapterCat=CategoryAdapter()
+       val adapterCat=CategoryAdapter{model ->
+           binding.addCategory.setText(model.name)
+
+       }
        val recyclerViewCat=binding.listCatAdd
 
        recyclerViewCat.adapter=adapterCat
@@ -55,9 +59,12 @@ class AddFragment : Fragment() {
            adapterCat.setDataCat(user)
        })
 
+
        binding.btnAdd.setOnClickListener {
            insertItemToDatabase()
        }
+
+
 
        return binding.root
     }

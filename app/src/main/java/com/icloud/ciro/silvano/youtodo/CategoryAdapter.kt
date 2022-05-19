@@ -10,9 +10,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.icloud.ciro.silvano.youtodo.database.Category
 import com.icloud.ciro.silvano.youtodo.database.Item
 
-class CategoryAdapter: RecyclerView.Adapter<CategoryAdapter.MyViewHolder>() {
+class CategoryAdapter(private val onItemClicked:(Category)->Unit): RecyclerView.Adapter<CategoryAdapter.MyViewHolder>() {
 
     var listCat=emptyList<Category>()
+
 
     class MyViewHolder(categoryView : View) : RecyclerView.ViewHolder(categoryView){
         var btnCat=categoryView.findViewById<Button>(R.id.btnCat)
@@ -34,7 +35,7 @@ class CategoryAdapter: RecyclerView.Adapter<CategoryAdapter.MyViewHolder>() {
     override fun onBindViewHolder(holder: CategoryAdapter.MyViewHolder, position: Int) {
         val currentCat=listCat[position]
         holder.bind(currentCat.name)
-
+        holder.btnCat.setOnClickListener { onItemClicked(currentCat) }
 
     }
 
@@ -46,4 +47,8 @@ class CategoryAdapter: RecyclerView.Adapter<CategoryAdapter.MyViewHolder>() {
         this.listCat = cat
         notifyDataSetChanged()
     }
+
+
+
 }
+

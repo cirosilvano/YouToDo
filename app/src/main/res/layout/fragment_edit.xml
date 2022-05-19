@@ -25,10 +25,10 @@
         app:cornerRadius="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.492"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.858" />
+        app:layout_constraintVertical_bias="0.864" />
 
     <TextView
         android:id="@+id/textView"
@@ -71,17 +71,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.395" />
 
-    <Spinner
-        android:id="@+id/spinnerAdd"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="72dp"
-        android:layout_marginTop="16dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView7"
-        app:layout_constraintVertical_bias="0.014" />
-
     <TextView
         android:id="@+id/textView7"
         android:layout_width="wrap_content"
@@ -95,19 +84,45 @@
         app:layout_constraintTop_toBottomOf="@+id/datePicker"
         app:layout_constraintVertical_bias="0.113" />
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/listCatEdit"
+        android:layout_width="312dp"
+        android:layout_height="55dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.161"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.639" />
+
     <EditText
         android:id="@+id/editCategory"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="72dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginStart="92dp"
         android:ems="10"
         android:hint="Category"
         android:inputType="textPersonName"
         android:text="Name"
         app:layout_constraintBottom_toTopOf="@+id/btnEdit"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spinnerAdd"
-        app:layout_constraintVertical_bias="0.095" />
+        app:layout_constraintTop_toBottomOf="@+id/textView7"
+        app:layout_constraintVertical_bias="0.841" />
+
+    <Button
+        android:id="@+id/btnDeleteCat"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="67dp"
+        android:layout_height="46dp"
+        android:backgroundTint="#02FFFFFF"
+        app:icon="@drawable/ic_baseline_delete_24"
+        app:iconSize="24dp"
+        app:iconTint="@color/black"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/listCatEdit"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.642"
+        tools:text="delete" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

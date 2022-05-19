@@ -12,23 +12,28 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.icloud.ciro.silvano.youtodo.database.Category
 import com.icloud.ciro.silvano.youtodo.database.ItemViewModel
 import com.icloud.ciro.silvano.youtodo.database.Item
 import com.icloud.ciro.silvano.youtodo.databinding.FragmentEditBinding
 
 class EditFragment : Fragment() {
+
     private var _binding: FragmentEditBinding? = null
     private val binding get() = _binding!!
+    private val args by navArgs<EditFragmentArgs>()
 
     private lateinit var itemViewModel: ItemViewModel
-    private val args by navArgs<EditFragmentArgs>()
+    private lateinit var  category : Category
+
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
         _binding = FragmentEditBinding.inflate(inflater, container, false)
 
-        //val adapterCat=CategoryAdapter()
+
         val adapterCat=CategoryAdapter{model ->
+            category=model
             binding.editCategory.setText(model.name)
         }
         val recyclerViewCat=binding.listCatEdit
@@ -66,7 +71,10 @@ class EditFragment : Fragment() {
         }
 
 
-
+        binding.btnDeleteCat.setOnClickListener {
+            deleteCategory()
+            binding.editCategory.setText("")
+        }
 
 
         return binding.root
@@ -136,6 +144,23 @@ class EditFragment : Fragment() {
         builder.create().show()
     }
 
+
+    private fun deleteCategory() {
+        val builder = AlertDialog.Builder(requireContext())
+        builder.setPositiveButton("Yes") { _,_ ->
+            itemViewModel.deleteCategory(category)
+            Toast.makeText(requireContext(), "Successfully removed \"${category.name} \" category !", Toast.LENGTH_LONG).show()
+        }
+
+        builder.setNegativeButton("No") { _,_ ->
+
+        }
+
+        builder.setTitle("Are you sure you want to delete \"${category.name} \" category ?")
+        builder.setMessage("Are you sure you want to delete\"${category.name} \" category ?")
+
+        builder.create().show()
+    }
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null

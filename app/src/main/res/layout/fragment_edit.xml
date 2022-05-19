@@ -90,10 +90,10 @@
         android:layout_height="55dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.161"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.639" />
+        app:layout_constraintVertical_bias="0.628" />
 
     <EditText
         android:id="@+id/editCategory"
@@ -103,6 +103,7 @@
         android:ems="10"
         android:hint="Category"
         android:inputType="textPersonName"
+        android:minHeight="48dp"
         android:text="Name"
         app:layout_constraintBottom_toTopOf="@+id/btnEdit"
         app:layout_constraintStart_toStartOf="parent"
@@ -112,17 +113,18 @@
     <Button
         android:id="@+id/btnDeleteCat"
         style="@style/Widget.AppCompat.Button.Borderless"
-        android:layout_width="67dp"
-        android:layout_height="46dp"
+        android:layout_width="99dp"
+        android:layout_height="65dp"
         android:backgroundTint="#02FFFFFF"
         app:icon="@drawable/ic_baseline_delete_24"
         app:iconSize="24dp"
         app:iconTint="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/listCatEdit"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.642"
+        app:layout_constraintVertical_bias="0.632"
         tools:text="delete" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

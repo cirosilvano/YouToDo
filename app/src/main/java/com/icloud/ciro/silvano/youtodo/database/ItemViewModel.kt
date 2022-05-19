@@ -52,4 +52,9 @@ class ItemViewModel(application: Application): AndroidViewModel(application) {
             repository.addCategory(category)
         }
     }
+    fun deleteCategory(category: Category){
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.deleteCategory(category)
+        }
+    }
 }

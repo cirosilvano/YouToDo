@@ -26,4 +26,8 @@ class ItemRepository(private val itemDao: ItemDao, private val categoryDao: Cate
     fun addCategory(category: Category) {
         categoryDao.addCategory(category)
     }
+
+    fun deleteCategory(category: Category) {
+        categoryDao.deleteCategory(category)
+    }
 }

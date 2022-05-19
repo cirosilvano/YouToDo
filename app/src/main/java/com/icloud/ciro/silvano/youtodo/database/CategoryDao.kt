@@ -9,6 +9,9 @@ interface CategoryDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun addCategory(category: Category)
 
+    @Delete
+    fun deleteCategory(category: Category)
+
     @Query("SELECT * FROM category")
     fun showAllCategories(): LiveData<List<Category>>
 }

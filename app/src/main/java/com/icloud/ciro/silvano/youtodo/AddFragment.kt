@@ -41,9 +41,6 @@ class AddFragment : Fragment() {
            findNavController().navigate(R.id.action_addFragment_to_mainFragment)
        }
 
-
-
-       //val adapterCat=CategoryAdapter()
        val adapterCat=CategoryAdapter{model ->
            binding.addCategory.setText(model.name)
 

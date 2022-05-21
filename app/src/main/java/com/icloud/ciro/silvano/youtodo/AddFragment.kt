@@ -58,7 +58,9 @@ class AddFragment : Fragment() {
 
 
        binding.btnAdd.setOnClickListener {
-           insertItemToDatabase()
+           if(insertItemToDatabase()) {
+
+           }
        }
 
 
@@ -66,7 +68,7 @@ class AddFragment : Fragment() {
        return binding.root
     }
 
-    private fun insertItemToDatabase() {
+    private fun insertItemToDatabase(): Boolean {
         val name = binding.addName.text.toString()
         val category = binding.addCategory.text.toString()
        // val deadline = binding.addDeadline.text.toString()
@@ -91,9 +93,11 @@ class AddFragment : Fragment() {
 
             // Navigate Back
             findNavController().navigate(R.id.action_addFragment_to_mainFragment)
+            return true
         }
         else{
             Toast.makeText(requireContext(), "Please fill out all fields.", Toast.LENGTH_LONG).show()
+            return false
         }
 
 

@@ -4,6 +4,7 @@ import android.app.AlertDialog
 import android.os.Bundle
 import android.text.TextUtils
 import android.view.*
+import android.widget.ImageButton
 import androidx.fragment.app.Fragment
 import android.widget.Toast
 import androidx.lifecycle.Observer
@@ -57,17 +58,19 @@ class EditFragment : Fragment() {
             updateItem()
         }
 
-        // Eliminazione della cardView
-        val topAppBar:BottomNavigationView=binding.bottomNavigationView
-        topAppBar.setOnItemSelectedListener { menuItem ->
-            when(menuItem.itemId){
-                R.id.menu_delete->{
-                    deleteCard()
-                    findNavController().navigate(R.id.action_editFragment_to_mainFragment)
-                    true
-                }
-                else ->false
-            }
+
+        // Eliminazione CardView con ImageButton
+        val deleteEditButton : ImageButton = binding.deleteEditButton
+        deleteEditButton.setOnClickListener{
+            deleteCard()
+            findNavController().navigate(R.id.action_editFragment_to_mainFragment)
+            true
+        }
+
+        // Torna indietro
+        val backEditButton: ImageButton = binding.backEditButton
+        backEditButton.setOnClickListener {
+            findNavController().navigate(R.id.action_editFragment_to_mainFragment)
         }
 
 

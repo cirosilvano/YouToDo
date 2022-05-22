@@ -33,7 +33,7 @@ abstract class ItemDatabase : RoomDatabase() {
                     context.applicationContext,
                     ItemDatabase::class.java,
                     "user_database"
-                ).build()
+                ).allowMainThreadQueries().build()
                 //singleton
                 INSTANCE = instance
                 return instance

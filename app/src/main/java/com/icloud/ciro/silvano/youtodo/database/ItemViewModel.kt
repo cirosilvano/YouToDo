@@ -17,7 +17,6 @@ class ItemViewModel(application: Application): AndroidViewModel(application) {
 
     val showAllItems: LiveData<List<Item>>
     val showAllCategories: LiveData<List<Category>>
-
     private val repository: ItemRepository
 
     init {
@@ -56,5 +55,9 @@ class ItemViewModel(application: Application): AndroidViewModel(application) {
         viewModelScope.launch(Dispatchers.IO) {
             repository.deleteCategory(category)
         }
+    }
+
+    fun showAllCategoriesList():List<Category>{
+        return repository.showAllCategoriesList()
     }
 }

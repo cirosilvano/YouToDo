@@ -9,7 +9,7 @@ import com.icloud.ciro.silvano.youtodo.database.ItemDao
 class ItemRepository(private val itemDao: ItemDao, private val categoryDao: CategoryDao) {
 
     val readAllItemsData: LiveData<List<Item>> = itemDao.showAllItems()
-    val readAllCategoryData: LiveData<List<Category>> = categoryDao.showAllCategories()
+    val readAllCategoryData:LiveData<List<Category>> = categoryDao.showAllCategories()
 
     fun addItem(item: Item){
         itemDao.addItem(item)
@@ -29,5 +29,9 @@ class ItemRepository(private val itemDao: ItemDao, private val categoryDao: Cate
 
     fun deleteCategory(category: Category) {
         categoryDao.deleteCategory(category)
+    }
+
+    fun showAllCategoriesList():List<Category>{
+        return categoryDao.showAllCategoriesList()
     }
 }

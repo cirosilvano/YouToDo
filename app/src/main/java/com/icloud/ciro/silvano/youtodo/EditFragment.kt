@@ -1,18 +1,22 @@
 package com.icloud.ciro.silvano.youtodo
 
 import android.app.AlertDialog
+import android.content.Context
 import android.os.Bundle
 import android.text.TextUtils
 import android.view.*
 import android.widget.ImageButton
 import androidx.fragment.app.Fragment
 import android.widget.Toast
+import androidx.core.view.children
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.chip.Chip
+import com.google.android.material.chip.ChipGroup
 import com.icloud.ciro.silvano.youtodo.database.Category
 import com.icloud.ciro.silvano.youtodo.database.ItemViewModel
 import com.icloud.ciro.silvano.youtodo.database.Item
@@ -26,33 +30,73 @@ class EditFragment : Fragment() {
 
     private lateinit var itemViewModel: ItemViewModel
     private lateinit var  category : Category
-
+    private lateinit var chipGroupEdit:ChipGroup
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
         _binding = FragmentEditBinding.inflate(inflater, container, false)
+         chipGroupEdit=binding.chipGroupEdit
 
 
         val adapterCat=CategoryAdapter{model ->
-            category=model
-            binding.editCategory.setText(model.name)
+            /*category=model
+            binding.editCategory.setText(model.name)*/
         }
-        val recyclerViewCat=binding.listCatEdit
 
-       recyclerViewCat.adapter=adapterCat
-        recyclerViewCat.layoutManager = LinearLayoutManager(requireContext(),
-            LinearLayoutManager.HORIZONTAL,false)
 
         itemViewModel = ViewModelProvider(this).get(ItemViewModel::class.java)
 
-        itemViewModel.showAllCategories.observe(viewLifecycleOwner, Observer{ user ->
-            adapterCat.setDataCat(user)
-        })
+       itemViewModel.showAllCategories.observe(viewLifecycleOwner, Observer{ cat ->
+            adapterCat.setDataCat(cat)
+           if(adapterCat.itemCount==0){
+               itemViewModel.addCategory(Category("Tutti"))
+               itemViewModel.addCategory(Category("Lavoro"))
+               itemViewModel.addCategory(Category("Personale"))
+               chipGroupEdit.addChip(requireActivity(),"Tutti")
+               chipGroupEdit.addChip(requireActivity(),"Lavoro")
+               chipGroupEdit.addChip(requireActivity(),"Personale")
+           }
 
-        // Inflate the layout for this fragment
+           for(i in cat){
+               var found:Boolean=false
+               for(j in chipGroupEdit.children){
+                   var currChip= j as Chip
+                   if(i.name==currChip.text){
+                       found=true
+                   }
+               }
+               if(!found)
+                   chipGroupEdit.addChip(requireActivity(),i.name)
+           }
+        })
 
         binding.editName.setText(args.currentItem.name)
         binding.editCategory.setText(args.currentItem.category)
+
+        chipGroupEdit.setOnCheckedChangeListener { _, checkedId ->
+            (chipGroupEdit.findViewById<Chip>(checkedId))?.let {
+                it.setOnClickListener {
+                    var myChip:Chip=it as Chip
+                    binding.editCategory.setText(myChip.text.toString())
+                }
+            }
+        }
+
+        /* Gestione inserimento nuova categoria*/
+
+        binding.editCategory.setOnKeyListener(View.OnKeyListener{v, keyCode,event ->
+            if(keyCode== KeyEvent.KEYCODE_ENTER && event.action== KeyEvent.ACTION_UP){
+                if(existingCat(binding.editCategory.text.toString())) {
+                    Toast.makeText(requireContext(), "Existing category !", Toast.LENGTH_LONG).show()
+                }
+                else{
+                    chipGroupEdit.addChip(requireActivity(), binding.editCategory.text.toString())
+                    itemViewModel.addCategory(Category(binding.editCategory.text.toString()))
+                }
+                true
+            }
+            false
+        })
 
         binding.btnEdit.setOnClickListener{
             updateItem()
@@ -74,10 +118,7 @@ class EditFragment : Fragment() {
         }
 
 
-        binding.btnDeleteCat.setOnClickListener {
-            deleteCategory()
-            binding.editCategory.setText("")
-        }
+
 
 
         return binding.root
@@ -129,6 +170,10 @@ class EditFragment : Fragment() {
         }
         return super.onOptionsItemSelected(item)
     }
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
 
     private fun deleteCard() {
         val builder = AlertDialog.Builder(requireContext())
@@ -164,9 +209,34 @@ class EditFragment : Fragment() {
 
         builder.create().show()
     }
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
+
+
+
+    // create chip programmatically and add it to chip group
+    private fun ChipGroup.addChip(context: Context?, label: String){
+        Chip(context).apply {
+            id = View.generateViewId()
+            text = label
+            isClickable = true
+            isCheckable = true
+            isCheckedIconVisible = true
+            isCloseIconVisible = false
+            isFocusable = true
+            addView(this)
+
+        }
     }
+
+    private fun existingCat(name:String):Boolean {
+        var found:Boolean=false
+        for(j in chipGroupEdit.children){
+            var currChip= j as Chip
+            if(currChip.text.toString()==name || currChip.text.toString()==name+" "){
+                found=true
+            }
+        }
+        return found
+    }
+
 
 }

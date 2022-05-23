@@ -10,6 +10,9 @@ import android.view.ViewGroup
 import android.widget.AutoCompleteTextView
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Text
+import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.core.view.children
 import androidx.core.view.isVisible
 import androidx.lifecycle.LiveData
@@ -53,10 +56,24 @@ class MainFragment : Fragment() {
 
          _binding = FragmentMainBinding.inflate(inflater, container, false)
         chipGroupMain=binding.chipGroupMain
-        val adapter = ItemAdapter()
+
+        /*val adapter = ItemAdapter()
         val recyclerView = binding.itemsList
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
+        */
+
+        binding.composeList.apply {
+            // Dispose of the Composition when the view's LifecycleOwner
+            // is destroyed
+            setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
+            setContent {
+                // In Compose world
+                MaterialTheme {
+                    Text("Hello Compose!")
+                }
+            }
+        }
 
         val adapterCat=CategoryAdapter{
             currentCat=it
@@ -72,7 +89,7 @@ class MainFragment : Fragment() {
         itemViewModel = ViewModelProvider(this).get(ItemViewModel::class.java)
 
 
-        itemViewModel.showAllItems.observe(viewLifecycleOwner, Observer{ card ->
+        /*itemViewModel.showAllItems.observe(viewLifecycleOwner, Observer{ card ->
             adapter.setData(card)
              Log.d("","SHOW card value: ${card}")
 
@@ -87,6 +104,7 @@ class MainFragment : Fragment() {
             }
 
         })
+         */
 
         /*Gestione delle chip che contengono le categorie*/
 

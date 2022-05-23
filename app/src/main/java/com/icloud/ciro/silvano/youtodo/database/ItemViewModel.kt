@@ -57,7 +57,15 @@ class ItemViewModel(application: Application): AndroidViewModel(application) {
         }
     }
 
-    fun showAllCategoriesList():List<Category>{
-        return repository.showAllCategoriesList()
+    fun selectFilteredItems(name : String) : LiveData<List<Item>> {
+        return repository.selectFilteredItems(name)
+    }
+
+    fun selectItemsDone() : LiveData<List<Item>> {
+        return repository.selectItemsDone()
+    }
+
+    fun selectItemsToDo() : LiveData<List<Item>> {
+        return repository.selectItemsToDo()
     }
 }

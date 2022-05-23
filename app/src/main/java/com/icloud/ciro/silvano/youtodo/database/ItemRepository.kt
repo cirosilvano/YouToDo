@@ -31,7 +31,15 @@ class ItemRepository(private val itemDao: ItemDao, private val categoryDao: Cate
         categoryDao.deleteCategory(category)
     }
 
-    fun showAllCategoriesList():List<Category>{
-        return categoryDao.showAllCategoriesList()
+    fun selectFilteredItems(name : String) : LiveData<List<Item>> {
+        return itemDao.selectFilteredItems(name)
+    }
+
+    fun selectItemsDone() : LiveData<List<Item>> {
+        return itemDao.selectItemsDone()
+    }
+
+    fun selectItemsToDo() : LiveData<List<Item>> {
+        return itemDao.selectItemsToDo()
     }
 }

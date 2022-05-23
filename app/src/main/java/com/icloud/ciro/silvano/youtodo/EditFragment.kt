@@ -147,7 +147,7 @@ class EditFragment : Fragment() {
 
         if(inputCheck(name, category)){
             // Create Item Object
-            val item = Item(args.currentItem.id, name, category, deadline)
+            val item = Item(args.currentItem.id, name, category, deadline, args.currentItem.isDone)
 
             // Add Data to Database
             itemViewModel.updateItem(item)

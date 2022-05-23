@@ -12,14 +12,9 @@ interface CategoryDao {
     @Delete
     fun deleteCategory(category: Category)
 
-   /* @Update
-    fun updateCategory(category: Category)*/
+    /* @Update
+     fun updateCategory(category: Category)*/
 
     @Query("SELECT * FROM category")
     fun showAllCategories(): LiveData<List<Category>>
-
-    @Query("SELECT * FROM category")
-    fun showAllCategoriesList(): List<Category>
-
-
 }

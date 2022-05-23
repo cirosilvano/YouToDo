@@ -20,4 +20,13 @@ interface ItemDao {
 
     @Query("SELECT * FROM item")
     fun showAllItems(): LiveData<List<Item>>
+
+    @Query("SELECT * FROM item WHERE category = :category")
+    fun selectFilteredItems(category: String): LiveData<List<Item>>
+
+    @Query("SELECT * FROM item WHERE isDone = 1")
+    fun selectItemsDone() : LiveData<List<Item>>
+
+    @Query("SELECT * FROM item WHERE isDone = 0")
+    fun selectItemsToDo() : LiveData<List<Item>>
 }

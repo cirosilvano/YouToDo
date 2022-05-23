@@ -27,9 +27,10 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 import com.icloud.ciro.silvano.youtodo.database.Category
+import com.icloud.ciro.silvano.youtodo.database.Item
 import com.icloud.ciro.silvano.youtodo.databinding.FragmentMainBinding
 
-class MainFragment : Fragment() {
+class MainFragment : Fragment(), OnItemSwipeListener {
 
     private var _binding: FragmentMainBinding? = null
     private val binding get() = _binding!!
@@ -53,7 +54,7 @@ class MainFragment : Fragment() {
 
          _binding = FragmentMainBinding.inflate(inflater, container, false)
         chipGroupMain=binding.chipGroupMain
-        val adapter = ItemAdapter()
+        val adapter = ItemAdapter(this)
         val recyclerView = binding.itemsList
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
@@ -77,7 +78,7 @@ class MainFragment : Fragment() {
              Log.d("","SHOW card value: ${card}")
 
             if(adapter.itemCount>0){
-               ivFree.isVisible=false
+                ivFree.isVisible=false
                 tvFree.isVisible=false
 
             }
@@ -118,9 +119,6 @@ class MainFragment : Fragment() {
         })
 
 
-
-
-
         // set chip group checked change listener
        chipGroupMain.setOnCheckedChangeListener { _, checkedId ->
             // get the checked chip instance from chip group
@@ -128,12 +126,23 @@ class MainFragment : Fragment() {
                 // Show the checked chip text on text view
                 it.setOnClickListener {
                     var myChip:Chip=it as Chip
-                    //TODO aggiungere filtraggio
+
+                    itemViewModel.selectFilteredItems(myChip.text.toString()).observe(viewLifecycleOwner, Observer { filteredList ->
+                        adapter.setData(filteredList)
+
+                        if(adapter.itemCount>0){
+                            ivFree.isVisible=false
+                            tvFree.isVisible=false
+
+                        }
+                        else{
+                            ivFree.isVisible=true
+                            tvFree.isVisible=true
+                        }
+                    })
                 }
             }
        }
-
-
 
         binding.addButton.setOnClickListener {
             findNavController().navigate(R.id.action_mainFragment_to_addFragment)
@@ -145,6 +154,40 @@ class MainFragment : Fragment() {
 
         bottomAppBar.setOnItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
+                R.id.to_do_nav -> {
+                    itemViewModel.selectItemsToDo().observe(viewLifecycleOwner, Observer { toDoList ->
+                        adapter.setData(toDoList)
+
+                        if(adapter.itemCount>0){
+                            ivFree.isVisible=false
+                            tvFree.isVisible=false
+
+                        }
+                        else{
+                            ivFree.isVisible=true
+                            tvFree.isVisible=true
+                        }
+                    })
+                    true
+                }
+
+                R.id.done_nav -> {
+                    itemViewModel.selectItemsDone().observe(viewLifecycleOwner, Observer { doneList ->
+                        adapter.setData(doneList)
+
+                        if(adapter.itemCount>0){
+                            ivFree.isVisible=false
+                            tvFree.isVisible=false
+
+                        }
+                        else{
+                            ivFree.isVisible=true
+                            tvFree.isVisible=true
+                        }
+                    })
+                    true
+                }
+
                 R.id.settings_nav -> {
                     // Handle search icon press
                     findNavController().navigate(R.id.action_mainFragment_to_settingsFragment)
@@ -176,5 +219,12 @@ class MainFragment : Fragment() {
                 removeView(this)
             }
         }
+    }
+
+    override fun onItemSwipe(item: Item) {
+        if(item.isDone)
+            itemViewModel.updateItem(Item(item.id, item.name, item.category, item.deadline, false))
+        else
+            itemViewModel.updateItem(Item(item.id, item.name, item.category, item.deadline, true))
     }
 }

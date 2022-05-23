@@ -133,7 +133,7 @@ class AddFragment : Fragment() {
         val deadline="${day}/${month}/${year}"
         if(inputCheck(name, category, deadline)){
             // Create Item Object
-            val item = Item(0, name, category, deadline)
+            val item = Item(0, name, category, deadline, false)
             val category= Category(category)
             // Add Data to Database
 

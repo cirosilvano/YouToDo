@@ -11,7 +11,7 @@ import kotlinx.android.parcel.Parcelize
 */
 
 @Parcelize
-@Entity(tableName = "item")
+@Entity(tableName = "item", foreignKeys = [ForeignKey(entity=Category::class, parentColumns = ["name"], childColumns = ["category"], onUpdate = ForeignKey.CASCADE, onDelete = ForeignKey.CASCADE)])
 data class Item (
     @PrimaryKey(autoGenerate = true)
     val id : Int,
@@ -23,5 +23,8 @@ data class Item (
     val category : String,
 
     @ColumnInfo(name = "deadline")
-    val deadline : String
+    val deadline : String,
+
+    @ColumnInfo(name = "isDone", defaultValue = "false")
+    val isDone : Boolean
 ) : Parcelable

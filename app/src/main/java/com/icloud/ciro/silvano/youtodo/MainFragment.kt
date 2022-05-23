@@ -44,7 +44,7 @@ class MainFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val inflater = TransitionInflater.from(requireContext())
-        exitTransition = inflater.inflateTransition(R.transition.slide_left)
+        exitTransition = inflater.inflateTransition(R.transition.fade_out)
         enterTransition = inflater.inflateTransition(R.transition.slide_right)
     }
 
@@ -57,8 +57,6 @@ class MainFragment : Fragment() {
         val recyclerView = binding.itemsList
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
-
-
 
         val adapterCat=CategoryAdapter{
             currentCat=it

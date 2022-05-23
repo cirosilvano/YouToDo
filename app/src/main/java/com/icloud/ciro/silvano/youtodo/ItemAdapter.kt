@@ -16,7 +16,6 @@ import com.icloud.ciro.silvano.youtodo.database.Item
 class ItemAdapter(val onItemSwipeListener: OnItemSwipeListener) : RecyclerView.Adapter<ItemAdapter.MyViewHolder>() {
 
     private var itemList= emptyList<Item>()
-    var currentItem : Item = Item(120, "", "", "", false)
 
     class MyViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView){
         val name: TextView = itemView.findViewById(R.id.itemName)
@@ -59,7 +58,7 @@ class ItemAdapter(val onItemSwipeListener: OnItemSwipeListener) : RecyclerView.A
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        currentItem = itemList[position]
+        var currentItem = itemList[position]
 
         holder.bind(currentItem.name.toString(), currentItem.category.toString(), currentItem.deadline.toString(), currentItem.isDone)
 

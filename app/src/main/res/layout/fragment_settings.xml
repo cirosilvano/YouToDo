@@ -28,14 +28,55 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Switch
-        android:id="@+id/switch2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="39dp"
-        android:layout_marginTop="25dp"
-        android:text="Switch"
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="160dp"
+        android:layout_height="36dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="124dp"
+        android:text="@string/changeTheme"
+        android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/backSettingsButton" />
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/btnTheme1"
+        android:layout_width="93dp"
+        android:layout_height="92dp"
+        android:layout_marginStart="68dp"
+        android:layout_marginTop="248dp"
+        android:backgroundTint="#43A047"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/btnTheme4"
+        android:layout_width="93dp"
+        android:layout_height="92dp"
+        android:layout_marginEnd="80dp"
+        android:layout_marginBottom="240dp"
+        android:backgroundTint="#039BE5"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <Button
+        android:id="@+id/btnTheme2"
+        android:layout_width="93dp"
+        android:layout_height="92dp"
+        android:layout_marginTop="248dp"
+        android:layout_marginEnd="80dp"
+        android:backgroundTint="#FD357B"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/btnTheme3"
+        android:layout_width="93dp"
+        android:layout_height="92dp"
+        android:layout_marginStart="68dp"
+        android:layout_marginBottom="240dp"
+        android:backgroundTint="#F4511E"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

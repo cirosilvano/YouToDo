@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!--Colori tema Base-->
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="md_theme_light_primary">#6750A4</color>
@@ -58,4 +59,5 @@
     <color name="md_theme_dark_inversePrimary">#6750A4</color>
     <color name="md_theme_dark_shadow">#000000</color>
     <color name="md_theme_dark_primaryInverse">#6750A4</color>
+
 </resources>

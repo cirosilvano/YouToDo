@@ -1,5 +1,6 @@
 package com.icloud.ciro.silvano.youtodo
 
+import android.app.Activity
 import android.content.Context
 import android.os.Bundle
 import android.util.Log
@@ -42,17 +43,19 @@ class MainFragment : Fragment(), OnItemSwipeListener {
     private lateinit var chipGroupMain: ChipGroup
     private  var categoryList:List<Category>?=null
     lateinit var todoRecyclerView: RecyclerView
+    private var mainActivity=getActivity()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val inflater = TransitionInflater.from(requireContext())
         exitTransition = inflater.inflateTransition(R.transition.fade)
         enterTransition = inflater.inflateTransition(R.transition.slide_right)
+
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle? ): View? {
         // Inflate the layout for this fragment
-
+    Log.d("","mainActivity: ${mainActivity}")
          _binding = FragmentMainBinding.inflate(inflater, container, false)
         chipGroupMain=binding.chipGroupMain
         val adapter = ItemAdapter(this)

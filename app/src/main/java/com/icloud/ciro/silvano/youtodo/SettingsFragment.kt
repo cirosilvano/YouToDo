@@ -1,6 +1,7 @@
 package com.icloud.ciro.silvano.youtodo
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -31,6 +32,28 @@ class SettingsFragment : Fragment() {
 
         binding.backSettingsButton.setOnClickListener {
             findNavController().navigate(R.id.action_settingsFragment_to_mainFragment)
+        }
+
+        binding.btnTheme1.setOnClickListener{
+            activity?.setTheme(R.style.Theme_YouToDoSpring)
+            findNavController().navigate(R.id.action_settingsFragment_to_mainFragment)
+
+        }
+
+        binding.btnTheme2.setOnClickListener{
+            activity?.setTheme(R.style.Theme_YouToDoSummer)
+            findNavController().navigate(R.id.action_settingsFragment_to_mainFragment)
+
+        }
+        binding.btnTheme3.setOnClickListener{
+            activity?.setTheme(R.style.Theme_YouToDoFall)
+            findNavController().navigate(R.id.action_settingsFragment_to_mainFragment)
+
+        }
+        binding.btnTheme4.setOnClickListener{
+            activity?.setTheme(R.style.Theme_YouToDoWinter)
+            findNavController().navigate(R.id.action_settingsFragment_to_mainFragment)
+
         }
 
         // Inflate the layout for this fragment

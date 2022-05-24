@@ -3,9 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.icloud.ciro.silvano.youtodo">
 
-    <receiver
-        android:name=".NotificationReceiver"
-        android:enabled="true" />
+
 
     <application
         android:name=".YouToDoApplication"
@@ -34,6 +32,9 @@
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
+        <receiver
+            android:name=".NotificationReceiver"
+            android:enabled="true" />
     </application>
 
 </manifest>

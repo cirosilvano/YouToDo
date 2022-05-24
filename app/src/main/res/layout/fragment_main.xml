@@ -34,7 +34,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/alike"
             android:gravity="center"
-            android:text="You're free :)"
+            android:text="@string/free"
             android:textSize="20sp" />
 
     </LinearLayout>

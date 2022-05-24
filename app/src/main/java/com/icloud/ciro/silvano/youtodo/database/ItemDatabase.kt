@@ -10,7 +10,7 @@ import androidx.room.RoomDatabase
 * per sottolineare la connessione dell'app con i dati contenuti nel database*/
 
 
-@Database(entities = [Item::class, Category::class], version = 1, exportSchema = false)
+@Database(entities = [Item::class, Category::class], version = 2, exportSchema = false)
 abstract class ItemDatabase : RoomDatabase() {
 
     abstract fun itemDao(): ItemDao

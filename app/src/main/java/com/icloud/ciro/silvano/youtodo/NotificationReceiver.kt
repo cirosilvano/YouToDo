@@ -31,7 +31,7 @@ class NotificationReceiver : BroadcastReceiver() {
         intent.putExtra("title", title)
         intent.putExtra("text", text)
         val pending =
-            PendingIntent.getBroadcast(context, 42, intent, PendingIntent.FLAG_UPDATE_CURRENT)
+            PendingIntent.getBroadcast(context, 42, intent, PendingIntent.FLAG_MUTABLE)
         // Schdedule notification
         val manager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
         manager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, time, pending)

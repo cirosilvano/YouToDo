@@ -140,8 +140,9 @@ class AddFragment : Fragment() {
 
         /*YYYY-MM-DD{T}HH-MM-SS da aggiornare!*/
         val dateString = "" +
-                "${binding.datePicker.year}-${binding.datePicker.month}-${binding.datePicker.dayOfMonth}T12:30:00"
+                "${binding.datePicker.year}-0${binding.datePicker.month}-${binding.datePicker.dayOfMonth}T17:35:00"
 
+        Log.d("", "FORMATO DATA: ${dateString}")
         /*val day=binding.datePicker.dayOfMonth.toString()
         val month=binding.datePicker.month.toString()
         val year=binding.datePicker.year.toString()
@@ -162,7 +163,9 @@ class AddFragment : Fragment() {
             // CREAZIONE NOTIFICA
             val dateTime = LocalDateTime.parse(dateString)
             val offset: ZoneOffset = ZoneOffset.UTC
-            val timeEpoch = dateTime.toEpochSecond(offset)
+            val timeEpoch = dateTime.toEpochSecond(offset)*1000
+
+            Log.d("", "QUANTO VALI? ${timeEpoch}")
             val notificationReceiver = NotificationReceiver()
             notificationReceiver.scheduleNotification(requireContext(), timeEpoch, "To do!", name)
 

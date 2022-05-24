@@ -51,10 +51,8 @@ class ItemViewModel(application: Application): AndroidViewModel(application) {
             repository.addCategory(category)
         }
     }
-    fun deleteCategory(category: Category){
-        viewModelScope.launch(Dispatchers.IO) {
-            repository.deleteCategory(category)
-        }
+    fun deleteCategory(category: Category) : Int{
+        return repository.deleteCategory(category)
     }
 
     fun selectFilteredItems(name : String) : LiveData<List<Item>> {

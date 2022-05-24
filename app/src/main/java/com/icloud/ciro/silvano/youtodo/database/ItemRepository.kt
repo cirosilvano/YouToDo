@@ -27,8 +27,8 @@ class ItemRepository(private val itemDao: ItemDao, private val categoryDao: Cate
         categoryDao.addCategory(category)
     }
 
-    fun deleteCategory(category: Category) {
-        categoryDao.deleteCategory(category)
+    fun deleteCategory(category: Category) : Int {
+        return categoryDao.deleteCategory(category)
     }
 
     fun selectFilteredItems(name : String) : LiveData<List<Item>> {

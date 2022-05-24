@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.AutoCompleteTextView
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.core.view.children
 import androidx.core.view.isVisible
 import androidx.lifecycle.LiveData
@@ -127,8 +128,9 @@ class MainFragment : Fragment(), OnItemSwipeListener {
                 it.setOnClickListener {
                     var myChip:Chip=it as Chip
 
-                    itemViewModel.selectFilteredItems(myChip.text.toString()).observe(viewLifecycleOwner, Observer { filteredList ->
-                        adapter.setData(filteredList)
+                    if(myChip.text != "Tutti"){
+                        itemViewModel.selectFilteredItems(myChip.text.toString()).observe(viewLifecycleOwner, Observer { filteredList ->
+                            adapter.setData(filteredList)
 
                         if(adapter.itemCount>0){
                             ivFree.isVisible=false
@@ -140,6 +142,22 @@ class MainFragment : Fragment(), OnItemSwipeListener {
                             tvFree.isVisible=true
                         }
                     })
+                    }
+                    else{
+                        itemViewModel.showAllItems.observe(viewLifecycleOwner, Observer { filteredList ->
+                            adapter.setData(filteredList)
+
+                            if(adapter.itemCount>0){
+                                ivFree.isVisible=false
+                                tvFree.isVisible=false
+
+                            }
+                            else{
+                                ivFree.isVisible=true
+                                tvFree.isVisible=true
+                            }
+                        })
+                    }
                 }
             }
        }
@@ -212,11 +230,18 @@ class MainFragment : Fragment(), OnItemSwipeListener {
             isFocusable = true
             addView(this)
             this.setOnCloseIconClickListener{
-
+                var success : Int = 0
                 //Eliminazione dell'elemento dalla tabella
-                itemViewModel.deleteCategory(Category(this.text.toString()))
-                //Rimozione della chip
-                removeView(this)
+                try {
+                    success = itemViewModel.deleteCategory(Category(this.text.toString()))
+                } catch(e : android.database.sqlite.SQLiteConstraintException) {
+                    Toast.makeText(requireContext(), "Impossibile eliminare la category perché ci sono card con quella.  ", Toast.LENGTH_LONG).show()
+                }
+                Log.d("", "COSA SEI? ${success}")
+                if(success > 0) {
+                    //Rimozione della chip
+                    removeView(this)
+                }
             }
         }
     }

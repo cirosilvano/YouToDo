@@ -1,5 +1,6 @@
 package com.icloud.ciro.silvano.youtodo.database
 
+import android.database.sqlite.SQLiteConstraintException
 import androidx.lifecycle.LiveData
 import androidx.room.*
 
@@ -10,7 +11,7 @@ interface CategoryDao {
     fun addCategory(category: Category)
 
     @Delete
-    fun deleteCategory(category: Category)
+    fun deleteCategory(category: Category) : Int
 
     /* @Update
      fun updateCategory(category: Category)*/

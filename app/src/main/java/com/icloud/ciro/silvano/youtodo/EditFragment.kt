@@ -202,26 +202,6 @@ class EditFragment : Fragment() {
         builder.create().show()
     }
 
-
-    private fun deleteCategory() {
-        val builder = AlertDialog.Builder(requireContext())
-        builder.setPositiveButton("Yes") { _,_ ->
-            itemViewModel.deleteCategory(category)
-            Toast.makeText(requireContext(), "Successfully removed \"${category.name} \" category !", Toast.LENGTH_LONG).show()
-        }
-
-        builder.setNegativeButton("No") { _,_ ->
-
-        }
-
-        builder.setTitle("Are you sure you want to delete \"${category.name} \" category ?")
-        builder.setMessage("Are you sure you want to delete\"${category.name} \" category ?")
-
-        builder.create().show()
-    }
-
-
-
     // create chip programmatically and add it to chip group
     private fun ChipGroup.addChip(context: Context?, label: String){
         Chip(context).apply {

@@ -172,13 +172,6 @@ class AddFragment : Fragment() {
             isCloseIconVisible = false
             isFocusable = true
             addView(this)
-            this.setOnCloseIconClickListener{
-
-                //Eliminazione dell'elemento dalla tabella
-                itemViewModel.deleteCategory(Category(this.text.toString()))
-                //Rimozione della chip
-                removeView(this)
-            }
         }
     }
 

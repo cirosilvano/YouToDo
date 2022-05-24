@@ -98,6 +98,8 @@ class EditFragment : Fragment() {
                     Toast.makeText(requireContext(), "Existing category !", Toast.LENGTH_LONG).show()
                 }
                 else{
+
+                    chipGroupEdit.clearCheck()
                     chipGroupEdit.addChip(requireActivity(), binding.editCategory.text.toString())
                     itemViewModel.addCategory(Category(binding.editCategory.text.toString()))
                 }
@@ -239,7 +241,7 @@ class EditFragment : Fragment() {
         var found:Boolean=false
         for(j in chipGroupEdit.children){
             var currChip= j as Chip
-            if(currChip.text.toString()==name || currChip.text.toString()==name+" "){
+            if(currChip.text.toString().toLowerCase()==name.toLowerCase() || currChip.text.toString().toLowerCase()==(name+" ").toLowerCase()){
                 found=true
             }
         }

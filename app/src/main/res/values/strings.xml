@@ -6,12 +6,17 @@
     <string name="second_fragment_label">Second Fragment</string>
     <string name="next">Next</string>
     <string name="previous">Previous</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="welcome_text">What\'s next?</string>
     <string name="add_a_new_todo">Add a new todo</string>
+    <string name="edit_todo">Edit To-Do</string>
     <string name="more_actions">More actions</string>
     <string name="add_button">ADD</string>
+    <string name="edit_button">EDIT</string>
+    <!-- Strings used for mainFragment -->
+    <string name="free">You\'re free</string>
 
-
+    <!-- Strings used for editFragment and addFragment -->
+    <string name="categoryLabel">Category</string>
+    <string name="toDoLabel">To do</string>
 </resources>

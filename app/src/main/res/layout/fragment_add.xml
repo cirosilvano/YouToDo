@@ -52,7 +52,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:hint="To do"
+        android:hint="@string/toDoLabel"
         android:inputType="textPersonName"
         android:textSize="20dp"
         app:layout_constraintBottom_toTopOf="@+id/datePicker"
@@ -78,7 +78,7 @@
         android:id="@+id/txtCategory"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Category"
+        android:text="@string/categoryLabel"
         android:textSize="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -112,12 +112,13 @@
         android:layout_width="268dp"
         android:layout_height="55dp"
         android:ems="10"
+        android:hint="@string/categoryLabel"
         android:inputType="textPersonName"
-        android:hint="Category"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.475"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/horizontalScrollView2"
-        app:layout_constraintVertical_bias="0.067" />
+        app:layout_constraintVertical_bias="0.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

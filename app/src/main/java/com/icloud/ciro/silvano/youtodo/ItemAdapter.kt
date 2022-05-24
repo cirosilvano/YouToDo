@@ -1,21 +1,37 @@
 package com.icloud.ciro.silvano.youtodo
 
+import android.app.Notification
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.app.Service
 import android.database.DataSetObserver
+import android.graphics.Color
+import android.os.Build
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.CheckBox
 import android.widget.SpinnerAdapter
 import android.widget.TextView
+import androidx.annotation.RequiresApi
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.app.NotificationCompat
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.icloud.ciro.silvano.youtodo.database.Category
 import com.icloud.ciro.silvano.youtodo.database.Item
+import java.time.LocalDateTime
+import java.time.ZoneOffset
 
 class ItemAdapter(val onItemSwipeListener: OnItemSwipeListener) : RecyclerView.Adapter<ItemAdapter.MyViewHolder>() {
 
     private var itemList= emptyList<Item>()
+    lateinit var notificationManager: NotificationManager
+    lateinit var notificationChannel: NotificationChannel
+    lateinit var builder: Notification.Builder
+    private val channelId = "youtodo.notifications"
+
 
     class MyViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView){
         val name: TextView = itemView.findViewById(R.id.itemName)
@@ -57,8 +73,11 @@ class ItemAdapter(val onItemSwipeListener: OnItemSwipeListener) : RecyclerView.A
         return MyViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.cardview_item, parent, false))
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         var currentItem = itemList[position]
+
+        val description: String = ""
 
         holder.bind(currentItem.name.toString(), currentItem.category.toString(), currentItem.deadline.toString(), currentItem.isDone)
 

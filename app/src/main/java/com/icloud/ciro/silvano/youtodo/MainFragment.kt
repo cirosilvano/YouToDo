@@ -172,6 +172,22 @@ class MainFragment : Fragment(), OnItemSwipeListener {
 
         bottomAppBar.setOnItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
+                R.id.all_nav -> {
+                    itemViewModel.showAllItems.observe(viewLifecycleOwner, Observer { toDoList ->
+                        adapter.setData(toDoList)
+
+                        if(adapter.itemCount>0){
+                            ivFree.isVisible=false
+                            tvFree.isVisible=false
+                        }
+                        else{
+                            ivFree.isVisible=true
+                            tvFree.isVisible=true
+                        }
+                    })
+                    true
+                }
+
                 R.id.to_do_nav -> {
                     itemViewModel.selectItemsToDo().observe(viewLifecycleOwner, Observer { toDoList ->
                         adapter.setData(toDoList)

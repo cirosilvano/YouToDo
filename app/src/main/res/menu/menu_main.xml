@@ -1,5 +1,10 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
+        android:id="@+id/all_nav"
+        android:enabled="true"
+        android:icon="@drawable/ic_baseline_format_list_bulleted_35"
+        android:title="All cards"/>
+    <item
         android:id="@+id/to_do_nav"
         android:enabled="true"
         android:icon="@drawable/ic_baseline_format_list_bulleted_35"

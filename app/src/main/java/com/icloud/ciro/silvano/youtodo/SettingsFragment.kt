@@ -1,5 +1,6 @@
 package com.icloud.ciro.silvano.youtodo
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -11,6 +12,7 @@ import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.transition.TransitionInflater
 import com.google.android.material.bottomappbar.BottomAppBar
+import com.google.android.material.color.DynamicColors
 import com.icloud.ciro.silvano.youtodo.databinding.FragmentMainBinding
 import com.icloud.ciro.silvano.youtodo.databinding.FragmentSettingsBinding
 
@@ -35,23 +37,21 @@ class SettingsFragment : Fragment() {
         }
 
         binding.btnTheme1.setOnClickListener{
-            activity?.setTheme(R.style.Theme_YouToDoSpring)
+            activity?.setTheme(R.style.Theme_YouToDoWinter)
             findNavController().navigate(R.id.action_settingsFragment_to_mainFragment)
 
         }
 
         binding.btnTheme2.setOnClickListener{
-            activity?.setTheme(R.style.Theme_YouToDoSummer)
-            findNavController().navigate(R.id.action_settingsFragment_to_mainFragment)
-
-        }
-        binding.btnTheme3.setOnClickListener{
             activity?.setTheme(R.style.Theme_YouToDoFall)
             findNavController().navigate(R.id.action_settingsFragment_to_mainFragment)
 
         }
-        binding.btnTheme4.setOnClickListener{
-            activity?.setTheme(R.style.Theme_YouToDoWinter)
+
+
+        binding.btnReset.setOnClickListener{
+           // activity?.setTheme(R.style.Theme_YouToDo)
+            activity?.recreate()
             findNavController().navigate(R.id.action_settingsFragment_to_mainFragment)
 
         }

@@ -20,4 +20,8 @@
     <!-- Strings used for editFragment and addFragment -->
     <string name="categoryLabel">Category</string>
     <string name="toDoLabel">To do</string>
+
+    <string name="Reset">Reset</string>
+    <string name="DynamicColors">Dynamic colors</string>
+
 </resources>

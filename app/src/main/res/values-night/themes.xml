@@ -1,7 +1,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
     <style name="Base.Theme.YouToDo" parent="Theme.Material3.DayNight.NoActionBar">
-        <!--<item name="colorPrimary">@color/md_theme_dark_primary</item>
+        <item name="colorPrimary">@color/md_theme_dark_primary</item>
         <item name="colorOnPrimary">@color/md_theme_dark_onPrimary</item>
         <item name="colorPrimaryContainer">@color/md_theme_dark_primaryContainer</item>
         <item name="colorOnPrimaryContainer">@color/md_theme_dark_onPrimaryContainer</item>
@@ -26,7 +26,66 @@
         <item name="colorOutline">@color/md_theme_dark_outline</item>
         <item name="colorOnSurfaceInverse">@color/md_theme_dark_inverseOnSurface</item>
         <item name="colorSurfaceInverse">@color/md_theme_dark_inverseSurface</item>
+        <item name="colorPrimaryInverse">@color/md_theme_dark_primaryInverse</item>
+    </style>
 
-        <item name="colorPrimaryInverse">@color/md_theme_dark_primaryInverse</item>-->
+    <!-- Winter  theme. -->
+    <style name="Theme.YouToDoWinter" parent="Base.Theme.YouToDo" >
+        <item name="colorPrimary">@color/md_theme_dark_primaryw</item>
+        <item name="colorOnPrimary">@color/md_theme_dark_onPrimaryw</item>
+        <item name="colorPrimaryContainer">@color/md_theme_dark_primaryContainerw</item>
+        <item name="colorOnPrimaryContainer">@color/md_theme_dark_onPrimaryContainerw</item>
+        <item name="colorSecondary">@color/md_theme_dark_secondaryw</item>
+        <item name="colorOnSecondary">@color/md_theme_dark_onSecondaryw</item>
+        <item name="colorSecondaryContainer">@color/md_theme_dark_secondaryContainerw</item>
+        <item name="colorOnSecondaryContainer">@color/md_theme_dark_onSecondaryContainerw</item>
+        <item name="colorTertiary">@color/md_theme_dark_tertiaryw</item>
+        <item name="colorOnTertiary">@color/md_theme_dark_onTertiaryw</item>
+        <item name="colorTertiaryContainer">@color/md_theme_dark_tertiaryContainerw</item>
+        <item name="colorOnTertiaryContainer">@color/md_theme_dark_onTertiaryContainerw</item>
+        <item name="colorError">@color/md_theme_dark_errorw</item>
+        <item name="colorErrorContainer">@color/md_theme_dark_errorContainerw</item>
+        <item name="colorOnError">@color/md_theme_dark_onErrorw</item>
+        <item name="colorOnErrorContainer">@color/md_theme_dark_onErrorContainerw</item>
+        <item name="android:colorBackground">@color/md_theme_dark_backgroundw</item>
+        <item name="colorOnBackground">@color/md_theme_dark_onBackgroundw</item>
+        <item name="colorSurface">@color/md_theme_dark_surfacew</item>
+        <item name="colorOnSurface">@color/md_theme_dark_onSurfacew</item>
+        <item name="colorSurfaceVariant">@color/md_theme_dark_surfaceVariantw</item>
+        <item name="colorOnSurfaceVariant">@color/md_theme_dark_onSurfaceVariantw</item>
+        <item name="colorOutline">@color/md_theme_dark_outlinew</item>
+        <item name="colorOnSurfaceInverse">@color/md_theme_dark_inverseOnSurfacew</item>
+        <item name="colorSurfaceInverse">@color/md_theme_dark_inverseSurfacew</item>
+        <item name="colorPrimaryInverse">@color/md_theme_dark_primaryInversew</item>
+    </style>
+
+    <!-- Fall  theme. -->
+    <style name="Theme.YouToDoFall" parent="Base.Theme.YouToDo" >
+        <item name="colorPrimary">@color/md_theme_dark_primaryf</item>
+        <item name="colorOnPrimary">@color/md_theme_dark_onPrimaryf</item>
+        <item name="colorPrimaryContainer">@color/md_theme_dark_primaryContainerf</item>
+        <item name="colorOnPrimaryContainer">@color/md_theme_dark_onPrimaryContainerf</item>
+        <item name="colorSecondary">@color/md_theme_dark_secondaryf</item>
+        <item name="colorOnSecondary">@color/md_theme_dark_onSecondaryf</item>
+        <item name="colorSecondaryContainer">@color/md_theme_dark_secondaryContainerf</item>
+        <item name="colorOnSecondaryContainer">@color/md_theme_dark_onSecondaryContainerf</item>
+        <item name="colorTertiary">@color/md_theme_dark_tertiaryf</item>
+        <item name="colorOnTertiary">@color/md_theme_dark_onTertiaryf</item>
+        <item name="colorTertiaryContainer">@color/md_theme_dark_tertiaryContainerf</item>
+        <item name="colorOnTertiaryContainer">@color/md_theme_dark_onTertiaryContainerf</item>
+        <item name="colorError">@color/md_theme_dark_errorf</item>
+        <item name="colorErrorContainer">@color/md_theme_dark_errorContainerf</item>
+        <item name="colorOnError">@color/md_theme_dark_onErrorf</item>
+        <item name="colorOnErrorContainer">@color/md_theme_dark_onErrorContainerf</item>
+        <item name="android:colorBackground">@color/md_theme_dark_backgroundf</item>
+        <item name="colorOnBackground">@color/md_theme_dark_onBackgroundf</item>
+        <item name="colorSurface">@color/md_theme_dark_surfacef</item>
+        <item name="colorOnSurface">@color/md_theme_dark_onSurfacef</item>
+        <item name="colorSurfaceVariant">@color/md_theme_dark_surfaceVariantf</item>
+        <item name="colorOnSurfaceVariant">@color/md_theme_dark_onSurfaceVariantf</item>
+        <item name="colorOutline">@color/md_theme_dark_outlinef</item>
+        <item name="colorOnSurfaceInverse">@color/md_theme_dark_inverseOnSurfacef</item>
+        <item name="colorSurfaceInverse">@color/md_theme_dark_inverseSurfacef</item>
+        <item name="colorPrimaryInverse">@color/md_theme_dark_primaryInversef</item>
     </style>
 </resources>

@@ -15,8 +15,13 @@
     <string name="edit_button">EDIT</string>
     <!-- Strings used for mainFragment -->
     <string name="free">You\'re free</string>
+    <string name="changeTheme">Themes:</string>
 
     <!-- Strings used for editFragment and addFragment -->
     <string name="categoryLabel">Category</string>
     <string name="toDoLabel">To do</string>
+
+    <string name="Reset">Reset</string>
+    <string name="DynamicColors">Dynamic colors</string>
+
 </resources>

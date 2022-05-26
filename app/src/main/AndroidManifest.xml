@@ -12,7 +12,6 @@
         android:label="@string/title"
         android:roundIcon="@drawable/ic_baseline_calendar_today_24"
         android:supportsRtl="true"
-        android:theme="@style/Theme.YouToDo"
         tools:targetApi="31">
         <activity
             android:name=".MainActivity"

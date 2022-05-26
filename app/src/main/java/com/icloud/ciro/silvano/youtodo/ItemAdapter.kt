@@ -41,10 +41,12 @@ class ItemAdapter(val onItemSwipeListener: OnItemSwipeListener) : RecyclerView.A
                 val ldt = LocalDateTime.parse(deadline_tx)
                 val ldtToday = LocalDateTime.now()
                 Log.d("","CompareTo: ${ldt.compareTo(ldtToday)}")
+                var minuteString = ldt.minute.toString()
+                if(minuteString.length == 1) minuteString = "0${minuteString}"
                 when(ldt.compareTo(ldtToday)) {
                     -1 -> deadline_gen = "Today, ${ldt.hour}:${ldt.minute}"
                     1 -> deadline_gen = "Tomorrow, ${ldt.hour}:${ldt.minute}"
-                    else -> deadline_gen = "${ldt.dayOfMonth}/${ldt.monthValue+1}/${ldt.year}, ${ldt.hour}:${ldt.minute}"
+                    else -> deadline_gen = "${ldt.dayOfMonth}/${ldt.monthValue+1}/${ldt.year}, ${ldt.hour}:${minuteString}"
                 }
             }
             deadline.text = deadline_gen

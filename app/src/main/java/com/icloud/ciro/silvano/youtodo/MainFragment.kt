@@ -90,6 +90,8 @@ class MainFragment : Fragment(), OnItemSwipeListener {
 
         })
 
+        
+
         /*Gestione delle chip che contengono le categorie*/
 
         itemViewModel.showAllCategories.observe(viewLifecycleOwner,Observer { cat ->
@@ -128,9 +130,8 @@ class MainFragment : Fragment(), OnItemSwipeListener {
                 it.setOnClickListener {
                     var myChip:Chip=it as Chip
 
-                    if(myChip.text != "Tutti"){
-                        itemViewModel.selectFilteredItems(myChip.text.toString()).observe(viewLifecycleOwner, Observer { filteredList ->
-                            adapter.setData(filteredList)
+                    itemViewModel.selectFilteredItems(myChip.text.toString()).observe(viewLifecycleOwner, Observer { filteredList ->
+                        adapter.setData(filteredList)
 
                         if(adapter.itemCount>0){
                             ivFree.isVisible=false
@@ -142,24 +143,8 @@ class MainFragment : Fragment(), OnItemSwipeListener {
                             tvFree.isVisible=true
                         }
                     })
-                    }
-                    else{
-                        itemViewModel.showAllItems.observe(viewLifecycleOwner, Observer { filteredList ->
-                            adapter.setData(filteredList)
-
-                            if(adapter.itemCount>0){
-                                ivFree.isVisible=false
-                                tvFree.isVisible=false
-
-                            }
-                            else{
-                                ivFree.isVisible=true
-                                tvFree.isVisible=true
-                            }
-                        })
-                    }
                 }
-            }
+           }
        }
 
         binding.addButton.setOnClickListener {
@@ -172,21 +157,7 @@ class MainFragment : Fragment(), OnItemSwipeListener {
 
         bottomAppBar.setOnItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
-                R.id.all_nav -> {
-                    itemViewModel.showAllItems.observe(viewLifecycleOwner, Observer { toDoList ->
-                        adapter.setData(toDoList)
-
-                        if(adapter.itemCount>0){
-                            ivFree.isVisible=false
-                            tvFree.isVisible=false
-                        }
-                        else{
-                            ivFree.isVisible=true
-                            tvFree.isVisible=true
-                        }
-                    })
-                    true
-                }
+                
 
                 R.id.to_do_nav -> {
                     itemViewModel.selectItemsToDo().observe(viewLifecycleOwner, Observer { toDoList ->

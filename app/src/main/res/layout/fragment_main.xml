@@ -91,7 +91,6 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/itemsList"
         android:layout_width="350dp"
-        android:layout_height="481dp"
         android:layout_marginStart="30dp"
         android:layout_marginEnd="30dp"
         android:clipToPadding="false"

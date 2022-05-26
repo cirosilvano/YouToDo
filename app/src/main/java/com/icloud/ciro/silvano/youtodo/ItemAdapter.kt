@@ -1,6 +1,7 @@
 package com.icloud.ciro.silvano.youtodo
 
 import android.database.DataSetObserver
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,6 +13,8 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.icloud.ciro.silvano.youtodo.database.Category
 import com.icloud.ciro.silvano.youtodo.database.Item
+import java.time.LocalDateTime
+import java.util.*
 
 class ItemAdapter(val onItemSwipeListener: OnItemSwipeListener) : RecyclerView.Adapter<ItemAdapter.MyViewHolder>() {
 
@@ -27,8 +30,24 @@ class ItemAdapter(val onItemSwipeListener: OnItemSwipeListener) : RecyclerView.A
         fun bind(name_tx : String, category_tx : String, deadline_tx : String, checked : Boolean) {
             name.text = name_tx
             category.text = category_tx
-            deadline.text = deadline_tx
+            // deadline.text = deadline_tx
             done.isChecked = checked
+
+            /* deadline styling */
+            var deadline_gen = ""
+            Log.d("", "deadline_tx for ${name_tx}: ${deadline_tx.length}")
+            if(deadline_tx.length == 19) {
+                // date-time formats are 19 digits long
+                val ldt = LocalDateTime.parse(deadline_tx)
+                val ldtToday = LocalDateTime.now()
+                Log.d("","CompareTo: ${ldt.compareTo(ldtToday)}")
+                when(ldt.compareTo(ldtToday)) {
+                    -1 -> deadline_gen = "Today, ${ldt.hour}:${ldt.minute}"
+                    1 -> deadline_gen = "Tomorrow, ${ldt.hour}:${ldt.minute}"
+                    else -> deadline_gen = "${ldt.dayOfMonth}/${ldt.monthValue+1}/${ldt.year}, ${ldt.hour}:${ldt.minute}"
+                }
+            }
+            deadline.text = deadline_gen
         }
 
         /*Swipe management*/

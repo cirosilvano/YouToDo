@@ -53,6 +53,9 @@
 
         <item name="colorPrimaryInverse">@color/md_theme_light_primaryInverse</item>
         <item name="android:checkboxStyle">@style/MyCheckBoxStyle</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:windowLightStatusBar">true</item>
+
 
     </style>
 
@@ -112,6 +115,8 @@
         <item name="colorPrimaryInverse">@color/md_theme_light_primaryInversew</item>
 
         <item name="android:checkboxStyle">@style/MyCheckBoxStyle</item>
+
+
     </style>
 
     <!-- Fall  theme. -->
@@ -168,6 +173,7 @@
 
         <item name="colorPrimaryInverse">@color/md_theme_light_primaryInversef</item>
         <item name="android:checkboxStyle">@style/MyCheckBoxStyle</item>
+
     </style>
 
     <!-- Checkbox theme-->
@@ -175,7 +181,6 @@
         <item name="android:textColorPrimaryDisableOnly">#000000</item>
         <item name="buttonTint">#000000</item>
     </style>
-
 
 
 

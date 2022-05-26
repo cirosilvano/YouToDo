@@ -27,6 +27,9 @@
         <item name="colorOnSurfaceInverse">@color/md_theme_dark_inverseOnSurface</item>
         <item name="colorSurfaceInverse">@color/md_theme_dark_inverseSurface</item>
         <item name="colorPrimaryInverse">@color/md_theme_dark_primaryInverse</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:windowLightStatusBar">true</item>
+
     </style>
 
     <!-- Winter  theme. -->
@@ -57,6 +60,8 @@
         <item name="colorOnSurfaceInverse">@color/md_theme_dark_inverseOnSurfacew</item>
         <item name="colorSurfaceInverse">@color/md_theme_dark_inverseSurfacew</item>
         <item name="colorPrimaryInverse">@color/md_theme_dark_primaryInversew</item>
+
+
     </style>
 
     <!-- Fall  theme. -->
@@ -87,5 +92,7 @@
         <item name="colorOnSurfaceInverse">@color/md_theme_dark_inverseOnSurfacef</item>
         <item name="colorSurfaceInverse">@color/md_theme_dark_inverseSurfacef</item>
         <item name="colorPrimaryInverse">@color/md_theme_dark_primaryInversef</item>
+        <item name="android:statusBarColor">@color/md_theme_dark_primaryf</item>
+        <item name="android:windowLightStatusBar">true</item>
     </style>
 </resources>

@@ -12,6 +12,13 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        var sharedPreferences=getSharedPreferences("themePref", MODE_PRIVATE)
+        var value=sharedPreferences.getInt("THEME",0)
+        when(value){
+            0-> setTheme(R.style.Theme_YouToDo)
+            1->setTheme(R.style.Theme_YouToDoWinter)
+            2->setTheme(R.style.Theme_YouToDoFall)
+        }
     }
 
 }

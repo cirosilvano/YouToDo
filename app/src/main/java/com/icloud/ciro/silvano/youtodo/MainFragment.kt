@@ -1,6 +1,7 @@
 package com.icloud.ciro.silvano.youtodo
 
 import android.app.Activity
+import android.app.AlertDialog
 import android.content.Context
 import android.os.Bundle
 import android.util.Log
@@ -62,6 +63,7 @@ class MainFragment : Fragment(), OnItemSwipeListener {
         val recyclerView = binding.itemsList
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
+
 
         val adapterCat=CategoryAdapter{
             currentCat=it
@@ -271,10 +273,27 @@ class MainFragment : Fragment(), OnItemSwipeListener {
         }
     }
 
-    override fun onItemSwipe(item: Item) {
+    override fun onItemTouchCheck(item: Item) {
         if(item.isDone)
             itemViewModel.updateItem(Item(item.id, item.name, item.category, item.deadline, false))
         else
             itemViewModel.updateItem(Item(item.id, item.name, item.category, item.deadline, true))
+    }
+
+    override fun onItemSwipe(item: Item) {
+        val builder = AlertDialog.Builder(requireContext())
+        builder.setPositiveButton("Yes") { _,_ ->
+            itemViewModel.deleteItem(item)
+            Toast.makeText(requireContext(), "Successfully removed ${item.name}!", Toast.LENGTH_LONG).show()
+        }
+
+        builder.setNegativeButton("No") { _,_ ->
+
+        }
+
+        builder.setTitle("Are you sure you want to delete ${item.name} ?")
+        builder.setMessage("Are you sure you want to delete ${item.name} ?")
+
+        builder.create().show()
     }
 }

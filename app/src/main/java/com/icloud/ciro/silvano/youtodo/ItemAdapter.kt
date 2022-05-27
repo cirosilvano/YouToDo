@@ -1,8 +1,10 @@
 package com.icloud.ciro.silvano.youtodo
 
+import android.animation.Animator
 import android.database.DataSetObserver
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.CheckBox
@@ -10,11 +12,17 @@ import android.widget.SpinnerAdapter
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.navigation.findNavController
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.icloud.ciro.silvano.youtodo.database.Category
 import com.icloud.ciro.silvano.youtodo.database.Item
+import java.lang.Float.min
 import java.time.LocalDateTime
 import java.util.*
+import android.animation.AnimatorListenerAdapter
+import android.widget.ImageButton
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 
 class ItemAdapter(val onItemSwipeListener: OnItemSwipeListener) : RecyclerView.Adapter<ItemAdapter.MyViewHolder>() {
 
@@ -26,6 +34,7 @@ class ItemAdapter(val onItemSwipeListener: OnItemSwipeListener) : RecyclerView.A
         val deadline: TextView = itemView.findViewById(R.id.itemDeadline)
         val cardLayout : ConstraintLayout = itemView.findViewById(R.id.itemConstraintLayout)
         val done : CheckBox = itemView.findViewById(R.id.cbDone)
+        val editCard : ImageButton = itemView.findViewById(R.id.editCard)
 
         fun bind(name_tx : String, category_tx : String, deadline_tx : String, checked : Boolean) {
             name.text = name_tx
@@ -83,14 +92,72 @@ class ItemAdapter(val onItemSwipeListener: OnItemSwipeListener) : RecyclerView.A
 
         holder.bind(currentItem.name.toString(), currentItem.category.toString(), currentItem.deadline.toString(), currentItem.isDone)
 
-        holder.cardLayout.setOnClickListener {
+
+        holder.editCard.setOnClickListener {
             //MainFragmentDirections is automatically generated (build in case it isn't found)
             val action = MainFragmentDirections.actionMainFragmentToEditFragment(currentItem)
             holder.itemView.findNavController().navigate(action)
         }
 
+        /*holder.cardLayout.setOnTouchListener(View.OnTouchListener { view, motionEvent ->
+            when (motionEvent.action) {
+                MotionEvent.ACTION_MOVE ->{
+                    onItemSwipeListener.onItemSwipe(currentItem)
+                    true
+                }
+                //MotionEvent.ACTION-UP ->{
+                view.performClick() //e questo fa andare il setOnClickListener
+                }
+
+            }
+            return@OnTouchListener true
+        })*/
+
+        holder.cardLayout.setOnTouchListener(View.OnTouchListener { view, event ->
+                // variables to store current configuration of quote card.
+                val displayMetrics = holder.cardLayout.context.resources.displayMetrics
+                val cardWidth = holder.cardLayout.width
+                val cardStart = (displayMetrics.widthPixels.toFloat() / 2) - (cardWidth / 2)
+
+                when (event.action) {
+                    MotionEvent.ACTION_MOVE -> {
+                        val newX : Float = event.rawX
+                        if (newX - cardWidth < cardStart) { // or newX < cardStart + cardWidth
+                            holder.cardLayout.animate().x(
+                                min(cardStart, newX - (cardWidth / 2))
+                            )
+                                .setDuration(0)
+                                .start()
+                        }
+                        true
+                    }
+                    MotionEvent.ACTION_UP -> {
+                        var currentX = holder.cardLayout.x
+                        holder.cardLayout.animate()
+                            .x(cardStart)
+                            .setDuration(150)
+                            .setListener(object : AnimatorListenerAdapter() {
+                                override fun onAnimationEnd(animation: Animator) {
+                                    // check if the swipe distance was more than
+                                    // minimum swipe required to load a new quote
+                                    if (currentX < -250) {
+                                        // Add logic to load a new quote if swiped adequately
+                                        onItemSwipeListener.onItemSwipe(currentItem)
+                                        currentX = 0f
+                                    }
+
+                                }
+                            })
+                        true
+                    }
+                }
+                true
+
+            }
+        )
+
         holder.done.setOnClickListener {
-            onItemSwipeListener.onItemSwipe(currentItem)
+            onItemSwipeListener.onItemTouchCheck(currentItem)
         }
     }
 

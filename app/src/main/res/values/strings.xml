@@ -1,5 +1,5 @@
 <resources>
-    <string name="title">YouToDo</string>
+    <string name="title" translatable="false">YouToDo</string>
     <string name="action_settings">Settings</string>
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>
@@ -15,7 +15,7 @@
     <string name="edit_button">EDIT</string>
 
     <!-- Strings used for mainFragment -->
-    <string name="free">You\'re free</string>
+    <string name="free">You\'re free :)</string>
     <string name="changeTheme">Themes:</string>
 
     <!-- Strings used for editFragment and addFragment -->
@@ -27,5 +27,16 @@
     <string name="newToDoLabel">New ToDo</string>
     <string name="Reset">RESET</string>
     <string name="DynamicColors">Dynamic colors</string>
+
+    <!-- weekdays -->
+    <string name="monday">Monday</string>
+    <string name="tuesday">Tuesday</string>
+    <string name="wednesday">Wednesday</string>
+    <string name="thursday">Thursday</string>
+    <string name="friday">Friday</string>
+    <string name="saturday">Saturday</string>
+    <string name="sunday">Sunday</string>
+    <string name="today">Today</string>
+    <string name="tomorrow">Tomorrow</string>
 
 </resources>

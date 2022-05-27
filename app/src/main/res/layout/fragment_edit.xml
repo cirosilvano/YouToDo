@@ -70,12 +70,13 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.284"
         >
+
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/editDate"
             android:layout_width="234dp"
             android:layout_height="56dp"
-            android:hint="@string/dateLabel"
-            />
+            android:editable="false"
+            android:hint="@string/dateLabel" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -99,12 +100,13 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.405"
         >
+
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/editTime"
             android:layout_width="234dp"
             android:layout_height="56dp"
-            android:hint="@string/timeLabel"
-            />
+            android:editable="false"
+            android:hint="@string/timeLabel" />
 
     </com.google.android.material.textfield.TextInputLayout>
 

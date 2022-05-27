@@ -22,9 +22,13 @@ import java.util.*
 import android.animation.AnimatorListenerAdapter
 import android.widget.ImageButton
 import com.icloud.ciro.silvano.youtodo.DateTimeFormatHelper.Companion.generateDate
+import com.icloud.ciro.silvano.youtodo.DateTimeFormatHelper.Companion.generateDateTime
 import com.icloud.ciro.silvano.youtodo.DateTimeFormatHelper.Companion.generateTime
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
+import java.time.Duration
+import java.time.LocalDate
+import java.time.Period
 
 class ItemAdapter(val onItemSwipeListener: OnItemSwipeListener) : RecyclerView.Adapter<ItemAdapter.MyViewHolder>() {
 
@@ -50,12 +54,23 @@ class ItemAdapter(val onItemSwipeListener: OnItemSwipeListener) : RecyclerView.A
             if(deadline_tx.length == 19) {
                 // date-time formats are 19 digits long
                 val ldt = LocalDateTime.parse(deadline_tx)
-                val ldtToday = LocalDateTime.now()
-                Log.d("","CompareTo: ${ldt.compareTo(ldtToday)}")
-                when(ldt.compareTo(ldtToday)) {
-                    -1 -> deadline_gen = "Today, ${generateTime(ldt.hour, ldt.minute)}"
-                    1 -> deadline_gen = "Tomorrow, ${generateTime(ldt.hour, ldt.minute)}"
-                    else -> deadline_gen = "${generateDate(ldt.year, ldt.monthValue, ldt.dayOfMonth, true)}, ${generateTime(ldt.hour, ldt.minute)}"
+                val ld = ldt.toLocalDate()
+                val ldToday = LocalDate.now()
+                val period = Period.between(ldToday, ld)
+
+                if(period.years == 0 && period.months == 0) {
+                    val res = itemView.context.resources
+                    when (period.days) {
+                        0 -> deadline_gen = "${res.getString(R.string.today)}, ${generateTime(ldt.hour, ldt.minute)}"
+                        1 -> deadline_gen = "${res.getString(R.string.tomorrow)}, ${generateTime(ldt.hour, ldt.minute)}"
+                        else -> {
+                            if(period.days < 7) {
+                                deadline_gen = "${DateTimeFormatHelper.weekDays(ld.dayOfWeek, res)}, ${generateTime(ldt.hour, ldt.minute)}"
+                            }
+                        }
+                    }
+                } else {
+                    deadline_gen = generateDateTime(ldt.year, ldt.monthValue, ldt.dayOfMonth, ldt.hour, ldt.minute)
                 }
             }
             deadline.text = deadline_gen

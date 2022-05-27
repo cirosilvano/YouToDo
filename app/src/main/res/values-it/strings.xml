@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="action_settings">Impostazioni</string>
+    <string name="next">Successivo</string>
+    <string name="previous">Precedente</string>
+    <string name="welcome_text">E ora?</string>
+    <string name="add_a_new_todo">Nuovo todo</string>
+    <string name="edit_todo">Modifica todo</string>
+    <string name="add_button">AGGIUNGI</string>
+    <string name="edit_button">MODIFICA</string>
+    <string name="free">Sei libero :)</string>
+    <string name="changeTheme">Temi:</string>
+    <string name="categoryLabel">Categoria</string>
+    <string name="newCategoryLabel">Nuova categoria</string>
+    <string name="toDoLabel">To do</string>
+    <string name="dateLabel">Data</string>
+    <string name="timeLabel">Ora</string>
+    <string name="newToDoLabel">Nuovo todo</string>
+    <string name="Reset">RESET</string>
+    <string name="DynamicColors">Colori dinamici</string>
+    <string name="first_fragment_label">Primo Fragment</string>
+    <string name="second_fragment_label">Secondo Fragment</string>
+    <string name="hello_blank_fragment">Ciao fragment vuoto</string>
+    <string name="more_actions">Ulteriori azioni</string>
+    <string name="monday">Lunedì</string>
+    <string name="tuesday">Martedì</string>
+    <string name="wednesday">Mercoledì</string>
+    <string name="thursday">Giovedì</string>
+    <string name="friday">Venerdì</string>
+    <string name="saturday">Sabato</string>
+    <string name="sunday">Domenica</string>
+    <string name="tomorrow">Domani</string>
+    <string name="today">Oggi</string>
+</resources>

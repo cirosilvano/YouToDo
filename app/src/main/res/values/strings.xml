@@ -24,7 +24,7 @@
     <string name="toDoLabel">To do</string>
     <string name="dateLabel">Date</string>
     <string name="timeLabel">Time</string>
-
+    <string name="newToDoLabel">New ToDo</string>
     <string name="Reset">RESET</string>
     <string name="DynamicColors">Dynamic colors</string>
 

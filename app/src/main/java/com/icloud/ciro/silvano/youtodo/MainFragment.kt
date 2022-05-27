@@ -155,7 +155,7 @@ class MainFragment : Fragment(), OnItemSwipeListener {
            }
        }
 
-        binding.addButton.setOnClickListener {
+        binding.addFAB.setOnClickListener {
             findNavController().navigate(R.id.action_mainFragment_to_addFragment)
         }
 

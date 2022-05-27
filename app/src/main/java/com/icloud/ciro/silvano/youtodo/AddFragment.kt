@@ -21,6 +21,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.transition.TransitionInflater
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
+import com.icloud.ciro.silvano.youtodo.DateTimeFormatHelper.Companion.generateDate
+import com.icloud.ciro.silvano.youtodo.DateTimeFormatHelper.Companion.generateTime
 import com.icloud.ciro.silvano.youtodo.database.Category
 import com.icloud.ciro.silvano.youtodo.database.ItemViewModel
 import com.icloud.ciro.silvano.youtodo.database.Item
@@ -68,14 +70,14 @@ class AddFragment : Fragment(), DatePickerDialog.OnDateSetListener, TimePickerDi
        }
 
        // GESTIONE DATE-TIME PICKING
-       binding.addDate.setOnFocusChangeListener{view,b->
+       binding.editDate.setOnFocusChangeListener{view,b->
            if(b) {
                getDateTimeCalendar()
                DatePickerDialog(requireContext(), this, year, month, day).show()
            }
        }
 
-       binding.addTime.setOnFocusChangeListener{view,b->
+       binding.editTime.setOnFocusChangeListener{view,b->
            if(b) {
                getDateTimeCalendar()
                TimePickerDialog(requireContext(), this, hour, minute, true).show()
@@ -222,10 +224,10 @@ class AddFragment : Fragment(), DatePickerDialog.OnDateSetListener, TimePickerDi
 
     override fun onDateSet(p0: DatePicker?, p1: Int, p2: Int, p3: Int) {
         savedYear = p1
-        savedMonth = p2
+        savedMonth = p2+1
         savedDay = p3
         getDateTimeCalendar()
-        binding.addDate.setText(generateDate(savedYear, savedMonth, savedDay, true))
+        binding.editDate.setText(generateDate(savedYear, savedMonth, savedDay, true))
         dateString = generateDate(savedYear, savedMonth, savedDay, false)
     }
 
@@ -234,7 +236,7 @@ class AddFragment : Fragment(), DatePickerDialog.OnDateSetListener, TimePickerDi
         savedMinute = p2
         getDateTimeCalendar()
         val gen = generateTime(savedHour, savedMinute)
-        binding.addTime.setText(gen)
+        binding.editTime.setText(gen)
         timeString = "${gen}:00"
     }
 
@@ -245,24 +247,6 @@ class AddFragment : Fragment(), DatePickerDialog.OnDateSetListener, TimePickerDi
         day = cal.get(Calendar.DAY_OF_MONTH)
         hour = cal.get(Calendar.HOUR_OF_DAY)
         minute = cal.get(Calendar.MINUTE)
-    }
-
-    private fun generateDate(year:Int, month: Int, day: Int, backwards: Boolean): String {
-        var monthStr = (month+1).toString()
-        var dayStr = day.toString()
-        if(monthStr.length == 1) monthStr = "0${monthStr}"
-        if(dayStr.length == 1) monthStr = "0${dayStr}"
-        Log.d("", "genero data $dayStr/$monthStr/$year")
-        if(backwards) return "$dayStr-$monthStr-$year"
-        return "$year-$monthStr-$dayStr"
-    }
-
-    private fun generateTime(hour:Int, minute:Int): String{
-        var hourString = hour.toString()
-        var minuteString = minute.toString()
-        if(hourString.length == 1) hourString = "0${hourString}"
-        if(minuteString.length == 1) minuteString = "0${minuteString}"
-        return "$hourString:$minuteString"
     }
 
 

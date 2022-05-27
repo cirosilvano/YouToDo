@@ -99,7 +99,7 @@
         app:layout_constraintVertical_bias="0.284"
        >
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/addDate"
+            android:id="@+id/editDate"
             android:layout_width="234dp"
             android:layout_height="56dp"
             android:hint="@string/dateLabel"
@@ -128,7 +128,7 @@
         app:layout_constraintVertical_bias="0.405"
         >
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/addTime"
+            android:id="@+id/editTime"
             android:layout_width="234dp"
             android:layout_height="56dp"
             android:hint="@string/timeLabel"

@@ -21,6 +21,8 @@ import java.time.LocalDateTime
 import java.util.*
 import android.animation.AnimatorListenerAdapter
 import android.widget.ImageButton
+import com.icloud.ciro.silvano.youtodo.DateTimeFormatHelper.Companion.generateDate
+import com.icloud.ciro.silvano.youtodo.DateTimeFormatHelper.Companion.generateTime
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 
@@ -44,18 +46,16 @@ class ItemAdapter(val onItemSwipeListener: OnItemSwipeListener) : RecyclerView.A
 
             /* deadline styling */
             var deadline_gen = ""
-            Log.d("", "deadline_tx for ${name_tx}: ${deadline_tx.length}")
+            Log.d("", "deadline_tx for ${name_tx}: ${deadline_tx.length} -> $deadline_tx")
             if(deadline_tx.length == 19) {
                 // date-time formats are 19 digits long
                 val ldt = LocalDateTime.parse(deadline_tx)
                 val ldtToday = LocalDateTime.now()
                 Log.d("","CompareTo: ${ldt.compareTo(ldtToday)}")
-                var minuteString = ldt.minute.toString()
-                if(minuteString.length == 1) minuteString = "0${minuteString}"
                 when(ldt.compareTo(ldtToday)) {
-                    -1 -> deadline_gen = "Today, ${ldt.hour}:${ldt.minute}"
-                    1 -> deadline_gen = "Tomorrow, ${ldt.hour}:${ldt.minute}"
-                    else -> deadline_gen = "${ldt.dayOfMonth}/${ldt.monthValue+1}/${ldt.year}, ${ldt.hour}:${minuteString}"
+                    -1 -> deadline_gen = "Today, ${generateTime(ldt.hour, ldt.minute)}"
+                    1 -> deadline_gen = "Tomorrow, ${generateTime(ldt.hour, ldt.minute)}"
+                    else -> deadline_gen = "${generateDate(ldt.year, ldt.monthValue, ldt.dayOfMonth, true)}, ${generateTime(ldt.hour, ldt.minute)}"
                 }
             }
             deadline.text = deadline_gen

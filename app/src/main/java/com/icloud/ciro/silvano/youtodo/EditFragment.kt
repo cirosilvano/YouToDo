@@ -1,11 +1,17 @@
 package com.icloud.ciro.silvano.youtodo
 
 import android.app.AlertDialog
+import android.app.DatePickerDialog
+import android.app.TimePickerDialog
 import android.content.Context
+import android.icu.util.Calendar
 import android.os.Bundle
 import android.text.TextUtils
+import android.util.Log
 import android.view.*
+import android.widget.DatePicker
 import android.widget.ImageButton
+import android.widget.TimePicker
 import androidx.fragment.app.Fragment
 import android.widget.Toast
 import androidx.core.view.children
@@ -33,6 +39,22 @@ class EditFragment : Fragment() {
     private lateinit var  category : Category
     private lateinit var chipGroupEdit:ChipGroup
 
+    // VARIABILI DI SUPPORTO DATE-TIME
+    var year = 0
+    var month = 0
+    var day = 0
+    var hour = 0
+    var minute = 0
+
+    var savedYear = 0
+    var savedMonth = 0
+    var savedDay = 0
+    var savedHour = 0
+    var savedMinute = 0
+
+    var dateString = ""
+    var timeString = ""
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val inflater = TransitionInflater.from(requireContext())
@@ -43,17 +65,17 @@ class EditFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
         _binding = FragmentEditBinding.inflate(inflater, container, false)
-         chipGroupEdit=binding.chipGroupEdit
+        chipGroupEdit=binding.chipGroupEdit
 
+
+
+
+
+        // fine time picking -------
 
         val adapterCat=CategoryAdapter{model ->
-            /*category=model
-            binding.editCategory.setText(model.name)*/
         }
-
-
         itemViewModel = ViewModelProvider(this).get(ItemViewModel::class.java)
-
        itemViewModel.showAllCategories.observe(viewLifecycleOwner, Observer{ cat ->
             adapterCat.setDataCat(cat)
            if(adapterCat.itemCount==0){
@@ -139,15 +161,11 @@ class EditFragment : Fragment() {
     private fun updateItem() {
         val name = binding.editName.text.toString()
         val category = binding.editCategory.text.toString()
-        // val deadline = binding.addDeadline.text.toString()
+        val deadline = "${dateString}T${timeString}"
 
-        /*Calendar management*/
-        val day=binding.datePicker.dayOfMonth.toString()
-        val month=binding.datePicker.month.toString()
-        val year=binding.datePicker.year.toString()
-        val deadline="${day}/${month}/${year}"
 
-        if(inputCheck(name, category)){
+
+        if(inputCheck(name, category,deadline)){
             // Create Item Object
             val item = Item(args.currentItem.id, name, category, deadline, args.currentItem.isDone)
 
@@ -166,8 +184,8 @@ class EditFragment : Fragment() {
 
     }
 
-    private fun inputCheck(name : String, category: String) : Boolean {
-        return !(TextUtils.isEmpty(name) || TextUtils.isEmpty(category))
+    private fun inputCheck(name : String, category: String, deadline : String) : Boolean {
+        return !(TextUtils.isEmpty(name) || TextUtils.isEmpty(category) || TextUtils.isEmpty(deadline))
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -226,6 +244,36 @@ class EditFragment : Fragment() {
             }
         }
         return found
+    }
+
+
+
+
+    private fun getDateTimeCalendar() {
+        val cal = Calendar.getInstance()
+        year = cal.get(Calendar.YEAR)
+        month = cal.get(Calendar.MONTH)
+        day = cal.get(Calendar.DAY_OF_MONTH)
+        hour = cal.get(Calendar.HOUR_OF_DAY)
+        minute = cal.get(Calendar.MINUTE)
+    }
+
+    private fun generateDate(year:Int, month: Int, day: Int, backwards: Boolean): String {
+        var monthStr = (month+1).toString()
+        var dayStr = day.toString()
+        if(monthStr.length == 1) monthStr = "0${monthStr}"
+        if(dayStr.length == 1) monthStr = "0${dayStr}"
+        Log.d("", "genero data $dayStr/$monthStr/$year")
+        if(backwards) return "$dayStr-$monthStr-$year"
+        return "$year-$monthStr-$dayStr"
+    }
+
+    private fun generateTime(hour:Int, minute:Int): String{
+        var hourString = hour.toString()
+        var minuteString = minute.toString()
+        if(hourString.length == 1) hourString = "0${hourString}"
+        if(minuteString.length == 1) minuteString = "0${minuteString}"
+        return "$hourString:$minuteString"
     }
 
 

@@ -20,6 +20,7 @@
 
     <!-- Strings used for editFragment and addFragment -->
     <string name="categoryLabel">Category</string>
+    <string name="newCategoryLabel">New category</string>
     <string name="toDoLabel">To do</string>
     <string name="dateLabel">Date</string>
     <string name="timeLabel">Time</string>

@@ -68,9 +68,6 @@ class AddFragment : Fragment(), DatePickerDialog.OnDateSetListener, TimePickerDi
        }
 
        // GESTIONE DATE-TIME PICKING
-       val btnDate: ImageButton = binding.btnAddDate
-       val btnTime: ImageButton = binding.btnAddTime
-
        binding.addDate.setOnFocusChangeListener{view,b->
            if(b) {
                getDateTimeCalendar()

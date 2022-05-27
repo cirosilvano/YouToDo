@@ -153,8 +153,8 @@
 
     <HorizontalScrollView
         android:id="@+id/horizontalScrollView2"
-        android:layout_width="409dp"
-        android:layout_height="98dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -177,7 +177,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:boxBackgroundMode="outline"
-        app:startIconContentDescription="@string/categoryLabel"
+        app:startIconContentDescription="@string/newCategoryLabel"
         app:endIconMode="clear_text"
         app:boxCornerRadiusTopEnd="16dp"
         app:boxCornerRadiusTopStart="16dp"
@@ -196,32 +196,6 @@
             android:layout_height="55dp"
             android:hint="@string/categoryLabel" />
     </com.google.android.material.textfield.TextInputLayout>
-
-
-    <ImageButton
-        android:id="@+id/btnAddDate"
-        android:layout_width="56dp"
-        android:layout_height="56dp"
-        android:layout_marginStart="4dp"
-        android:src="@drawable/ic_baseline_date_range_24"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/textInputLayoutDate"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.286" />
-
-    <ImageButton
-        android:id="@+id/btnAddTime"
-        android:layout_width="57dp"
-        android:layout_height="56dp"
-        android:src="@drawable/ic_baseline_access_time_24"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/textInputLayoutTime"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.405" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -13,6 +13,7 @@
     <string name="more_actions">More actions</string>
     <string name="add_button">ADD</string>
     <string name="edit_button">EDIT</string>
+
     <!-- Strings used for mainFragment -->
     <string name="free">You\'re free</string>
     <string name="changeTheme">Themes:</string>
@@ -20,8 +21,10 @@
     <!-- Strings used for editFragment and addFragment -->
     <string name="categoryLabel">Category</string>
     <string name="toDoLabel">To do</string>
+    <string name="dateLabel">Date</string>
+    <string name="timeLabel">Time</string>
 
-    <string name="Reset">Reset</string>
+    <string name="Reset">RESET</string>
     <string name="DynamicColors">Dynamic colors</string>
 
 </resources>

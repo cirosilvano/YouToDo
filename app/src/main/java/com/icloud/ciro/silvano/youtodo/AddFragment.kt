@@ -33,7 +33,7 @@ class AddFragment : Fragment(), DatePickerDialog.OnDateSetListener, TimePickerDi
     private lateinit var itemViewModel: ItemViewModel
     private lateinit var chipGroupAdd:ChipGroup
 
-    // VARIABILI DI SUPPORTO DATE-TIME (sembrano inutili, ma servono!)
+    // VARIABILI DI SUPPORTO DATE-TIME
     var year = 0
     var month = 0
     var day = 0
@@ -71,15 +71,18 @@ class AddFragment : Fragment(), DatePickerDialog.OnDateSetListener, TimePickerDi
        val btnDate: ImageButton = binding.btnAddDate
        val btnTime: ImageButton = binding.btnAddTime
 
-
-       btnDate.setOnClickListener() {
-           getDateTimeCalendar()
-           DatePickerDialog(requireContext(), this, year, month, day).show()
+       binding.addDate.setOnFocusChangeListener{view,b->
+           if(b) {
+               getDateTimeCalendar()
+               DatePickerDialog(requireContext(), this, year, month, day).show()
+           }
        }
 
-       btnTime.setOnClickListener() {
-           getDateTimeCalendar()
-           TimePickerDialog(requireContext(), this, hour, minute, true).show()
+       binding.addTime.setOnFocusChangeListener{view,b->
+           if(b) {
+               getDateTimeCalendar()
+               TimePickerDialog(requireContext(), this, hour, minute, true).show()
+           }
        }
 
        // fine time picking -------

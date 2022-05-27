@@ -47,18 +47,96 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="SpeakableTextPresentCheck" />
 
-    <EditText
-        android:id="@+id/addName"
+
+    <com.google.android.material.textfield.TextInputLayout
+
+        android:id="@+id/textInputLayoutToDo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:ems="10"
-        android:hint="@string/toDoLabel"
-        android:inputType="textPersonName"
-        android:textSize="20dp"
+        app:boxBackgroundMode="outline"
+        app:startIconContentDescription="@string/toDoLabel"
+        app:endIconMode="clear_text"
+        app:boxCornerRadiusTopEnd="16dp"
+        app:boxCornerRadiusTopStart="16dp"
+        app:boxCornerRadiusBottomEnd="16dp"
+        app:boxCornerRadiusBottomStart="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.472"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView6" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.174">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/addName"
+            android:layout_width="252dp"
+            android:layout_height="56dp"
+            android:hint="@string/toDoLabel" />
+
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <com.google.android.material.textfield.TextInputLayout
+
+        android:id="@+id/textInputLayoutDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:focusable="false"
+        app:boxBackgroundMode="outline"
+        app:endIconContentDescription="@string/dateLabel"
+        app:startIconDrawable="@drawable/ic_baseline_calendar_today_24"
+        app:endIconMode="clear_text"
+        app:boxCornerRadiusTopEnd="16dp"
+        app:boxCornerRadiusTopStart="16dp"
+        app:boxCornerRadiusBottomEnd="16dp"
+        app:boxCornerRadiusBottomStart="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.423"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.284"
+       >
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/addDate"
+            android:layout_width="234dp"
+            android:layout_height="56dp"
+            android:hint="@string/dateLabel"
+            />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+
+        android:id="@+id/textInputLayoutTime"
+        android:layout_width="wrap_content"
+        android:focusable="false"
+        android:layout_height="wrap_content"
+        app:boxBackgroundMode="outline"
+        app:startIconContentDescription="@string/dateLabel"
+        app:endIconMode="clear_text"
+        app:startIconDrawable="@drawable/ic_baseline_access_time_24"
+        app:boxCornerRadiusTopEnd="16dp"
+        app:boxCornerRadiusTopStart="16dp"
+        app:boxCornerRadiusBottomEnd="16dp"
+        app:boxCornerRadiusBottomStart="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.423"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.405"
+        >
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/addTime"
+            android:layout_width="234dp"
+            android:layout_height="56dp"
+            android:hint="@string/timeLabel"
+            />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+
 
     <TextView
         android:id="@+id/txtCategory"
@@ -93,63 +171,57 @@
         </com.google.android.material.chip.ChipGroup>
     </HorizontalScrollView>
 
-    <EditText
-        android:id="@+id/editAddCategory"
-        android:layout_width="268dp"
-        android:layout_height="55dp"
-        android:ems="10"
-        android:hint="@string/categoryLabel"
-        android:inputType="textPersonName"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.475"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/horizontalScrollView2"
-        app:layout_constraintVertical_bias="0.0" />
 
-    <EditText
-        android:id="@+id/addDate"
+
+    <com.google.android.material.textfield.TextInputLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:editable="false"
-        android:ems="10"
-        android:inputType="date"
-        android:textSize="20dp"
+        app:boxBackgroundMode="outline"
+        app:startIconContentDescription="@string/categoryLabel"
+        app:endIconMode="clear_text"
+        app:boxCornerRadiusTopEnd="16dp"
+        app:boxCornerRadiusTopStart="16dp"
+        app:boxCornerRadiusBottomEnd="16dp"
+        app:boxCornerRadiusBottomStart="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.471"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/addName" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.787">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/editAddCategory"
+            android:layout_width="234dp"
+            android:layout_height="55dp"
+            android:hint="@string/categoryLabel" />
+    </com.google.android.material.textfield.TextInputLayout>
+
 
     <ImageButton
         android:id="@+id/btnAddDate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="30dp"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:layout_marginStart="4dp"
         android:src="@drawable/ic_baseline_date_range_24"
-        app:layout_constraintStart_toEndOf="@+id/addDate"
-        app:layout_constraintTop_toBottomOf="@+id/addName" />
-
-    <EditText
-        android:id="@+id/addTime"
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="50dp"
-        android:layout_marginTop="28dp"
-        android:editable="false"
-        android:ems="10"
-        android:inputType="time"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/addDate" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/textInputLayoutDate"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.286" />
 
     <ImageButton
         android:id="@+id/btnAddTime"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="30dp"
+        android:layout_width="57dp"
+        android:layout_height="56dp"
         android:src="@drawable/ic_baseline_access_time_24"
-        app:layout_constraintStart_toEndOf="@+id/addTime"
-        app:layout_constraintTop_toBottomOf="@+id/addDate" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/textInputLayoutTime"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.405" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

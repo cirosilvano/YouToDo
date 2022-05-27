@@ -35,11 +35,7 @@ class ItemRepository(private val itemDao: ItemDao, private val categoryDao: Cate
         return itemDao.selectFilteredItems(name)
     }
 
-    fun selectItemsDone() : LiveData<List<Item>> {
-        return itemDao.selectItemsDone()
-    }
-
-    fun selectItemsToDo() : LiveData<List<Item>> {
-        return itemDao.selectItemsToDo()
+    fun selectItemsDone(done : Int) : LiveData<List<Item>> {
+        return itemDao.selectItemsDone(done)
     }
 }

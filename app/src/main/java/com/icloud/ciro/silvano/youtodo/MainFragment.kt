@@ -133,7 +133,12 @@ class MainFragment : Fragment(), OnItemSwipeListener {
                 it.setOnClickListener {
                     var myChip:Chip=it as Chip
 
-                    itemViewModel.selectFilteredItems(myChip.text.toString()).observe(viewLifecycleOwner, Observer { filteredList ->
+                    //Remove all observers
+                    itemViewModel.showAllItems.removeObservers(viewLifecycleOwner)
+                    itemViewModel.showItemsDone.removeObservers(viewLifecycleOwner)
+
+                    itemViewModel.setCategory(myChip.text.toString())
+                    itemViewModel.showItemsCategory.observe(viewLifecycleOwner, Observer { filteredList ->
                         adapter.setData(filteredList)
 
                         if(adapter.itemCount>0){
@@ -160,10 +165,35 @@ class MainFragment : Fragment(), OnItemSwipeListener {
 
         bottomAppBar.setOnItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
-                
+                R.id.all_nav -> {
+                    //Remove all observers
+                    itemViewModel.showAllItems.removeObservers(viewLifecycleOwner)
+                    itemViewModel.showItemsDone.removeObservers(viewLifecycleOwner)
+                    itemViewModel.showItemsCategory.removeObservers(viewLifecycleOwner)
+
+                    itemViewModel.showAllItems.observe(viewLifecycleOwner, Observer { toDoList ->
+                        adapter.setData(toDoList)
+
+                        if(adapter.itemCount>0){
+                            ivFree.isVisible=false
+                            tvFree.isVisible=false
+
+                        }
+                        else{
+                            ivFree.isVisible=true
+                            tvFree.isVisible=true
+                        }
+                    })
+                    true
+                }
 
                 R.id.to_do_nav -> {
-                    itemViewModel.selectItemsToDo().observe(viewLifecycleOwner, Observer { toDoList ->
+                    //Remove all observers
+                    itemViewModel.showAllItems.removeObservers(viewLifecycleOwner)
+                    itemViewModel.showItemsCategory.removeObservers(viewLifecycleOwner)
+
+                    itemViewModel.setDone(0)
+                    itemViewModel.showItemsDone.observe(viewLifecycleOwner, Observer { toDoList ->
                         adapter.setData(toDoList)
 
                         if(adapter.itemCount>0){
@@ -180,7 +210,12 @@ class MainFragment : Fragment(), OnItemSwipeListener {
                 }
 
                 R.id.done_nav -> {
-                    itemViewModel.selectItemsDone().observe(viewLifecycleOwner, Observer { doneList ->
+                    //Remove all observers
+                    itemViewModel.showAllItems.removeObservers(viewLifecycleOwner)
+                    itemViewModel.showItemsCategory.removeObservers(viewLifecycleOwner)
+
+                    itemViewModel.setDone(1)
+                    itemViewModel.showItemsDone.observe(viewLifecycleOwner, Observer { doneList ->
                         adapter.setData(doneList)
 
                         if(adapter.itemCount>0){

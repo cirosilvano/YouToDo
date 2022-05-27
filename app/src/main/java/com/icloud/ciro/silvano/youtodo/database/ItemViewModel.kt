@@ -1,13 +1,10 @@
 package com.icloud.ciro.silvano.youtodo.database
 
 import android.app.Application
-import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.viewModelScope
-import com.icloud.ciro.silvano.youtodo.database.ItemDatabase
-import com.icloud.ciro.silvano.youtodo.database.ItemRepository
+import androidx.lifecycle.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+
 
 /*classe ItemViewModel
 * ha il compito di fornire i dati alla UI e i cambiamenti di configurazione
@@ -19,12 +16,35 @@ class ItemViewModel(application: Application): AndroidViewModel(application) {
     val showAllCategories: LiveData<List<Category>>
     private val repository: ItemRepository
 
+    private val filterLiveDataDone = MutableLiveData<Int>()
+    val showItemsDone: LiveData<List<Item>>
+
+    private val filterLiveDataCategory = MutableLiveData<String>()
+    val showItemsCategory: LiveData<List<Item>>
+
+
     init {
         val itemDao = ItemDatabase.getDatabase(application).itemDao()
         val categoryDao = ItemDatabase.getDatabase(application).categoryDao()
         repository = ItemRepository(itemDao, categoryDao)
         showAllItems = repository.readAllItemsData
         showAllCategories = repository.readAllCategoryData
+
+        showItemsDone = Transformations.switchMap(filterLiveDataDone) { v -> Int
+            repository.selectItemsDone(v)
+        }
+
+        showItemsCategory = Transformations.switchMap(filterLiveDataCategory) { s -> String
+            repository.selectFilteredItems(s)
+        }
+    }
+
+    fun setDone(done: Int) {
+        filterLiveDataDone.value = done
+    }
+
+    fun setCategory(filter: String) {
+        filterLiveDataCategory.value = filter
     }
 
     fun addItem(item: Item){
@@ -53,17 +73,5 @@ class ItemViewModel(application: Application): AndroidViewModel(application) {
     }
     fun deleteCategory(category: Category) : Int{
         return repository.deleteCategory(category)
-    }
-
-    fun selectFilteredItems(name : String) : LiveData<List<Item>> {
-        return repository.selectFilteredItems(name)
-    }
-
-    fun selectItemsDone() : LiveData<List<Item>> {
-        return repository.selectItemsDone()
-    }
-
-    fun selectItemsToDo() : LiveData<List<Item>> {
-        return repository.selectItemsToDo()
     }
 }

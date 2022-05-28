@@ -1,14 +1,12 @@
 package com.icloud.ciro.silvano.youtodo
 
-import android.database.DataSetObserver
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.SpinnerAdapter
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.icloud.ciro.silvano.youtodo.database.Category
-import com.icloud.ciro.silvano.youtodo.database.Item
 
 class CategoryAdapter(private val onItemClicked:(Category)->Unit): RecyclerView.Adapter<CategoryAdapter.MyViewHolder>() {
 
@@ -16,11 +14,12 @@ class CategoryAdapter(private val onItemClicked:(Category)->Unit): RecyclerView.
 
 
     class MyViewHolder(categoryView : View) : RecyclerView.ViewHolder(categoryView){
-        var btnCat=categoryView.findViewById<Button>(R.id.btnCat)
-
+         var btnCat=categoryView.findViewById<Button>(R.id.btnCat)
+        //var txtCatFrag=categoryView.findViewById<TextView>(R.id.txtCatFrag)
         /*Inizializzazione nome del bottone*/
         fun bind (name:String){
             btnCat.text=name
+            //txtCatFrag.text=name
         }
     }
 
@@ -36,6 +35,7 @@ class CategoryAdapter(private val onItemClicked:(Category)->Unit): RecyclerView.
         val currentCat=listCat[position]
         holder.bind(currentCat.name)
         holder.btnCat.setOnClickListener { onItemClicked(currentCat) }
+        //holder.txtCatFrag.setOnClickListener { onItemClicked(currentCat) }
 
     }
 

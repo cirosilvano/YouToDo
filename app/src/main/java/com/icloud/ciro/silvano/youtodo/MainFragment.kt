@@ -82,7 +82,6 @@ class MainFragment : Fragment(), OnItemSwipeListener {
 
         itemViewModel.showAllItems.observe(viewLifecycleOwner, Observer{ card ->
             adapter.setData(card)
-             Log.d("","SHOW card value: ${card}")
 
             if(adapter.itemCount>0){
                 ivFree.isVisible=false

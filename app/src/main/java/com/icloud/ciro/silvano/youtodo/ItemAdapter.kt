@@ -155,7 +155,7 @@ class ItemAdapter(val onItemSwipeListener: OnItemSwipeListener) : RecyclerView.A
                                 override fun onAnimationEnd(animation: Animator) {
                                     // check if the swipe distance was more than
                                     // minimum swipe required to load a new quote
-                                    if (currentX < -250) {
+                                    if (currentX < -80) {
                                         // Add logic to load a new quote if swiped adequately
                                         onItemSwipeListener.onItemSwipe(currentItem)
                                         currentX = 0f

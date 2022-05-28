@@ -134,18 +134,27 @@ class AddFragment : Fragment(), DatePickerDialog.OnDateSetListener, TimePickerDi
        /* Gestione inserimento nuova categoria*/
 
        binding.editAddCategory.setOnKeyListener(View.OnKeyListener{v, keyCode,event ->
-           if(keyCode== KeyEvent.KEYCODE_ENTER && event.action== KeyEvent.ACTION_UP) {
-               if(existingCat(binding.editAddCategory.text.toString())) {
-                   Toast.makeText(requireContext(), "Existing category !", Toast.LENGTH_LONG).show()
-               }
-               else{
-                   chipGroupAdd.clearCheck()
-                   chipGroupAdd.addChip(requireActivity(), binding.editAddCategory.text.toString())
-                   itemViewModel.addCategory(Category(binding.editAddCategory.text.toString()))
-               }
-               true
+           if(event.action== KeyEvent.ACTION_UP && keyCode== KeyEvent.KEYCODE_ENTER ){
+               Log.d("","CATEGORIA INSERITA TEXTFIELD:${binding.editAddCategory.text.toString()}")
 
+               var textVal=binding.editAddCategory.text.toString().trim()
+               if(existingCat(textVal)) {
+                   Toast.makeText(requireContext(), "Existing category !", Toast.LENGTH_LONG).show()
+
+               }
+              else if(textVal.isEmpty()){
+                   Toast.makeText(requireContext(), "Choose a category !", Toast.LENGTH_LONG).show()
+                   binding.editAddCategory.setText("")
+                     }
+                    else{
+                        chipGroupAdd.addChip(requireActivity(), binding.editAddCategory.text.toString())
+                        itemViewModel.addCategory(Category(binding.editAddCategory.text.toString()))
+                        chipGroupAdd.clearCheck()
+                    }
+               binding.editAddCategory.setText("")
+               true
            }
+
            false
        })
 
@@ -212,13 +221,19 @@ class AddFragment : Fragment(), DatePickerDialog.OnDateSetListener, TimePickerDi
 
 
     private fun existingCat(name:String):Boolean {
-        var found:Boolean=false
+        var found=false
+        Log.d("","CATEGORIA INSERITA:${name.toString()}")
         for(j in chipGroupAdd.children){
             var currChip= j as Chip
-            if(currChip.text.toString().toLowerCase()==name.toLowerCase() || currChip.text.toString().toLowerCase()==(name+" ").toLowerCase()){
+            Log.d("","CATEGORIA CHIP:${currChip.text.toString()}")
+            if(name.toLowerCase().contains(currChip.text.toString().toLowerCase())){
+                Log.d("","ENTRO")
+
                 found=true
+                break
             }
         }
+        Log.d("","TROVATA? ${found}")
         return found
     }
 

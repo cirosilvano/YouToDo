@@ -131,18 +131,27 @@ class EditFragment : Fragment(), DatePickerDialog.OnDateSetListener, TimePickerD
         /* Gestione inserimento nuova categoria*/
 
         binding.editCategory.setOnKeyListener(View.OnKeyListener{v, keyCode,event ->
-            if(keyCode== KeyEvent.KEYCODE_ENTER && event.action== KeyEvent.ACTION_UP){
-                if(existingCat(binding.editCategory.text.toString())) {
+            if(event.action== KeyEvent.ACTION_UP && keyCode== KeyEvent.KEYCODE_ENTER ){
+                Log.d("","CATEGORIA INSERITA TEXTFIELD:${binding.editCategory.text.toString()}")
+
+                var textVal=binding.editCategory.text.toString().trim()
+                if(existingCat(textVal)) {
                     Toast.makeText(requireContext(), "Existing category !", Toast.LENGTH_LONG).show()
+
+                }
+                else if(textVal.isEmpty()){
+                    Toast.makeText(requireContext(), "Choose a category !", Toast.LENGTH_LONG).show()
+                    binding.editCategory.setText("")
                 }
                 else{
-
-                    chipGroupEdit.clearCheck()
                     chipGroupEdit.addChip(requireActivity(), binding.editCategory.text.toString())
                     itemViewModel.addCategory(Category(binding.editCategory.text.toString()))
+                    chipGroupEdit.clearCheck()
                 }
+                binding.editCategory.setText("")
                 true
             }
+
             false
         })
 
@@ -252,13 +261,19 @@ class EditFragment : Fragment(), DatePickerDialog.OnDateSetListener, TimePickerD
     }
 
     private fun existingCat(name:String):Boolean {
-        var found:Boolean=false
+        var found=false
+        Log.d("","CATEGORIA INSERITA:${name.toString()}")
         for(j in chipGroupEdit.children){
             var currChip= j as Chip
-            if(currChip.text.toString().toLowerCase()==name.toLowerCase() || currChip.text.toString().toLowerCase()==(name+" ").toLowerCase()){
+            Log.d("","CATEGORIA CHIP:${currChip.text.toString()}")
+            if(name.toLowerCase().contains(currChip.text.toString().toLowerCase())){
+                Log.d("","ENTRO")
+
                 found=true
+                break
             }
         }
+        Log.d("","TROVATA? ${found}")
         return found
     }
 

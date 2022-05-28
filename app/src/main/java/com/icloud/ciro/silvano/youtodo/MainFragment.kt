@@ -263,7 +263,6 @@ class MainFragment : Fragment(), OnItemSwipeListener {
                 } catch(e : android.database.sqlite.SQLiteConstraintException) {
                     Toast.makeText(requireContext(), "Impossibile eliminare la category perché ci sono card con quella.  ", Toast.LENGTH_LONG).show()
                 }
-                Log.d("", "COSA SEI? ${success}")
                 if(success > 0) {
                     //Rimozione della chip
                     removeView(this)

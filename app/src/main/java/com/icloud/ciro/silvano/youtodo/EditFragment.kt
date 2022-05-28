@@ -32,7 +32,7 @@ import com.icloud.ciro.silvano.youtodo.database.Item
 import com.icloud.ciro.silvano.youtodo.databinding.FragmentEditBinding
 import java.time.LocalDateTime
 
-class EditFragment : Fragment(), DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
+class EditFragment : Fragment(), DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener, CategoryListener {
 
     private var _binding: FragmentEditBinding? = null
     private val binding get() = _binding!!
@@ -70,8 +70,7 @@ class EditFragment : Fragment(), DatePickerDialog.OnDateSetListener, TimePickerD
         _binding = FragmentEditBinding.inflate(inflater, container, false)
         chipGroupEdit=binding.chipGroupEdit
 
-        val adapterCat=CategoryAdapter{model ->
-        }
+        val adapterCat=CategoryAdapter(this)
         itemViewModel = ViewModelProvider(this).get(ItemViewModel::class.java)
         itemViewModel.showAllCategories.observe(viewLifecycleOwner, Observer{ cat ->
             adapterCat.setDataCat(cat)
@@ -307,6 +306,14 @@ class EditFragment : Fragment(), DatePickerDialog.OnDateSetListener, TimePickerD
         binding.editTime.setText(gen)
         timeString = "${gen}:00"
         Log.d("TIME SET", "set timeString to $timeString")
+    }
+
+    override fun categoryEdit(category: Category) {
+        TODO("Not yet implemented")
+    }
+
+    override fun categoryDelete(category: Category) {
+        TODO("Not yet implemented")
     }
 
 

@@ -14,7 +14,7 @@ import com.icloud.ciro.silvano.youtodo.database.ItemViewModel
 import com.icloud.ciro.silvano.youtodo.databinding.FragmentCategoryBinding
 
 
-class CategoryFragment : Fragment() {
+class CategoryFragment : Fragment(), CategoryListener {
 
     private var _binding: FragmentCategoryBinding? = null
     private val binding get() = _binding!!
@@ -28,7 +28,7 @@ class CategoryFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         _binding = FragmentCategoryBinding.inflate(inflater, container, false)
         val btnBack = binding.backCategoryButton
-        val adapterCat=CategoryAdapter{}
+        val adapterCat=CategoryAdapter(this)
         val recyclerView = binding.catList
         recyclerView.adapter = adapterCat
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
@@ -44,5 +44,13 @@ class CategoryFragment : Fragment() {
 
         })
             return binding.root
+    }
+
+    override fun categoryEdit(category: Category) {
+        TODO("Not yet implemented")
+    }
+
+    override fun categoryDelete(category: Category) {
+        TODO("Not yet implemented")
     }
 }

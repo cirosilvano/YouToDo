@@ -28,7 +28,7 @@ import com.icloud.ciro.silvano.youtodo.database.ItemViewModel
 import com.icloud.ciro.silvano.youtodo.database.Item
 import com.icloud.ciro.silvano.youtodo.databinding.FragmentAddBinding
 
-class AddFragment : Fragment(), DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
+class AddFragment : Fragment(), DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener, CategoryListener {
 
     private var _binding: FragmentAddBinding? = null
     private val binding get() = _binding!!
@@ -87,9 +87,7 @@ class AddFragment : Fragment(), DatePickerDialog.OnDateSetListener, TimePickerDi
        // fine time picking -------
 
 
-       val adapterCat=CategoryAdapter{model ->
-           //binding.editAddCategory.setText(model.name)
-       }
+       val adapterCat=CategoryAdapter(this)
 
        itemViewModel = ViewModelProvider(this).get(ItemViewModel::class.java)
 
@@ -262,6 +260,14 @@ class AddFragment : Fragment(), DatePickerDialog.OnDateSetListener, TimePickerDi
         day = cal.get(Calendar.DAY_OF_MONTH)
         hour = cal.get(Calendar.HOUR_OF_DAY)
         minute = cal.get(Calendar.MINUTE)
+    }
+
+    override fun categoryEdit(category: Category) {
+        TODO("Not yet implemented")
+    }
+
+    override fun categoryDelete(category: Category) {
+        TODO("Not yet implemented")
     }
 
 

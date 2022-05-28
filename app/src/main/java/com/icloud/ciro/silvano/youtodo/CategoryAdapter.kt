@@ -4,29 +4,32 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ImageButton
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.icloud.ciro.silvano.youtodo.database.Category
 
-class CategoryAdapter(private val onItemClicked:(Category)->Unit): RecyclerView.Adapter<CategoryAdapter.MyViewHolder>() {
+class CategoryAdapter(val catListener: CategoryListener): RecyclerView.Adapter<CategoryAdapter.MyViewHolder>() {
 
     var listCat=emptyList<Category>()
 
 
     class MyViewHolder(categoryView : View) : RecyclerView.ViewHolder(categoryView){
-         var btnCat=categoryView.findViewById<Button>(R.id.btnCat)
-        //var txtCatFrag=categoryView.findViewById<TextView>(R.id.txtCatFrag)
+        var btnModifyCat : ImageButton =categoryView.findViewById(R.id.btnModifyCat)
+        var txtCatFrag : TextView =categoryView.findViewById(R.id.txtCatFrag)
+        val btnDeleteCat : ImageButton = categoryView.findViewById(R.id.btnDeleteCat)
+
         /*Inizializzazione nome del bottone*/
         fun bind (name:String){
-            btnCat.text=name
-            //txtCatFrag.text=name
+            //btnCat.text=name
+            txtCatFrag.text=name
         }
     }
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoryAdapter.MyViewHolder {
         return CategoryAdapter.MyViewHolder(
-            LayoutInflater.from(parent.context).inflate(R.layout.button_category, parent, false)
+            LayoutInflater.from(parent.context).inflate(R.layout.categorylist_item, parent, false)
         )
 
     }
@@ -34,8 +37,8 @@ class CategoryAdapter(private val onItemClicked:(Category)->Unit): RecyclerView.
     override fun onBindViewHolder(holder: CategoryAdapter.MyViewHolder, position: Int) {
         val currentCat=listCat[position]
         holder.bind(currentCat.name)
-        holder.btnCat.setOnClickListener { onItemClicked(currentCat) }
-        //holder.txtCatFrag.setOnClickListener { onItemClicked(currentCat) }
+        holder.btnModifyCat.setOnClickListener { catListener.categoryEdit(currentCat) }
+        holder.btnDeleteCat.setOnClickListener { catListener.categoryDelete(currentCat) }
 
     }
 

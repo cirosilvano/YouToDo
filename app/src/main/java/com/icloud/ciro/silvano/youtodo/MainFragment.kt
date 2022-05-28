@@ -32,7 +32,7 @@ import com.icloud.ciro.silvano.youtodo.database.Category
 import com.icloud.ciro.silvano.youtodo.database.Item
 import com.icloud.ciro.silvano.youtodo.databinding.FragmentMainBinding
 
-class MainFragment : Fragment(), OnItemSwipeListener {
+class MainFragment : Fragment(), OnItemSwipeListener, CategoryListener {
 
     private var _binding: FragmentMainBinding? = null
     private val binding get() = _binding!!
@@ -66,9 +66,7 @@ class MainFragment : Fragment(), OnItemSwipeListener {
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
 
-        val adapterCat=CategoryAdapter{
-            currentCat=it
-        }
+        val adapterCat=CategoryAdapter(this)
        /*val recyclerViewCat=binding.catList
         recyclerViewCat.adapter=adapterCat
         recyclerViewCat.layoutManager = LinearLayoutManager(requireContext(),LinearLayoutManager.HORIZONTAL,false)*/
@@ -213,8 +211,7 @@ class MainFragment : Fragment(), OnItemSwipeListener {
 
                 R.id.done_nav -> {
                     //Remove all observers
-                    itemViewModel.showAllItems.removeObservers(viewLifecycleOwner)
-                    itemViewModel.showItemsCategory.removeObservers(viewLifecycleOwner)
+                     itemViewModel.showItemsCategory.removeObservers(viewLifecycleOwner)
 
                     itemViewModel.setDone(1)
                     itemViewModel.showItemsDone.observe(viewLifecycleOwner, Observer { doneList ->
@@ -325,6 +322,14 @@ class MainFragment : Fragment(), OnItemSwipeListener {
             Toast.makeText(requireContext(), "Ordinamento categorie!", Toast.LENGTH_LONG).show()
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    override fun categoryEdit(category: Category) {
+        TODO("Not yet implemented")
+    }
+
+    override fun categoryDelete(category: Category) {
+        TODO("Not yet implemented")
     }
 
 }

@@ -66,6 +66,8 @@ class ItemAdapter(val onItemSwipeListener: OnItemSwipeListener) : RecyclerView.A
                         else -> {
                             if(period.days < 7) {
                                 deadline_gen = "${DateTimeFormatHelper.weekDays(ld.dayOfWeek, res)}, ${generateTime(ldt.hour, ldt.minute)}"
+                            } else {
+                                deadline_gen = generateDateTime(ldt.year, ldt.monthValue, ldt.dayOfMonth, ldt.hour, ldt.minute)
                             }
                         }
                     }

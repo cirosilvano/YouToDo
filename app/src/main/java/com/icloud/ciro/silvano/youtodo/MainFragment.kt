@@ -7,10 +7,8 @@ import android.app.TimePickerDialog
 import android.content.Context
 import android.os.Bundle
 import android.util.Log
+import android.view.*
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import android.widget.*
 import androidx.core.view.children
 import androidx.core.view.isVisible
@@ -18,12 +16,14 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.observe
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.transition.TransitionInflater
+import com.google.android.material.appbar.MaterialToolbar
 import com.icloud.ciro.silvano.youtodo.database.ItemViewModel
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.chip.Chip
@@ -46,6 +46,7 @@ class MainFragment : Fragment(), OnItemSwipeListener {
     private var mainActivity=getActivity()
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        setHasOptionsMenu(true)
         super.onCreate(savedInstanceState)
         val inflater = TransitionInflater.from(requireContext())
         exitTransition = inflater.inflateTransition(R.transition.fade)
@@ -55,6 +56,7 @@ class MainFragment : Fragment(), OnItemSwipeListener {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle? ): View? {
         // Inflate the layout for this fragment
+
     Log.d("","mainActivity: ${mainActivity}")
          _binding = FragmentMainBinding.inflate(inflater, container, false)
         chipGroupMain=binding.chipGroupMain
@@ -241,6 +243,19 @@ class MainFragment : Fragment(), OnItemSwipeListener {
             }
         }
 
+        var topAppBar:MaterialToolbar=binding.topAppBar
+        topAppBar.setOnMenuItemClickListener { menuItem ->
+            when (menuItem.itemId) {
+                R.id.GestCat -> {
+                    val action = MainFragmentDirections.actionMainFragmentToCategoryFragment()
+                    findNavController().navigate(action)
+                    true
+                }
+
+                else -> false
+            }
+        }
+
         return binding.root
     }//OnCreateView
 
@@ -293,6 +308,24 @@ class MainFragment : Fragment(), OnItemSwipeListener {
         builder.setMessage("Are you sure you want to delete ${item.name} ?")
 
         builder.create().show()
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.menu_category,menu)
+        super.onCreateOptionsMenu(menu, inflater)
+
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        val id=item.itemId
+        if(id==R.id.GestCat){
+            val action = MainFragmentDirections.actionMainFragmentToCategoryFragment()
+            findNavController().navigate(action)
+        }
+        if(id==R.id.toDoOrder){
+            Toast.makeText(requireContext(), "Ordinamento categorie!", Toast.LENGTH_LONG).show()
+        }
+        return super.onOptionsItemSelected(item)
     }
 
 }

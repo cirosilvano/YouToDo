@@ -38,5 +38,6 @@
     <string name="sunday">Sunday</string>
     <string name="today">Today</string>
     <string name="tomorrow">Tomorrow</string>
+    <string name="yesterday">Yesterday</string>
 
 </resources>

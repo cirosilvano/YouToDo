@@ -31,4 +31,5 @@
     <string name="sunday">Domenica</string>
     <string name="tomorrow">Domani</string>
     <string name="today">Oggi</string>
+    <string name="yesterday">Ieri</string>
 </resources>

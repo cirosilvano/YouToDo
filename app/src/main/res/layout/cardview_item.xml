@@ -17,40 +17,61 @@
         android:layout_height="120dp"
         android:elevation="5dp">
 
-        <TextView
-            android:id="@+id/itemName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="15dp"
-            android:fontFamily="@font/alike"
-            android:text="Write a chapter"
-            android:textSize="30sp"
-            app:layout_constraintStart_toEndOf="@+id/cbDone"
-            app:layout_constraintTop_toTopOf="parent" />
+        <HorizontalScrollView
+            android:id="@+id/horizontalScrollView3"
+            android:layout_width="224dp"
+            android:layout_height="40dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.465"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.337">
+
+            <TextView
+                android:id="@+id/itemName"
+                android:layout_width="224dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="10dp"
+                android:fontFamily="@font/alike"
+                android:scrollHorizontally="true"
+                android:text="Write a chapter"
+                android:textSize="30sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toEndOf="@+id/cbDone"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.195" />
+        </HorizontalScrollView>
 
         <TextView
             android:id="@+id/itemDeadline"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginBottom="16dp"
+            android:layout_width="173dp"
+            android:layout_height="26dp"
             android:fontFamily="@font/alike"
             android:text="Today, 10:50"
-            android:textSize="20sp"
+            android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/cbDone" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.367"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/horizontalScrollView3"
+            app:layout_constraintVertical_bias="0.589" />
 
         <TextView
             android:id="@+id/itemCategory"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="80dp"
-            android:layout_marginBottom="4dp"
             android:fontFamily="@font/alike"
             android:text="TextView"
+            android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.353"
+            app:layout_constraintStart_toEndOf="@+id/itemDeadline"
+            app:layout_constraintTop_toBottomOf="@+id/horizontalScrollView3"
+            app:layout_constraintVertical_bias="0.702" />
 
         <CheckBox
             android:id="@+id/cbDone"
@@ -67,11 +88,13 @@
             android:id="@+id/editCard"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="60dp"
-            android:layout_marginEnd="4dp"
             android:backgroundTint="#00FFFFFF"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.955"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.181"
             app:srcCompat="@drawable/ic_baseline_edit_card_24" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

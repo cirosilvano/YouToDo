@@ -17,22 +17,21 @@ import androidx.core.view.children
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.transition.TransitionInflater
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 import com.icloud.ciro.silvano.youtodo.DateTimeFormatHelper.Companion.generateDate
 import com.icloud.ciro.silvano.youtodo.DateTimeFormatHelper.Companion.generateTime
 import com.icloud.ciro.silvano.youtodo.database.Category
-import com.icloud.ciro.silvano.youtodo.database.ItemViewModel
-import com.icloud.ciro.silvano.youtodo.database.Item
+import com.icloud.ciro.silvano.youtodo.database.ToDoViewModel
+import com.icloud.ciro.silvano.youtodo.database.Card
 import com.icloud.ciro.silvano.youtodo.databinding.FragmentAddBinding
 
 class AddFragment : Fragment(), DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener, CategoryListener {
 
     private var _binding: FragmentAddBinding? = null
     private val binding get() = _binding!!
-    private lateinit var itemViewModel: ItemViewModel
+    private lateinit var toDoViewModel: ToDoViewModel
     private lateinit var chipGroupAdd:ChipGroup
 
     // VARIABILI DI SUPPORTO DATE-TIME
@@ -63,7 +62,7 @@ class AddFragment : Fragment(), DatePickerDialog.OnDateSetListener, TimePickerDi
        _binding = FragmentAddBinding.inflate(inflater, container, false)
        val btnBack = binding.backAddButton
        chipGroupAdd=binding.chipGroupAdd
-       itemViewModel = ViewModelProvider(this).get(ItemViewModel::class.java)
+       toDoViewModel = ViewModelProvider(this).get(ToDoViewModel::class.java)
 
        btnBack.setOnClickListener {
            findNavController().navigate(R.id.action_addFragment_to_mainFragment)
@@ -89,15 +88,15 @@ class AddFragment : Fragment(), DatePickerDialog.OnDateSetListener, TimePickerDi
 
        val adapterCat=CategoryAdapter(this)
 
-       itemViewModel = ViewModelProvider(this).get(ItemViewModel::class.java)
+       toDoViewModel = ViewModelProvider(this).get(ToDoViewModel::class.java)
 
-       itemViewModel.showAllCategories.observe(viewLifecycleOwner, Observer{ cat ->
+       toDoViewModel.showAllCategories.observe(viewLifecycleOwner, Observer{ cat ->
            adapterCat.setDataCat(cat)
 
            if(adapterCat.itemCount==0){
-               itemViewModel.addCategory(Category("Tutti"))
-               itemViewModel.addCategory(Category("Lavoro"))
-               itemViewModel.addCategory(Category("Personale"))
+               toDoViewModel.addCategory(Category("Tutti"))
+               toDoViewModel.addCategory(Category("Lavoro"))
+               toDoViewModel.addCategory(Category("Personale"))
                chipGroupAdd.addChip(requireActivity(),"Tutti")
                chipGroupAdd.addChip(requireActivity(),"Lavoro")
                chipGroupAdd.addChip(requireActivity(),"Personale")
@@ -146,7 +145,7 @@ class AddFragment : Fragment(), DatePickerDialog.OnDateSetListener, TimePickerDi
                      }
                     else{
                         chipGroupAdd.addChip(requireActivity(), binding.editAddCategory.text.toString())
-                        itemViewModel.addCategory(Category(binding.editAddCategory.text.toString()))
+                        toDoViewModel.addCategory(Category(binding.editAddCategory.text.toString()))
                         chipGroupAdd.clearCheck()
                     }
                binding.editAddCategory.setText("")
@@ -176,12 +175,12 @@ class AddFragment : Fragment(), DatePickerDialog.OnDateSetListener, TimePickerDi
 
         if(inputCheck(name, category, deadline)){
             // Create Item Object
-            val item = Item(0, name, category, deadline, false)
+            val card = Card(0, name, category, deadline, false)
             val category= Category(category)
             // Add Data to Database
 
-            itemViewModel.addItem(item)
-            itemViewModel.addCategory(category)
+            toDoViewModel.addCard(card)
+            toDoViewModel.addCategory(category)
 
 
 
@@ -263,11 +262,9 @@ class AddFragment : Fragment(), DatePickerDialog.OnDateSetListener, TimePickerDi
     }
 
     override fun categoryEdit(category: Category) {
-        TODO("Not yet implemented")
     }
 
     override fun categoryDelete(category: Category) {
-        TODO("Not yet implemented")
     }
 
 

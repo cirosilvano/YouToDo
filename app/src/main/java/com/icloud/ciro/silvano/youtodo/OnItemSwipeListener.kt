@@ -1,8 +1,8 @@
 package com.icloud.ciro.silvano.youtodo
 
-import com.icloud.ciro.silvano.youtodo.database.Item
+import com.icloud.ciro.silvano.youtodo.database.Card
 
 interface OnItemSwipeListener {
-    fun onItemTouchCheck(item: Item)
-    fun onItemSwipe(item: Item)
+    fun onCheckCardClick(card: Card)
+    fun onCardSwipe(card: Card)
 }

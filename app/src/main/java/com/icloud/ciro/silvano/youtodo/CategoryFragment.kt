@@ -10,7 +10,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.icloud.ciro.silvano.youtodo.database.Category
-import com.icloud.ciro.silvano.youtodo.database.ItemViewModel
+import com.icloud.ciro.silvano.youtodo.database.ToDoViewModel
 import com.icloud.ciro.silvano.youtodo.databinding.FragmentCategoryBinding
 
 
@@ -18,7 +18,7 @@ class CategoryFragment : Fragment(), CategoryListener {
 
     private var _binding: FragmentCategoryBinding? = null
     private val binding get() = _binding!!
-    private lateinit var itemViewModel: ItemViewModel
+    private lateinit var toDoViewModel: ToDoViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,12 +32,13 @@ class CategoryFragment : Fragment(), CategoryListener {
         val recyclerView = binding.catList
         recyclerView.adapter = adapterCat
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
-        itemViewModel = ViewModelProvider(this).get(ItemViewModel::class.java)
+        toDoViewModel = ViewModelProvider(this).get(ToDoViewModel::class.java)
+
         btnBack.setOnClickListener {
             findNavController().navigate(R.id.action_categoryFragment_to_mainFragment)
         }
 
-        itemViewModel.showAllCategories.observe(viewLifecycleOwner, Observer { cat ->
+        toDoViewModel.showAllCategories.observe(viewLifecycleOwner, Observer { cat ->
             adapterCat.setDataCat(cat)
 
 
@@ -47,7 +48,27 @@ class CategoryFragment : Fragment(), CategoryListener {
     }
 
     override fun categoryEdit(category: Category) {
-        TODO("Not yet implemented")
+        /*val name = binding.editName.text.toString()
+        val category = binding.editCategory.text.toString()
+        val deadline = "${dateString}T${timeString}"
+
+
+
+        if(inputCheck(name, category,deadline)){
+            // Create Item Object
+            val item = Item(args.currentItem.id, name, category, deadline, args.currentItem.isDone)
+
+            // Add Data to Database
+            itemViewModel.updateItem(item)
+
+            Toast.makeText(requireContext(), "Successfully updated!", Toast.LENGTH_LONG).show()
+
+            // Navigate Back
+            findNavController().navigate(R.id.action_editFragment_to_mainFragment)
+        }
+        else{
+            Toast.makeText(requireContext(), "Please fill out all fields.", Toast.LENGTH_LONG).show()
+        }*/
     }
 
     override fun categoryDelete(category: Category) {

@@ -6,7 +6,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import kotlinx.android.parcel.Parcelize
 /*Classe Entity:
-* Rappresenta la tabella "item" del database
+* Rappresenta la tabella "category" del database. Specifica il tipo di categorie a cui può appartenere ognuna delle cards
 */
 
 @Parcelize

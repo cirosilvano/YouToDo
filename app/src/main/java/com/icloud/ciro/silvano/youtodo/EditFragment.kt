@@ -19,16 +19,14 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.transition.TransitionInflater
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 import com.icloud.ciro.silvano.youtodo.DateTimeFormatHelper.Companion.generateDate
 import com.icloud.ciro.silvano.youtodo.DateTimeFormatHelper.Companion.generateTime
 import com.icloud.ciro.silvano.youtodo.database.Category
-import com.icloud.ciro.silvano.youtodo.database.ItemViewModel
-import com.icloud.ciro.silvano.youtodo.database.Item
+import com.icloud.ciro.silvano.youtodo.database.ToDoViewModel
+import com.icloud.ciro.silvano.youtodo.database.Card
 import com.icloud.ciro.silvano.youtodo.databinding.FragmentEditBinding
 import java.time.LocalDateTime
 
@@ -38,7 +36,7 @@ class EditFragment : Fragment(), DatePickerDialog.OnDateSetListener, TimePickerD
     private val binding get() = _binding!!
     private val args by navArgs<EditFragmentArgs>()
 
-    private lateinit var itemViewModel: ItemViewModel
+    private lateinit var toDoViewModel: ToDoViewModel
     private lateinit var  category : Category
     private lateinit var chipGroupEdit:ChipGroup
 
@@ -71,13 +69,13 @@ class EditFragment : Fragment(), DatePickerDialog.OnDateSetListener, TimePickerD
         chipGroupEdit=binding.chipGroupEdit
 
         val adapterCat=CategoryAdapter(this)
-        itemViewModel = ViewModelProvider(this).get(ItemViewModel::class.java)
-        itemViewModel.showAllCategories.observe(viewLifecycleOwner, Observer{ cat ->
+        toDoViewModel = ViewModelProvider(this).get(ToDoViewModel::class.java)
+        toDoViewModel.showAllCategories.observe(viewLifecycleOwner, Observer{ cat ->
             adapterCat.setDataCat(cat)
            if(adapterCat.itemCount==0){
-               itemViewModel.addCategory(Category("Tutti"))
-               itemViewModel.addCategory(Category("Lavoro"))
-               itemViewModel.addCategory(Category("Personale"))
+               toDoViewModel.addCategory(Category("Tutti"))
+               toDoViewModel.addCategory(Category("Lavoro"))
+               toDoViewModel.addCategory(Category("Personale"))
                chipGroupEdit.addChip(requireActivity(),"Tutti")
                chipGroupEdit.addChip(requireActivity(),"Lavoro")
                chipGroupEdit.addChip(requireActivity(),"Personale")
@@ -96,9 +94,9 @@ class EditFragment : Fragment(), DatePickerDialog.OnDateSetListener, TimePickerD
            }
         })
 
-        binding.editName.setText(args.currentItem.name)
-        binding.editCategory.setText(args.currentItem.category)
-        val ldt = LocalDateTime.parse(args.currentItem.deadline)
+        binding.editName.setText(args.currentCard.name)
+        binding.editCategory.setText(args.currentCard.category)
+        val ldt = LocalDateTime.parse(args.currentCard.deadline)
         binding.editDate.setText(generateDate(ldt.year, ldt.monthValue, ldt.dayOfMonth, true))
         binding.editTime.setText(generateTime(ldt.hour, ldt.minute))
         dateString = generateDate(ldt.year, ldt.monthValue, ldt.dayOfMonth, false)
@@ -144,7 +142,7 @@ class EditFragment : Fragment(), DatePickerDialog.OnDateSetListener, TimePickerD
                 }
                 else{
                     chipGroupEdit.addChip(requireActivity(), binding.editCategory.text.toString())
-                    itemViewModel.addCategory(Category(binding.editCategory.text.toString()))
+                    toDoViewModel.addCategory(Category(binding.editCategory.text.toString()))
                     chipGroupEdit.clearCheck()
                 }
                 binding.editCategory.setText("")
@@ -191,10 +189,10 @@ class EditFragment : Fragment(), DatePickerDialog.OnDateSetListener, TimePickerD
 
         if(inputCheck(name, category,deadline)){
             // Create Item Object
-            val item = Item(args.currentItem.id, name, category, deadline, args.currentItem.isDone)
+            val card = Card(args.currentCard.id, name, category, deadline, args.currentCard.isDone)
 
             // Add Data to Database
-            itemViewModel.updateItem(item)
+            toDoViewModel.updateCard(card)
 
             Toast.makeText(requireContext(), "Successfully updated!", Toast.LENGTH_LONG).show()
 
@@ -230,16 +228,16 @@ class EditFragment : Fragment(), DatePickerDialog.OnDateSetListener, TimePickerD
     private fun deleteCard() {
         val builder = AlertDialog.Builder(requireContext())
         builder.setPositiveButton("Yes") { _,_ ->
-            itemViewModel.deleteItem(args.currentItem)
-            Toast.makeText(requireContext(), "Successfully removed ${args.currentItem.name}!", Toast.LENGTH_LONG).show()
+            toDoViewModel.deleteCard(args.currentCard)
+            Toast.makeText(requireContext(), "Successfully removed ${args.currentCard.name}!", Toast.LENGTH_LONG).show()
         }
 
         builder.setNegativeButton("No") { _,_ ->
 
         }
 
-        builder.setTitle("Are you sure you want to delete ${args.currentItem.name} ?")
-        builder.setMessage("Are you sure you want to delete ${args.currentItem.name} ?")
+        builder.setTitle("Are you sure you want to delete ${args.currentCard.name} ?")
+        builder.setMessage("Are you sure you want to delete ${args.currentCard.name} ?")
 
         builder.create().show()
     }
@@ -309,11 +307,9 @@ class EditFragment : Fragment(), DatePickerDialog.OnDateSetListener, TimePickerD
     }
 
     override fun categoryEdit(category: Category) {
-        TODO("Not yet implemented")
     }
 
     override fun categoryDelete(category: Category) {
-        TODO("Not yet implemented")
     }
 
 

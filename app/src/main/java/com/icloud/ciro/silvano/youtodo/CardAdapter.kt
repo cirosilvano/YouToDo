@@ -1,39 +1,30 @@
 package com.icloud.ciro.silvano.youtodo
 
 import android.animation.Animator
-import android.database.DataSetObserver
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.CheckBox
-import android.widget.SpinnerAdapter
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.navigation.findNavController
-import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
-import com.icloud.ciro.silvano.youtodo.database.Category
-import com.icloud.ciro.silvano.youtodo.database.Item
+import com.icloud.ciro.silvano.youtodo.database.Card
 import java.lang.Float.min
 import java.time.LocalDateTime
-import java.util.*
 import android.animation.AnimatorListenerAdapter
 import android.widget.ImageButton
-import com.icloud.ciro.silvano.youtodo.DateTimeFormatHelper.Companion.generateDate
 import com.icloud.ciro.silvano.youtodo.DateTimeFormatHelper.Companion.generateDateTime
 import com.icloud.ciro.silvano.youtodo.DateTimeFormatHelper.Companion.generateTime
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
-import java.time.Duration
 import java.time.LocalDate
 import java.time.Period
 
-class ItemAdapter(val onItemSwipeListener: OnItemSwipeListener) :
-    RecyclerView.Adapter<ItemAdapter.MyViewHolder>() {
+class CardAdapter(val onItemSwipeListener: OnItemSwipeListener) :
+    RecyclerView.Adapter<CardAdapter.MyViewHolder>() {
 
-    private var itemList = emptyList<Item>()
+    private var cardList = emptyList<Card>()
 
     class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val name: TextView = itemView.findViewById(R.id.itemName)
@@ -105,27 +96,10 @@ class ItemAdapter(val onItemSwipeListener: OnItemSwipeListener) :
             }
             deadline.text = deadline_gen
         }
-
-        /*Swipe management*/
-        /* val swipeGesture=object: SwipeGesture(){
-             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-
-                 when(direction) {
-                     ItemTouchHelper.LEFT -> {
-                         val itemViewModel = ViewModelProvider(this).get(ItemViewModel::class.java)
-                         itemViewModel.deleteItem(this.ite)
-                     }
-                     ItemTouchHelper.RIGHT->{
-
-                     }
-                 }
-                 super.onSwiped(viewHolder, direction)
-             }
-         }*/
     }
 
     override fun getItemCount(): Int {
-        return itemList.size
+        return cardList.size
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
@@ -135,36 +109,21 @@ class ItemAdapter(val onItemSwipeListener: OnItemSwipeListener) :
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        var currentItem = itemList[position]
+        var currentItem = cardList[position]
 
         holder.bind(
-            currentItem.name.toString(),
-            currentItem.category.toString(),
-            currentItem.deadline.toString(),
+            currentItem.name,
+            currentItem.category,
+            currentItem.deadline,
             currentItem.isDone
         )
 
-
         holder.editCard.setOnClickListener {
-            //MainFragmentDirections is automatically generated (build in case it isn't found)
             val action = MainFragmentDirections.actionMainFragmentToEditFragment(currentItem)
             holder.itemView.findNavController().navigate(action)
         }
 
-        /*holder.cardLayout.setOnTouchListener(View.OnTouchListener { view, motionEvent ->
-            when (motionEvent.action) {
-                MotionEvent.ACTION_MOVE ->{
-                    onItemSwipeListener.onItemSwipe(currentItem)
-                    true
-                }
-                //MotionEvent.ACTION-UP ->{
-                view.performClick() //e questo fa andare il setOnClickListener
-                }
-
-            }
-            return@OnTouchListener true
-        })*/
-
+        /*
         holder.cardLayout.setOnTouchListener(View.OnTouchListener { view, event ->
             // variables to store current configuration of quote card.
             val displayMetrics = holder.cardLayout.context.resources.displayMetrics
@@ -194,7 +153,7 @@ class ItemAdapter(val onItemSwipeListener: OnItemSwipeListener) :
                                 // minimum swipe required to load a new quote
                                 if (currentX < -80) {
                                     // Add logic to load a new quote if swiped adequately
-                                    onItemSwipeListener.onItemSwipe(currentItem)
+                                    onItemSwipeListener.onCardSwipe(currentItem)
                                     currentX = 0f
                                 }
 
@@ -205,16 +164,15 @@ class ItemAdapter(val onItemSwipeListener: OnItemSwipeListener) :
             }
             true
 
-        }
-        )
+        })*/
 
         holder.done.setOnClickListener {
-            onItemSwipeListener.onItemTouchCheck(currentItem)
+            onItemSwipeListener.onCheckCardClick(currentItem)
         }
     }
 
-    fun setData(item: List<Item>) {
-        this.itemList = item
+    fun setData(card: List<Card>) {
+        this.cardList = card
         notifyDataSetChanged()
     }
 }

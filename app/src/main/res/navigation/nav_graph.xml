@@ -42,8 +42,8 @@
             android:id="@+id/action_editFragment_to_mainFragment"
             app:destination="@id/mainFragment" />
         <argument
-            android:name="currentItem"
-            app:argType="com.icloud.ciro.silvano.youtodo.database.Item" />
+            android:name="currentCard"
+            app:argType="com.icloud.ciro.silvano.youtodo.database.Card" />
     </fragment>
     <fragment
         android:id="@+id/settingsFragment"

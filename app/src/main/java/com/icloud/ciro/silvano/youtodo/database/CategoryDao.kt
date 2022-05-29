@@ -1,9 +1,11 @@
 package com.icloud.ciro.silvano.youtodo.database
 
-import android.database.sqlite.SQLiteConstraintException
 import androidx.lifecycle.LiveData
 import androidx.room.*
 
+/*Interfaccia ItemDao
+* Contiene tutti i metodi utilizzati per accedere alle tabella category del database
+*/
 @Dao
 interface CategoryDao {
 
@@ -13,8 +15,8 @@ interface CategoryDao {
     @Delete
     fun deleteCategory(category: Category) : Int
 
-    /* @Update
-     fun updateCategory(category: Category)*/
+    @Update
+    fun updateCategory(category: Category)
 
     @Query("SELECT * FROM category")
     fun showAllCategories(): LiveData<List<Category>>

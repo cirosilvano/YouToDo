@@ -105,9 +105,9 @@
         <item name="buttonTint">#000000</item>
     </style>
 
-    <!-- Checkbox style-->
+    <!-- Toolbar style-->
     <style name="ToolbarTitleStyle" parent="Widget.Material3.Toolbar">
-        <item name="android:fontFamily">@font/adamina</item>
+        <item name="android:fontFamily">@font/roboto_bold</item>
         <item name="android:textSize">30sp</item>
     </style>
 

@@ -100,5 +100,11 @@
         <item name="buttonTint">#FFFFFF</item>
     </style>
 
+    <!-- Toolbar style-->
+    <style name="ToolbarTitleStyle" parent="Widget.Material3.Toolbar">
+        <item name="android:fontFamily">@font/roboto_bold</item>
+        <item name="android:textSize">30sp</item>
+    </style>
+
 
 </resources>

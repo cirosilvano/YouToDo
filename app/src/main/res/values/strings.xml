@@ -40,4 +40,10 @@
     <string name="tomorrow">Tomorrow</string>
     <string name="yesterday">Yesterday</string>
 
+    <!-- Strings used for categoryFragment -->
+    <string name="manageLabel">Category management </string>
+    <string name="editCatTitle">Edit category </string>
+    <string name="addCatTitle">New category </string>
+    <string name="backBtnCatMain">BACK </string>
+
 </resources>

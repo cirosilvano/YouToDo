@@ -32,4 +32,8 @@
     <string name="tomorrow">Domani</string>
     <string name="today">Oggi</string>
     <string name="yesterday">Ieri</string>
+    <string name="manageLabel">Gestione categorie </string>
+    <string name="editCatTitle">Modifica la categoria:</string>
+    <string name="addCatTitle">Nuova categoria:</string>
+    <string name="backBtnCatMain">INDIETRO </string>
 </resources>

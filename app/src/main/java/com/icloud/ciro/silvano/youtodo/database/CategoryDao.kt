@@ -12,12 +12,15 @@ interface CategoryDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun addCategory(category: Category)
 
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    fun addCatLong(category: Category):Long
+
     @Delete
     fun deleteCategory(category: Category) : Int
 
-    @Update
-    fun updateCategory(category: Category)
-
     @Query("SELECT * FROM category")
     fun showAllCategories(): LiveData<List<Category>>
+
+    @Query("UPDATE category SET name = :newName WHERE name = :oldName ")
+    fun updateCategory(oldName:String,newName:String)
 }

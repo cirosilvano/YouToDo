@@ -73,6 +73,23 @@ class ToDoViewModel(application: Application): AndroidViewModel(application) {
         }
     }
     fun deleteCategory(category: Category) : Int{
-        return repository.deleteCategory(category)
+        viewModelScope.launch(Dispatchers.IO) {
+             repository.deleteCategory(category)
+        }
+      return 0
     }
+
+    fun updateCategory(oldName:String,newName:String){
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.updateCategory(oldName, newName)
+        }
+    }
+
+    fun addCatLong(category: Category):Long{
+        viewModelScope.launch(Dispatchers.IO) {
+             repository.addCatLong(category)
+        }
+        return 0
+    }
+
 }

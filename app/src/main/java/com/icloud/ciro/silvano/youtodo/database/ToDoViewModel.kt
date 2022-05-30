@@ -25,9 +25,9 @@ class ToDoViewModel(application: Application): AndroidViewModel(application) {
 
 
     init {
-        val itemDao = ToDoDatabase.getDatabase(application).itemDao()
+        val cardDao = ToDoDatabase.getDatabase(application).cardDao()
         val categoryDao = ToDoDatabase.getDatabase(application).categoryDao()
-        repository = ToDoRepository(itemDao, categoryDao)
+        repository = ToDoRepository(cardDao, categoryDao)
         showAllCards = repository.readAllCardsData
         showAllCategories = repository.readAllCategoryData
 
@@ -72,11 +72,9 @@ class ToDoViewModel(application: Application): AndroidViewModel(application) {
             repository.addCategory(category)
         }
     }
+
     fun deleteCategory(category: Category) : Int{
-        viewModelScope.launch(Dispatchers.IO) {
-             repository.deleteCategory(category)
-        }
-      return 0
+        return repository.deleteCategory(category)
     }
 
     fun updateCategory(oldName:String,newName:String){

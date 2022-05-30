@@ -3,6 +3,7 @@ package com.icloud.ciro.silvano.youtodo
 import android.app.AlertDialog
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import androidx.fragment.app.Fragment
 import android.widget.*
@@ -69,6 +70,7 @@ class MainFragment : Fragment(), OnItemSwipeListener, CategoryListener {
         toDoViewModel.showAllCards.observe(viewLifecycleOwner, Observer{ card ->
             adapter.setData(card) //si setta l'adapter della recyclerView con i nuovi elementi
 
+            Log.d("", "LISTA DI ELEMENTI ${card}")
             //Nel caso in cui non siano presenti elementi, allora si rende visibile il placeholder
             if(adapter.itemCount>0){
                 ivFree.isVisible=false
@@ -256,14 +258,15 @@ class MainFragment : Fragment(), OnItemSwipeListener, CategoryListener {
             isClickable = true
             isCheckable = true
             isCheckedIconVisible = true
-            //isCloseIconVisible = true
+            isCloseIconVisible = true
             isFocusable = true
             addView(this)
             this.setOnCloseIconClickListener{
                 var success : Int = 0
                 //Eliminazione dell'elemento dalla tabella
                 try {
-                    success = toDoViewModel.deleteCategory(Category(this.text.toString()))
+                    Log.d("", this.text.toString())
+                    success = toDoViewModel.deleteCategory(Category(this.text.toString().trim()))
                 } catch(e : android.database.sqlite.SQLiteConstraintException) {
                     Toast.makeText(requireContext(), "Impossibile eliminare la category perché ci sono card con quella.  ", Toast.LENGTH_LONG).show()
                 }

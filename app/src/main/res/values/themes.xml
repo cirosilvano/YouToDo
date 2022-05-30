@@ -32,6 +32,7 @@
         <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="android:windowLightStatusBar">true</item>
         <item name="android:tint">@color/icon_tint_light</item>
+        <item name="android:colorAccent">#0000FF</item>
     </style>
 
 
@@ -65,6 +66,7 @@
         <item name="colorPrimaryInverse">@color/md_theme_light_primaryInversew</item>
         <item name="android:checkboxStyle">@style/MyCheckBoxStyle</item>
         <item name="android:tint">@color/icon_tint_light</item>
+        <item name="android:colorAccent">#FFFF00</item>
     </style>
 
     <!-- Fall  theme. -->
@@ -96,6 +98,7 @@
         <item name="colorSurfaceInverse">@color/md_theme_light_inverseSurfacef</item>
         <item name="colorPrimaryInverse">@color/md_theme_light_primaryInversef</item>
         <item name="android:checkboxStyle">@style/MyCheckBoxStyle</item>
+        <item name="android:colorAccent">#FF00FF</item>
 
     </style>
 
@@ -111,6 +114,8 @@
         <item name="android:fontFamily">@font/roboto_bold</item>
         <item name="android:textSize">30sp</item>
     </style>
+
+
 
 
 </resources>

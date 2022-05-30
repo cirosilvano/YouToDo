@@ -20,21 +20,19 @@
 
         <HorizontalScrollView
             android:id="@+id/horizontalScrollView3"
-            android:layout_width="245dp"
-            android:layout_height="44dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.024"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="14dp"
+            android:layout_marginTop="10dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.171">
+            app:layout_constraintTop_toTopOf="parent">
 
             <TextView
                 android:id="@+id/itemName"
                 android:layout_width="224dp"
                 android:layout_height="40dp"
                 android:layout_marginStart="10dp"
-                android:fontFamily="@font/roboto_bold"
+                android:fontFamily="@font/roboto"
                 android:scrollHorizontally="true"
                 android:text="Write a chapter"
                 android:textSize="30sp"
@@ -48,31 +46,40 @@
 
         <TextView
             android:id="@+id/itemDeadline"
-            android:layout_width="173dp"
-            android:layout_height="26dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="25dp"
+            android:layout_marginBottom="14dp"
             android:fontFamily="@font/roboto"
             android:text="Today, 10:50"
-            android:textSize="16sp"
+            android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.067"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/horizontalScrollView3"
-            app:layout_constraintVertical_bias="0.621" />
+            app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
             android:id="@+id/itemCategory"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="25dp"
+            android:layout_marginBottom="14dp"
             android:fontFamily="@font/roboto"
             android:text="TextView"
-            android:textSize="12sp"
+            android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <com.google.android.material.chip.Chip
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="48dp"
+            android:text="prova"
+            android:checked="true"
+            android:clickable="false"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.116"
-            app:layout_constraintStart_toEndOf="@+id/itemDeadline"
-            app:layout_constraintTop_toBottomOf="@+id/horizontalScrollView3"
-            app:layout_constraintVertical_bias="0.702" />
+            app:layout_constraintTop_toTopOf="parent">
+
+        </com.google.android.material.chip.Chip>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

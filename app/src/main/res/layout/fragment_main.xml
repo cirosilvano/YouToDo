@@ -29,7 +29,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="70dp"
-                android:fontFamily="@font/roboto_mono_bold"
+                android:fontFamily="@font/roboto_bold"
                 android:text="@string/welcome_text"
                 android:textSize="50dp" />
         </com.google.android.material.appbar.MaterialToolbar>
@@ -101,13 +101,14 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.151">
+        app:layout_constraintVertical_bias="0.141">
 
         <com.google.android.material.chip.ChipGroup
             android:id="@+id/chipGroupMain"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            app:singleSelection="true">
+            app:singleSelection="true"
+           >
 
         </com.google.android.material.chip.ChipGroup>
     </HorizontalScrollView>

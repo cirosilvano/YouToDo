@@ -33,7 +33,7 @@ abstract class ToDoDatabase : RoomDatabase() {
                     context.applicationContext,
                     ToDoDatabase::class.java,
                     "user_database"
-                ).build()
+                ).allowMainThreadQueries().build()
 
                 INSTANCE = instance
                 return instance

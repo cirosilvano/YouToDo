@@ -17,6 +17,7 @@ import java.time.LocalDateTime
 import android.animation.AnimatorListenerAdapter
 import android.widget.ImageButton
 import com.icloud.ciro.silvano.youtodo.DateTimeFormatHelper.Companion.generateDateTime
+import com.icloud.ciro.silvano.youtodo.DateTimeFormatHelper.Companion.generateDeadlineString
 import com.icloud.ciro.silvano.youtodo.DateTimeFormatHelper.Companion.generateTime
 import java.time.LocalDate
 import java.time.Period
@@ -37,64 +38,8 @@ class CardAdapter(val onItemSwipeListener: OnItemSwipeListener) :
         fun bind(name_tx: String, category_tx: String, deadline_tx: String, checked: Boolean) {
             name.text = name_tx
             category.text = category_tx
-            // deadline.text = deadline_tx
             done.isChecked = checked
-
-            /* deadline styling */
-            var deadline_gen = ""
-            Log.d("", "deadline_tx for ${name_tx}: ${deadline_tx.length} -> $deadline_tx")
-            if (deadline_tx.length == 19) {
-                // date-time formats are 19 digits long
-                val ldt = LocalDateTime.parse(deadline_tx)
-                val ld = ldt.toLocalDate()
-                val ldToday = LocalDate.now()
-                val period = Period.between(ldToday, ld)
-
-                if (period.years == 0 && period.months == 0 && (ld.isAfter(ldToday) || period.days == 0)) {
-                    val res = itemView.context.resources
-                    when (period.days) {
-                        0 -> deadline_gen = "${res.getString(R.string.today)}, ${
-                            generateTime(
-                                ldt.hour,
-                                ldt.minute
-                            )
-                        }"
-                        1 -> deadline_gen = "${res.getString(R.string.tomorrow)}, ${
-                            generateTime(
-                                ldt.hour,
-                                ldt.minute
-                            )
-                        }"
-                        else -> {
-                            if (period.days < 7) {
-                                deadline_gen = "${
-                                    DateTimeFormatHelper.weekDays(
-                                        ld.dayOfWeek,
-                                        res
-                                    )
-                                }, ${generateTime(ldt.hour, ldt.minute)}"
-                            } else {
-                                deadline_gen = generateDateTime(
-                                    ldt.year,
-                                    ldt.monthValue,
-                                    ldt.dayOfMonth,
-                                    ldt.hour,
-                                    ldt.minute
-                                )
-                            }
-                        }
-                    }
-                } else {
-                    if (ldToday.isAfter(ld)) {
-                        deadline_gen = if (period.days == 1) {
-                            "${R.string.yesterday}, ${generateTime(ldt.hour, ldt.minute)}"
-                        } else {
-                            generateDateTime(ldt.year, ldt.monthValue, ldt.dayOfMonth, ldt.hour, ldt.minute)
-                        }
-                    }
-                }
-            }
-            deadline.text = deadline_gen
+            deadline.text = generateDeadlineString(deadline_tx, itemView.context)
         }
     }
 

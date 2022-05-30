@@ -14,20 +14,25 @@
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0">
+        app:layout_constraintVertical_bias="0.024">
 
         <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/topAppBar"
             android:layout_width="match_parent"
             android:layout_height="70dp"
-            android:title="@string/welcome_text"
-            app:titleTextAppearance="@style/ToolbarTitleStyle"
-            app:menu="@menu/menu_category"
-            app:title="@string/welcome_text"
-            android:fontFamily="@font/alike"
-           />
+
+            app:menu="@menu/menu_category">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="70dp"
+                android:fontFamily="@font/roboto_mono_bold"
+                android:text="@string/welcome_text"
+                android:textSize="50dp" />
+        </com.google.android.material.appbar.MaterialToolbar>
 
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -55,7 +60,7 @@
             android:id="@+id/tvFree"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/alike"
+            android:fontFamily="@font/roboto_light"
             android:gravity="center"
             android:text="@string/free"
             android:textSize="20sp" />
@@ -95,8 +100,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/appBarLayout"
-        app:layout_constraintVertical_bias="0.043">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.151">
 
         <com.google.android.material.chip.ChipGroup
             android:id="@+id/chipGroupMain"
@@ -121,6 +126,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.739" />
+
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

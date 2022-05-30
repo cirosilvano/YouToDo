@@ -2,6 +2,15 @@
 <resources>
     <array name="preloaded_fonts" translatable="false">
         <item>@font/adamina</item>
+        <item>@font/advent_pro_medium</item>
         <item>@font/alike</item>
+        <item>@font/hind_madurai</item>
+        <item>@font/roboto</item>
+        <item>@font/roboto_bold</item>
+        <item>@font/roboto_bold_italic</item>
+        <item>@font/roboto_condensed_bold</item>
+        <item>@font/roboto_light</item>
+        <item>@font/roboto_mono_bold</item>
+        <item>@font/roboto_mono_thin</item>
     </array>
 </resources>

@@ -171,7 +171,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
-        android:fontFamily="@font/alike"
+        android:fontFamily="@font/roboto_bold"
         android:text="@string/edit_todo"
         android:textSize="30dp"
         app:layout_constraintEnd_toEndOf="parent"

@@ -99,6 +99,7 @@
 
     </style>
 
+
     <!-- Checkbox style-->
     <style name="MyCheckBoxStyle" parent="Widget.AppCompat.CompoundButton.CheckBox">
         <item name="android:textColorPrimaryDisableOnly">#000000</item>

@@ -281,6 +281,7 @@ class MainFragment : Fragment(), OnItemSwipeListener, CategoryListener {
      */
     override fun onCheckCardClick(card: Card) {
         //Si verifica lo stato della card e si invoca l'update con lo stato opposto
+
         if(card.isDone)
             toDoViewModel.updateCard(Card(card.id, card.name, card.category, card.deadline, false))
         else

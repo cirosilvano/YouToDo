@@ -15,9 +15,11 @@ import com.icloud.ciro.silvano.youtodo.database.Card
 import java.lang.Float.min
 import java.time.LocalDateTime
 import android.animation.AnimatorListenerAdapter
+import android.widget.Button
 import android.widget.ImageButton
+import androidx.cardview.widget.CardView
+import com.google.android.material.card.MaterialCardView
 import com.icloud.ciro.silvano.youtodo.DateTimeFormatHelper.Companion.generateDateTime
-import com.icloud.ciro.silvano.youtodo.DateTimeFormatHelper.Companion.generateDeadlineString
 import com.icloud.ciro.silvano.youtodo.DateTimeFormatHelper.Companion.generateTime
 import java.time.LocalDate
 import java.time.Period
@@ -31,15 +33,14 @@ class CardAdapter(val onItemSwipeListener: OnItemSwipeListener) :
         val name: TextView = itemView.findViewById(R.id.itemName)
         val category: TextView = itemView.findViewById(R.id.itemCategory)
         val deadline: TextView = itemView.findViewById(R.id.itemDeadline)
-        val cardLayout: ConstraintLayout = itemView.findViewById(R.id.itemConstraintLayout)
-        val done: CheckBox = itemView.findViewById(R.id.cbDone)
-        val editCard: ImageButton = itemView.findViewById(R.id.editCard)
+        val cardLayout: MaterialCardView =itemView.findViewById(R.id.cardItem)
 
         fun bind(name_tx: String, category_tx: String, deadline_tx: String, checked: Boolean) {
             name.text = name_tx
             category.text = category_tx
-            done.isChecked = checked
-            deadline.text = generateDeadlineString(deadline_tx, itemView.context)
+            cardLayout.isChecked=checked
+            deadline.text = DateTimeFormatHelper.generateDeadlineString(deadline_tx, itemView.context)
+
         }
     }
 
@@ -63,9 +64,9 @@ class CardAdapter(val onItemSwipeListener: OnItemSwipeListener) :
             currentItem.isDone
         )
 
-        holder.editCard.setOnClickListener {
-            val action = MainFragmentDirections.actionMainFragmentToEditFragment(currentItem)
-            holder.itemView.findNavController().navigate(action)
+        holder.cardLayout.setOnLongClickListener {
+            onItemSwipeListener.onCheckCardClick(currentItem)
+            true
         }
 
         /*
@@ -111,8 +112,10 @@ class CardAdapter(val onItemSwipeListener: OnItemSwipeListener) :
 
         })*/
 
-        holder.done.setOnClickListener {
-            onItemSwipeListener.onCheckCardClick(currentItem)
+        holder.cardLayout.setOnClickListener {
+            val action = MainFragmentDirections.actionMainFragmentToEditFragment(currentItem)
+            holder.itemView.findNavController().navigate(action)
+
         }
     }
 

@@ -1,8 +1,13 @@
 package com.icloud.ciro.silvano.youtodo
 
+import android.content.Context
 import android.content.res.Resources
 import android.util.Log
+import java.lang.IllegalArgumentException
 import java.time.DayOfWeek
+import java.time.LocalDate
+import java.time.LocalDateTime
+import java.time.Period
 
 class DateTimeFormatHelper {
     companion object {
@@ -48,5 +53,28 @@ class DateTimeFormatHelper {
                 )
             }, ${generateTime(hour, minute)}"
         }
+
+        fun generateDeadlineString(deadline_tx: String, context: Context): String {
+            // argument check
+            if(deadline_tx.length != 19) throw IllegalArgumentException("Date string length not standard")
+
+            // support variables
+            val ldt = LocalDateTime.parse(deadline_tx)
+            val ld = ldt.toLocalDate()
+            val ldToday = LocalDate.now()
+            val period = Period.between(ldToday, ld)
+            val res = context.resources
+
+            when(period.days) {
+                -1 -> return "${res.getString(R.string.yesterday)}, ${generateTime(ldt.hour,ldt.minute)}"
+                0 -> return "${res.getString(R.string.today)}, ${generateTime(ldt.hour,ldt.minute)}"
+                1 -> return "${res.getString(R.string.tomorrow)}, ${generateTime(ldt.hour,ldt.minute)}"
+            }
+
+            if(ld.isAfter(ldToday) && period.days < 7) return "${weekDays(ld.dayOfWeek, res)}, ${generateTime(ldt.hour,ldt.minute)}"
+            return generateDateTime(ldt.year,ldt.monthValue,ldt.dayOfMonth,ldt.hour, ldt.minute)
+        }
+
+
     }
 }

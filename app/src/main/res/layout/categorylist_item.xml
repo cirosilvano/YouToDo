@@ -1,37 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal">
 
-    <Space
-        android:layout_width="32dp"
-        android:layout_height="match_parent" />
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="10dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="24dp"
+        app:cornerRadius="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"></Button>
 
     <TextView
         android:id="@+id/txtCatFrag"
-        android:layout_width="195dp"
-        android:layout_height="68dp"
-        android:fontFamily="@font/alike"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="72dp"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/roboto"
         android:text="Name"
         android:textSize="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.111"
         tools:ignore="HardcodedText" />
 
     <ImageButton
         android:id="@+id/btnDeleteCat"
         android:layout_width="47dp"
         android:layout_height="43dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="40dp"
         android:backgroundTint="#00FFFFFF"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_baseline_delete_24_dark" />
 
     <ImageButton
         android:id="@+id/btnModifyCat"
         android:layout_width="51dp"
         android:layout_height="41dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="12dp"
         android:backgroundTint="#00FFFFFF"
+        app:layout_constraintEnd_toStartOf="@+id/btnDeleteCat"
+        app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_baseline_edit_card_24" />
 
 
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

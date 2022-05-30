@@ -53,6 +53,8 @@ class CategoryFragment : Fragment(), CategoryListener {
             binding.txtTitleActionCat.isVisible=true
             binding.txtFieldCategory.isVisible=true
             binding.btnBackMainCat.isVisible=true
+            binding.backCategoryButton.isVisible=false
+            binding.FabAddCat.isVisible=false
 
             binding.btnBackMainCat.setOnClickListener{
                 binding.txtTitleActionCat.isVisible=false
@@ -60,6 +62,8 @@ class CategoryFragment : Fragment(), CategoryListener {
                 binding.catList.isVisible=true
                 binding.txtFieldCategory.setText("")
                 binding.btnBackMainCat.isVisible=false
+                binding.backCategoryButton.isVisible=true
+                binding.FabAddCat.isVisible=true
             }
             binding.txtFieldCategory.setOnKeyListener(View.OnKeyListener{v, keyCode,event ->
                 if(event.action== KeyEvent.ACTION_UP && keyCode== KeyEvent.KEYCODE_ENTER ){
@@ -77,6 +81,8 @@ class CategoryFragment : Fragment(), CategoryListener {
                         binding.txtFieldCategory.isVisible=false
                         binding.btnBackMainCat.isVisible=false
                         binding.catList.isVisible=true
+                        binding.backCategoryButton.isVisible=true
+                        binding.FabAddCat.isVisible=true
                         binding.txtFieldCategory.setText("")
                     }
                     else{
@@ -101,13 +107,16 @@ class CategoryFragment : Fragment(), CategoryListener {
         binding.catList.isVisible=false
         binding.txtTitleActionCat.isVisible=true
         binding.txtFieldCategory.isVisible=true
-
+        binding.backCategoryButton.isVisible=false
+        binding.FabAddCat.isVisible=false
         binding.btnBackMainCat.setOnClickListener{
             binding.txtTitleActionCat.isVisible=false
             binding.txtFieldCategory.isVisible=false
             binding.catList.isVisible=true
             binding.txtFieldCategory.setText("")
             binding.btnBackMainCat.isVisible=false
+            binding.backCategoryButton.isVisible=true
+            binding.FabAddCat.isVisible=true
         }
 
         binding.txtFieldCategory.setOnKeyListener(View.OnKeyListener{v, keyCode,event ->
@@ -121,6 +130,8 @@ class CategoryFragment : Fragment(), CategoryListener {
                     binding.txtFieldCategory.isVisible=false
                     binding.btnBackMainCat.isVisible=false
                     binding.catList.isVisible=true
+                    binding.backCategoryButton.isVisible=true
+                    binding.FabAddCat.isVisible=true
                     binding.txtFieldCategory.setText("")
                 }
                 else{

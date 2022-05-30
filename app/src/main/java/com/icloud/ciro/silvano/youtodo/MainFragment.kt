@@ -90,12 +90,12 @@ class MainFragment : Fragment(), OnItemSwipeListener, CategoryListener {
             //Nel caso in cui non siano presenti categorie, vengono inserite le 3 tipologie di default qua sotto
             //Ciò significa che se vengono eliminate tutte le chip, verranno ricreate automaticamente queste 3
             if(adapterCat.itemCount == 0){
-                toDoViewModel.addCategory(Category("Tutti"))
-                toDoViewModel.addCategory(Category("Lavoro"))
-                toDoViewModel.addCategory(Category("Personale"))
-                chipGroupMain.addChip(requireActivity(),"Tutti")
-                chipGroupMain.addChip(requireActivity(),"Lavoro")
-                chipGroupMain.addChip(requireActivity(),"Personale")
+                toDoViewModel.addCategory(Category("tutti"))
+                toDoViewModel.addCategory(Category("lavoro"))
+                toDoViewModel.addCategory(Category("personale"))
+                chipGroupMain.addChip(requireActivity(),"tutti")
+                chipGroupMain.addChip(requireActivity(),"lavoro")
+                chipGroupMain.addChip(requireActivity(),"personale")
             }
 
             //Controllo che verifica se esiste già una chip. Siccome a differenza del database è possibile creare
@@ -319,9 +319,6 @@ class MainFragment : Fragment(), OnItemSwipeListener, CategoryListener {
         if(id==R.id.GestCat){
             val action = MainFragmentDirections.actionMainFragmentToCategoryFragment()
             findNavController().navigate(action)
-        }
-        if(id==R.id.toDoOrder){
-            Toast.makeText(requireContext(), "Ordinamento categorie!", Toast.LENGTH_LONG).show()
         }
         return super.onOptionsItemSelected(item)
     }

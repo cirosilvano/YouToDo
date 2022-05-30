@@ -16,7 +16,7 @@
 
     <!-- Strings used for mainFragment -->
     <string name="free">You\'re free :)</string>
-    <string name="changeTheme">Themes:</string>
+    <string name="changeTheme">Choose your theme:</string>
 
     <!-- Strings used for editFragment and addFragment -->
     <string name="categoryLabel">Category</string>

@@ -9,7 +9,7 @@
     <string name="add_button">AGGIUNGI</string>
     <string name="edit_button">MODIFICA</string>
     <string name="free">Sei libero :)</string>
-    <string name="changeTheme">Temi:</string>
+    <string name="changeTheme">Cambia il tema:</string>
     <string name="categoryLabel">Categoria</string>
     <string name="newCategoryLabel">Nuova categoria</string>
     <string name="toDoLabel">To do</string>

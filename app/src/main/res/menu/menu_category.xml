@@ -4,8 +4,5 @@
     <item
         android:id="@+id/GestCat"
         android:title="Gestione Categorie" />
-    <item
-        android:id="@+id/toDoOrder"
-        android:title="Ordina ToDo"/>
 
 </menu>

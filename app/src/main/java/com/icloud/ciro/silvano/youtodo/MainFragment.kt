@@ -256,7 +256,7 @@ class MainFragment : Fragment(), OnItemSwipeListener, CategoryListener {
             isClickable = true
             isCheckable = true
             isCheckedIconVisible = true
-            isCloseIconVisible = true
+            //isCloseIconVisible = true
             isFocusable = true
             addView(this)
             this.setOnCloseIconClickListener{

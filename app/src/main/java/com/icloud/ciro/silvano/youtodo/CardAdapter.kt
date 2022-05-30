@@ -50,7 +50,7 @@ class CardAdapter(val onItemSwipeListener: OnItemSwipeListener) :
                 val ldToday = LocalDate.now()
                 val period = Period.between(ldToday, ld)
 
-                if (period.years == 0 && period.months == 0 && ld.isAfter(ldToday)) {
+                if (period.years == 0 && period.months == 0 && (ld.isAfter(ldToday) || period.days == 0)) {
                     val res = itemView.context.resources
                     when (period.days) {
                         0 -> deadline_gen = "${res.getString(R.string.today)}, ${

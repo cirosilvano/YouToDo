@@ -133,6 +133,10 @@ class CategoryFragment : Fragment(), CategoryListener {
         * che servono ad aggiungere una nuova categorie, rendendo invisibile quelle principali.
         * Si ha lo stesso effetto che si avrebbe con l'aggiunta di un fragment.
         * */
+
+    /**Funzione per la gestione della modifica della categoria
+     * @param category la categoria che si vuole modificare individuata dal click del bottone a forma di matita
+     */
     override fun categoryEdit(category: Category) {
         binding.txtTitleActionCat.setText(R.string.editCatTitle)
         binding.txtFieldCategory.setText(category.name.toString())

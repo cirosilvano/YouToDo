@@ -14,6 +14,8 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        //Reimpostazione dello stato rispetto all'ultima apertura dell'app.
         var sharedPrefTheme=getSharedPreferences("themePref", MODE_PRIVATE)
 
         var valueTheme=sharedPrefTheme.getInt("THEME",0)

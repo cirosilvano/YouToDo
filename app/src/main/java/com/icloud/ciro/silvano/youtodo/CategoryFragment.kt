@@ -30,23 +30,47 @@ class CategoryFragment : Fragment(), CategoryListener {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        //Inflate del layout per il fragment
         _binding = FragmentCategoryBinding.inflate(inflater, container, false)
-        val btnBack = binding.backCategoryButton
-        val adapterCat=CategoryAdapter(this)
-        val recyclerView = binding.catList
-        recyclerView.adapter = adapterCat
-        recyclerView.layoutManager = LinearLayoutManager(requireContext())
-        toDoViewModel = ViewModelProvider(this).get(ToDoViewModel::class.java)
 
+        //Creazione del riferimento al bottone "Indientro" che servirà a portare nel MainFragment
+        val btnBack = binding.backCategoryButton
+
+        //Gestione dell'evento di click nel bottone indietro (la freccia in altro a sinistra della schermata)
         btnBack.setOnClickListener {
             findNavController().navigate(R.id.action_categoryFragment_to_mainFragment)
         }
 
+        //Creazione dell'adapter per le category ed assegnamento di esso alla recyclerView
+        val adapterCat=CategoryAdapter(this)
+        val recyclerView = binding.catList
+        recyclerView.adapter = adapterCat
+
+        //Scelta del layout per gli elementi della recyclerView (saranno disposti in riga uno sotto l'altro)
+        recyclerView.layoutManager = LinearLayoutManager(requireContext())
+
+        //ViewModel per comunicare con la repository
+        toDoViewModel = ViewModelProvider(this).get(ToDoViewModel::class.java)
+
+
+        /*
+        * Creazione dell'observer per mostrare tutte le categorie presenti nel database all'interno della recyclerView
+        * Essendo la lista delle categorie una LiveData Observer si occuperà in tempo reale di aggiornare il contenuto della recyclerView
+        * Il codice all'interno dell'observer sarà eseguito solo se:
+        * -gli elementi all'interno del database subiscono modifiche di qualsiasi tipo (aggiunta, rimozione, update)
+        * -l'observer passa dallo stato inattivo ad attivo
+        */
         toDoViewModel.showAllCategories.observe(viewLifecycleOwner, Observer { cat ->
-            adapterCat.setDataCat(cat)
+            adapterCat.setDataCat(cat)//si setta l'adapter della recyclerView con i nuovi elementi
         })
 
-        //Gestione FAB per aggiungere una nuova categoria
+        /*
+        * Gestione FAB per aggiungere una nuova categoria:
+        * Per non dover gestire un altro Fragment contenente solamente una textfield e un bottone
+        * si è optato per questa strada. Al click del FAB vegono rese visibili le componenti
+        * che servono ad aggiungere una nuova categorie, rendendo invisibile quelle principali.
+        * Si ha lo stesso effetto che si avrebbe con l'aggiunta di un fragment.
+        * */
         binding.FabAddCat.setOnClickListener{
             binding.txtTitleActionCat.setText(R.string.addCatTitle)
             binding.catList.isVisible=false
@@ -70,6 +94,10 @@ class CategoryFragment : Fragment(), CategoryListener {
 
                     var newVal=binding.txtFieldCategory.text.toString().trim().lowercase()
                     if(!newVal.isEmpty()){
+                        /*
+                        * La funzione addCatLong serve ad aggiungere una nuova categorie nella tabella category.
+                        * Nel momento in cui una nuova categoria proposta dall'utente risulta già inserita nella tabella, tale
+                        * funzione ritornerà un numero di righe "moficate" pari a zero e perciò l'utente sarà avvisato con il relativo messaggio*/
                         var result=toDoViewModel.addCatLong(Category(newVal))
                         if(result>0){
                             Toast.makeText(requireContext(), "Successfully Added!", Toast.LENGTH_LONG).show()
@@ -98,7 +126,13 @@ class CategoryFragment : Fragment(), CategoryListener {
         return binding.root
     }
 
-    //metodo per la gestione della modifica della categoria
+    /*
+        * Gestione bottone edit (icona a forma di penna) per modificare una nuova categoria:
+        * Per non dover gestire un altro Fragment contenente solamente una textfield e un bottone
+        * si è optato per questa strada. Al click della penna vegono rese visibili le componenti
+        * che servono ad aggiungere una nuova categorie, rendendo invisibile quelle principali.
+        * Si ha lo stesso effetto che si avrebbe con l'aggiunta di un fragment.
+        * */
     override fun categoryEdit(category: Category) {
         binding.txtTitleActionCat.setText(R.string.editCatTitle)
         binding.txtFieldCategory.setText(category.name.toString())
@@ -144,7 +178,9 @@ class CategoryFragment : Fragment(), CategoryListener {
         })
     }
 
-    ////metodo per la gestione dell'eliminazione della categoria
+    /**Funzione per la gestione dell'eliminazione della categoria
+     * @param category la categoria che si vuole eliminare individuata dal click del bottone a forma di bidone
+     */
     override fun categoryDelete(category: Category) {
         var success : Int = 0
         val builder = AlertDialog.Builder(requireContext())

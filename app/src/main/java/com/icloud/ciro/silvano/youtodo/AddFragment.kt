@@ -59,11 +59,19 @@ class AddFragment : Fragment(), DatePickerDialog.OnDateSetListener, TimePickerDi
     }
 
    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+       //Inflate del layout per il fragment
        _binding = FragmentAddBinding.inflate(inflater, container, false)
+
+       //Identificazione del bottone a forma di freccia in alto a sinistra che serve a tornare al MainFragment
        val btnBack = binding.backAddButton
+
+       //Inizializzaizone del chipGroup che ospiterà le chip conteneti le categorie
        chipGroupAdd=binding.chipGroupAdd
+
+       //ViewModel per comunicare con la repository
        toDoViewModel = ViewModelProvider(this).get(ToDoViewModel::class.java)
 
+       //Gestione dell'evento click su bottone che serve a tornare al MainFragme
        btnBack.setOnClickListener {
            findNavController().navigate(R.id.action_addFragment_to_mainFragment)
        }
@@ -85,14 +93,20 @@ class AddFragment : Fragment(), DatePickerDialog.OnDateSetListener, TimePickerDi
 
        // fine time picking -------
 
-
+       //Creazione dell'adapter per le categorie
        val adapterCat=CategoryAdapter(this)
 
-       toDoViewModel = ViewModelProvider(this).get(ToDoViewModel::class.java)
-
+       //Creazione dell'observer per mostrare tutte le categorie presenti nel database all'interno della recyclerView
+       //Essendo la lista delle categorie una LiveData Observer si occuperà in tempo reale di aggiornare il contenuto della recyclerView
+       //Il codice all'interno dell'observer sarà eseguito solo se:
+       //-gli elementi all'interno del database subiscono modifiche di qualsiasi tipo (aggiunta, rimozione, update)
+       //-l'observer passa dallo stato inattivo ad attivo
        toDoViewModel.showAllCategories.observe(viewLifecycleOwner, Observer{ cat ->
            adapterCat.setDataCat(cat)
-
+            /*Creazione delle chip di default propposte all'utente.
+            * Si è deciso di riporle ogni qualvolta l'utente elimina TUTTE le categorie esistenti nella tabella
+            * per far in modo che esista sempre come minimo una categoria che esso possa scegliere
+            */
            if(adapterCat.itemCount==0){
                toDoViewModel.addCategory(Category("Tutti"))
                toDoViewModel.addCategory(Category("Lavoro"))
@@ -116,9 +130,11 @@ class AddFragment : Fragment(), DatePickerDialog.OnDateSetListener, TimePickerDi
        })
 
 
-    /*Gestione click della chip: se una chip viene cliccata, si prende il suo
-    *nome e lo si inserisce nella editText sottostante*/
 
+       /*
+       * Gestione click della chip: se una chip viene cliccata, si prende il suo
+       * nome e lo si inserisce nella editText sottostante
+       */
        chipGroupAdd.setOnCheckedChangeListener { _, checkedId ->
            (chipGroupAdd.findViewById<Chip>(checkedId))?.let {
                it.setOnClickListener {
@@ -128,8 +144,7 @@ class AddFragment : Fragment(), DatePickerDialog.OnDateSetListener, TimePickerDi
            }
        }
 
-       /* Gestione inserimento nuova categoria*/
-
+       /* Gestione inserimento nella tabella category della nuova categoria creata dall'utente*/
        binding.editAddCategory.setOnKeyListener(View.OnKeyListener{v, keyCode,event ->
            if(event.action== KeyEvent.ACTION_UP && keyCode== KeyEvent.KEYCODE_ENTER ){
                Log.d("","CATEGORIA INSERITA TEXTFIELD:${binding.editAddCategory.text.toString()}")
@@ -156,16 +171,17 @@ class AddFragment : Fragment(), DatePickerDialog.OnDateSetListener, TimePickerDi
        })
 
 
-
+       /*Gestione dell' evento click sul bottone ADD che si trova in fondo alla schermata*/
        binding.btnAdd.setOnClickListener {
            insertItemToDatabase()
        }
-
-
-
        return binding.root
     }
 
+    /**
+     * Funzione che serve a gestire il corretto inserimento del nuovo "impegno" dell'utente nel database
+     * @return true se l'inserimento è andato a buon fine, false altrimenti
+     */
     private fun insertItemToDatabase(): Boolean {
         val name = binding.addName.text.toString()
         val category = binding.editAddCategory.text.toString()
@@ -198,11 +214,22 @@ class AddFragment : Fragment(), DatePickerDialog.OnDateSetListener, TimePickerDi
 
     }
 
-    private fun inputCheck(name : String, category: String, deadline : String) : Boolean {
-        return !(TextUtils.isEmpty(name) || TextUtils.isEmpty(category) || TextUtils.isEmpty(deadline))
+    /**
+     * Funzione che controlla che l'utente non abbia lasciato campi di inserimento di testo vuoti
+     * @param todo, testo che descrive l'impegno dell'utente
+     * @param category, categoria dell'impegno
+     * @param deadline, data e ora dell'impegno
+     * @return true se l'input è corretto, false altrimenti
+     */
+    private fun inputCheck(todo : String, category: String, deadline : String) : Boolean {
+        return !(TextUtils.isEmpty(todo) || TextUtils.isEmpty(category) || TextUtils.isEmpty(deadline))
     }
 
-    // create chip programmatically and add it to chip group
+    /**
+     * Funzione che crea e aggiunge una chip al groupChip programmaticamente
+     * @param context, contesto
+     * @param label, testo da inserire nella chip
+     */
     private fun ChipGroup.addChip(context: Context?, label: String){
         Chip(context).apply {
             id = View.generateViewId()
@@ -216,13 +243,15 @@ class AddFragment : Fragment(), DatePickerDialog.OnDateSetListener, TimePickerDi
         }
     }
 
-
+    /**
+     * Funzione che controlla se la categoria inserita dall'utente è tra quelle già presenti nel database
+     * @param name, nome della categoria
+     * @return true se la categoria esiste, false altrimenti
+     */
     private fun existingCat(name:String):Boolean {
         var found=false
-        Log.d("","CATEGORIA INSERITA:${name.toString()}")
         for(j in chipGroupAdd.children){
             var currChip= j as Chip
-            Log.d("","CATEGORIA CHIP:${currChip.text.toString()}")
             if(name.toLowerCase().contains(currChip.text.toString().toLowerCase())){
                 Log.d("","ENTRO")
 
@@ -230,7 +259,6 @@ class AddFragment : Fragment(), DatePickerDialog.OnDateSetListener, TimePickerDi
                 break
             }
         }
-        Log.d("","TROVATA? ${found}")
         return found
     }
 

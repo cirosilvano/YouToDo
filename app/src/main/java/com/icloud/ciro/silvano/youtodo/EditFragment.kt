@@ -35,9 +35,7 @@ class EditFragment : Fragment(), DatePickerDialog.OnDateSetListener, TimePickerD
     private var _binding: FragmentEditBinding? = null
     private val binding get() = _binding!!
     private val args by navArgs<EditFragmentArgs>()
-
     private lateinit var toDoViewModel: ToDoViewModel
-    private lateinit var  category : Category
     private lateinit var chipGroupEdit:ChipGroup
 
     // VARIABILI DI SUPPORTO DATE-TIME
@@ -64,15 +62,29 @@ class EditFragment : Fragment(), DatePickerDialog.OnDateSetListener, TimePickerD
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-
+        //Inflate del layout per il fragment
         _binding = FragmentEditBinding.inflate(inflater, container, false)
         chipGroupEdit=binding.chipGroupEdit
 
+        //Creazione dell'adapter per le categorie
         val adapterCat=CategoryAdapter(this)
+
+        //ViewModel per comunicare con la repository
         toDoViewModel = ViewModelProvider(this).get(ToDoViewModel::class.java)
+
+
+        //Creazione dell'observer per mostrare tutte le categorie presenti nel database all'interno della recyclerView
+        //Essendo la lista delle categorie una LiveData Observer si occuperà in tempo reale di aggiornare il contenuto della recyclerView
+        //Il codice all'interno dell'observer sarà eseguito solo se:
+        //-gli elementi all'interno del database subiscono modifiche di qualsiasi tipo (aggiunta, rimozione, update)
+        //-l'observer passa dallo stato inattivo ad attivo
         toDoViewModel.showAllCategories.observe(viewLifecycleOwner, Observer{ cat ->
             adapterCat.setDataCat(cat)
            if(adapterCat.itemCount==0){
+               /*Creazione delle chip di default propposte all'utente.
+                * Si è deciso di riporle ogni qualvolta l'utente elimina TUTTE le categorie esistenti nella tabella
+                * per far in modo che esista sempre come minimo una categoria che esso possa scegliere
+                */
                toDoViewModel.addCategory(Category("Tutti"))
                toDoViewModel.addCategory(Category("Lavoro"))
                toDoViewModel.addCategory(Category("Personale"))
@@ -94,6 +106,7 @@ class EditFragment : Fragment(), DatePickerDialog.OnDateSetListener, TimePickerD
            }
         })
 
+        //Riempimento dei campi di inserimento con i valori della card
         binding.editName.setText(args.currentCard.name)
         binding.editCategory.setText(args.currentCard.category)
         val ldt = LocalDateTime.parse(args.currentCard.deadline)
@@ -116,6 +129,10 @@ class EditFragment : Fragment(), DatePickerDialog.OnDateSetListener, TimePickerD
             }
         }
 
+        /*
+        * Gestione click della chip: se una chip viene cliccata, si prende il suo
+        * nome e lo si inserisce nella editText sottostante
+        */
         chipGroupEdit.setOnCheckedChangeListener { _, checkedId ->
             (chipGroupEdit.findViewById<Chip>(checkedId))?.let {
                 it.setOnClickListener {
@@ -125,8 +142,7 @@ class EditFragment : Fragment(), DatePickerDialog.OnDateSetListener, TimePickerD
             }
         }
 
-        /* Gestione inserimento nuova categoria*/
-
+        /* Gestione inserimento nella tabella category della nuova categoria creata dall'utente*/
         binding.editCategory.setOnKeyListener(View.OnKeyListener{v, keyCode,event ->
             if(event.action== KeyEvent.ACTION_UP && keyCode== KeyEvent.KEYCODE_ENTER ){
                 Log.d("","CATEGORIA INSERITA TEXTFIELD:${binding.editCategory.text.toString()}")
@@ -152,12 +168,13 @@ class EditFragment : Fragment(), DatePickerDialog.OnDateSetListener, TimePickerD
             false
         })
 
+        /*Gestione dell' evento click sul bottone EDIT che si trova in fondo alla schermata*/
         binding.btnEdit.setOnClickListener{
             updateItem()
         }
 
 
-        // Eliminazione CardView con ImageButton
+        // Eliminazione CardView con ImageButton a forma di bidona in alto a destra della schermata
         val deleteEditButton : ImageButton = binding.deleteEditButton
         deleteEditButton.setOnClickListener{
             deleteCard()
@@ -171,32 +188,28 @@ class EditFragment : Fragment(), DatePickerDialog.OnDateSetListener, TimePickerD
             findNavController().navigate(R.id.action_editFragment_to_mainFragment)
         }
 
-
-
-
-
         return binding.root
     }
 
 
-
+    /**
+     * Funzione che serve a gestire la modifica della card nel database
+     */
     private fun updateItem() {
         val name = binding.editName.text.toString()
         val category = binding.editCategory.text.toString()
         val deadline = "${dateString}T${timeString}"
 
-
-
         if(inputCheck(name, category,deadline)){
-            // Create Item Object
+            // Crezione della card
             val card = Card(args.currentCard.id, name, category, deadline, args.currentCard.isDone)
 
-            // Add Data to Database
+            // Aggiornamento della card nel database
             toDoViewModel.updateCard(card)
 
             Toast.makeText(requireContext(), "Successfully updated!", Toast.LENGTH_LONG).show()
 
-            // Navigate Back
+            // Torna indietro al MainFragment
             findNavController().navigate(R.id.action_editFragment_to_mainFragment)
         }
         else{
@@ -205,15 +218,30 @@ class EditFragment : Fragment(), DatePickerDialog.OnDateSetListener, TimePickerD
 
 
     }
-
+    /**
+     * Funzione che controlla che l'utente non abbia lasciato campi di inserimento di testo vuoti
+     * @param todo, testo che descrive l'impegno dell'utente
+     * @param category, categoria dell'impegno
+     * @param deadline, data e ora dell'impegno
+     * @return true se l'input è corretto, false altrimenti
+     */
     private fun inputCheck(name : String, category: String, deadline : String) : Boolean {
         return !(TextUtils.isEmpty(name) || TextUtils.isEmpty(category) || TextUtils.isEmpty(deadline))
     }
 
+    /**
+     * Funzione che serve a creare il menu (i tre punti) nella topToolBar
+     * @param menu, il menu sul quale fare l'inflate
+     * @param inflater, per impostare il layout del menù*/
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.menu_edit_delete,menu)
     }
 
+
+    /**
+     * Funzione che serve a gestire l'evento di click su un item del menu della topToolBar
+     * @param item, item selezionato del menù
+     * @return true se l'operazione è anadata a buon fine*/
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if(item.itemId==R.id.menu_delete){
             deleteCard()
@@ -225,6 +253,9 @@ class EditFragment : Fragment(), DatePickerDialog.OnDateSetListener, TimePickerD
         _binding = null
     }
 
+    /**
+     * Funzione che serve a gestire l'evento di eliminazione della card
+    */
     private fun deleteCard() {
         val builder = AlertDialog.Builder(requireContext())
         builder.setPositiveButton("Yes") { _,_ ->
@@ -242,7 +273,11 @@ class EditFragment : Fragment(), DatePickerDialog.OnDateSetListener, TimePickerD
         builder.create().show()
     }
 
-    // create chip programmatically and add it to chip group
+    /**
+     * Funzione che crea e aggiunge una chip al groupChip programmaticamente
+     * @param context, contesto
+     * @param label, testo da inserire nella chip
+     */
     private fun ChipGroup.addChip(context: Context?, label: String){
         Chip(context).apply {
             id = View.generateViewId()
@@ -256,7 +291,11 @@ class EditFragment : Fragment(), DatePickerDialog.OnDateSetListener, TimePickerD
 
         }
     }
-
+    /**
+     * Funzione che controlla se la categoria inserita dall'utente è tra quelle già presenti nel database
+     * @param name, nome della categoria
+     * @return true se la categoria esiste, false altrimenti
+     */
     private fun existingCat(name:String):Boolean {
         var found=false
         Log.d("","CATEGORIA INSERITA:${name.toString()}")

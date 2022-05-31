@@ -16,7 +16,7 @@
     <string name="dateLabel">Data</string>
     <string name="timeLabel">Ora</string>
     <string name="newToDoLabel">Nuovo todo</string>
-    <string name="Reset">RESET</string>
+    <string name="apply">APPLICA</string>
     <string name="DynamicColors">Colori dinamici</string>
     <string name="first_fragment_label">Primo Fragment</string>
     <string name="second_fragment_label">Secondo Fragment</string>
@@ -36,4 +36,6 @@
     <string name="editCatTitle">Modifica la categoria:</string>
     <string name="addCatTitle">Nuova categoria:</string>
     <string name="backBtnCatMain">INDIETRO </string>
+    <string name="changesAppliedMex">Modifiche applicate !</string>
+    <string name="setMode">Cambia la modalità: </string>
 </resources>

@@ -25,7 +25,7 @@
     <string name="dateLabel">Date</string>
     <string name="timeLabel">Time</string>
     <string name="newToDoLabel">New ToDo</string>
-    <string name="Reset">RESET</string>
+    <string name="apply">APPLY</string>
     <string name="DynamicColors">Dynamic colors</string>
 
     <!-- weekdays -->
@@ -45,5 +45,8 @@
     <string name="editCatTitle">Edit category </string>
     <string name="addCatTitle">New category </string>
     <string name="backBtnCatMain">BACK </string>
+
+    <string name="changesAppliedMex">Changes have been applied ! </string>
+    <string name="setMode">Change the mode: </string>
 
 </resources>

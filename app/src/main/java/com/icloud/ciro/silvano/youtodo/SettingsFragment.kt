@@ -32,8 +32,11 @@ class SettingsFragment : Fragment() {
 
         _binding = FragmentSettingsBinding.inflate(inflater, container, false)
 
-        //Inizializzazione dell'oggetto di classe SharePreferences. Tale oggetto servirà a prendersi
-        // i valori riguardabti gli stati dei ToggleButtons e dei temi salvati nel precendete uso dell'applicazione
+        /* Per mantenere lo stato persistente dell'applicazione (in questo caso le preferenze relative
+         * al tema dell'applicazione), utilizziamo la classe SharedPreferences.
+         * Qui otteniamo l'ultimo tema che era stato impostato (null se è la prima volta che si utilizza
+         * l'applicazione o non è mai stato modificato il tema)
+         */
         sharedPreferences = activity?.getSharedPreferences("themePref", MODE_PRIVATE)
         prefEditor = sharedPreferences?.edit()
 
@@ -62,8 +65,10 @@ class SettingsFragment : Fragment() {
             binding.toggleButtonMode.check(R.id.btnLightMode)
         }
 
-        //Gestione della selezione dei toggleButtons appartenenti al gruppo dei temi. Per ogni
-        //tipo di selezione viene salvato un certo stato per i TogglesButtons del gruppo e per il tema.
+        /*
+        *Gestione della selezione dei toggleButtons appartenenti al gruppo dei temi. Per ogni
+        *tipo di selezione viene salvato un certo stato per i TogglesButtons del gruppo e per il tema.
+        */
         binding.toggleButtonTheme.addOnButtonCheckedListener { toggleButton, checkedId, isChecked ->
 
             if (isChecked) {
@@ -103,8 +108,10 @@ class SettingsFragment : Fragment() {
 
 
 
-        //Gestione della selezione dei toggleButtons appartenenti al gruppo delle modalità. Per ogni
-        //tipo di selezione viene salvato un certo stato per i TogglesButtons del gruppo e per la modalità.
+        /*
+        *Gestione della selezione dei toggleButtons appartenenti al gruppo delle modalità. Per ogni
+        *tipo di selezione viene salvato un certo stato per i TogglesButtons del gruppo e per la modalità.
+        */
         binding.toggleButtonMode.addOnButtonCheckedListener { toggleButton, checkedId, isChecked ->
 
             if (isChecked) {

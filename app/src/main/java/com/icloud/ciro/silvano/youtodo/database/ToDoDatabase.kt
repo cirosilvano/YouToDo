@@ -13,7 +13,7 @@ import androidx.room.RoomDatabase
 @Database(entities = [Card::class, Category::class], version = 1, exportSchema = false)
 abstract class ToDoDatabase : RoomDatabase() {
 
-    abstract fun itemDao(): CardDao
+    abstract fun cardDao(): CardDao
     abstract fun categoryDao(): CategoryDao
 
     companion object {
@@ -33,7 +33,7 @@ abstract class ToDoDatabase : RoomDatabase() {
                     context.applicationContext,
                     ToDoDatabase::class.java,
                     "user_database"
-                ).build()
+                ).allowMainThreadQueries().build()
 
                 INSTANCE = instance
                 return instance

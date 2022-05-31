@@ -26,7 +26,7 @@ class ToDoRepository(private val cardDao: CardDao, private val categoryDao: Cate
         categoryDao.addCategory(category)
     }
 
-    fun deleteCategory(category: Category) : Int {
+    fun deleteCategory(category: Category): Int {
         return categoryDao.deleteCategory(category)
     }
 

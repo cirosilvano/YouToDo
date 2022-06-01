@@ -2,6 +2,8 @@ package com.icloud.ciro.silvano.youtodo
 
 import android.app.AlertDialog
 import android.content.Context
+import android.content.Context.MODE_PRIVATE
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import android.view.*
@@ -30,6 +32,7 @@ class MainFragment : Fragment(), OnItemSwipeListener, CategoryListener {
     private lateinit var toDoViewModel : ToDoViewModel
     private lateinit var chipGroupMain: ChipGroup
     private var mainActivity = activity
+    private var sharedPreferences: SharedPreferences?=null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         setHasOptionsMenu(true)
@@ -44,6 +47,9 @@ class MainFragment : Fragment(), OnItemSwipeListener, CategoryListener {
         //Inflate del layout per il fragment
         _binding = FragmentMainBinding.inflate(inflater, container, false)
 
+        //ViewModel per comunicare con la repository e fornire i dati nella forma desiderata all'interfaccia utente
+        toDoViewModel = ViewModelProvider(this).get(ToDoViewModel::class.java)
+
         //Creazione dell'adapter per le cards ed assegnamento di esso alla recyclerView
         val adapter = CardAdapter(this)
         val recyclerView = binding.itemsList
@@ -53,14 +59,14 @@ class MainFragment : Fragment(), OnItemSwipeListener, CategoryListener {
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
         //Queste due elementi dell'interfaccia sono mostrati quando non sono presenti card per una certa categoria (o una certa vista nell'applicazione)
-        var ivFree= binding.ivFree
+        sharedPreferences = activity?.getSharedPreferences("themePref", MODE_PRIVATE)
+        var btnDarkState = sharedPreferences!!.getBoolean("TOGGLE_DARK", false)
+        var ivFreeLight = binding.ivFreeLight
+        var ivFreeDark = binding.ivFreeDark
         var tvFree=binding.tvFree
 
         //Creazione dell'adapter per le categorie
         val adapterCat=CategoryAdapter(this)
-
-        //ViewModel per comunicare con la repository
-        toDoViewModel = ViewModelProvider(this).get(ToDoViewModel::class.java)
 
         //Creazione dell'observer per mostrare tutte le card presenti nel database all'interno della recyclerView
         //Essendo la lista delle card una LiveData Observer si occuperà in tempo reale di aggiornare il contenuto della recyclerView
@@ -73,12 +79,22 @@ class MainFragment : Fragment(), OnItemSwipeListener, CategoryListener {
             Log.d("", "LISTA DI ELEMENTI ${card}")
             //Nel caso in cui non siano presenti elementi, allora si rende visibile il placeholder
             if(adapter.itemCount>0){
-                ivFree.isVisible=false
+                if(btnDarkState)
+                    ivFreeLight.isVisible= false
+                else
+                    ivFreeDark.isVisible = false
                 tvFree.isVisible=false
 
             }
             else{
-                ivFree.isVisible=true
+                if(btnDarkState) {
+                    ivFreeDark.isVisible = true
+                    ivFreeLight.isVisible = false
+                }
+                else {
+                    ivFreeLight.isVisible = true
+                    ivFreeDark.isVisible = false
+                }
                 tvFree.isVisible=true
             }
         })
@@ -135,12 +151,22 @@ class MainFragment : Fragment(), OnItemSwipeListener, CategoryListener {
                         adapter.setData(filteredList)
 
                         if(adapter.itemCount>0){
-                            ivFree.isVisible=false
+                            if(btnDarkState)
+                                ivFreeLight.isVisible= false
+                            else
+                                ivFreeDark.isVisible = false
                             tvFree.isVisible=false
 
                         }
                         else{
-                            ivFree.isVisible=true
+                            if(btnDarkState) {
+                                ivFreeDark.isVisible = true
+                                ivFreeLight.isVisible = false
+                            }
+                            else {
+                                ivFreeLight.isVisible = true
+                                ivFreeDark.isVisible = false
+                            }
                             tvFree.isVisible=true
                         }
                     })
@@ -167,12 +193,22 @@ class MainFragment : Fragment(), OnItemSwipeListener, CategoryListener {
                         adapter.setData(toDoList)
 
                         if(adapter.itemCount>0){
-                            ivFree.isVisible=false
+                            if(btnDarkState)
+                                ivFreeLight.isVisible= false
+                            else
+                                ivFreeDark.isVisible = false
                             tvFree.isVisible=false
 
                         }
                         else{
-                            ivFree.isVisible=true
+                            if(btnDarkState) {
+                                ivFreeDark.isVisible = true
+                                ivFreeLight.isVisible = false
+                            }
+                            else {
+                                ivFreeLight.isVisible = true
+                                ivFreeDark.isVisible = false
+                            }
                             tvFree.isVisible=true
                         }
                     })
@@ -190,12 +226,22 @@ class MainFragment : Fragment(), OnItemSwipeListener, CategoryListener {
                         adapter.setData(toDoList)
 
                         if(adapter.itemCount>0){
-                            ivFree.isVisible=false
+                            if(btnDarkState)
+                                ivFreeLight.isVisible= false
+                            else
+                                ivFreeDark.isVisible = false
                             tvFree.isVisible=false
 
                         }
                         else{
-                            ivFree.isVisible=true
+                            if(btnDarkState) {
+                                ivFreeDark.isVisible = true
+                                ivFreeLight.isVisible = false
+                            }
+                            else {
+                                ivFreeLight.isVisible = true
+                                ivFreeDark.isVisible = false
+                            }
                             tvFree.isVisible=true
                         }
                     })
@@ -213,12 +259,22 @@ class MainFragment : Fragment(), OnItemSwipeListener, CategoryListener {
                         adapter.setData(doneList)
 
                         if(adapter.itemCount>0){
-                            ivFree.isVisible=false
+                            if(btnDarkState)
+                                ivFreeLight.isVisible= false
+                            else
+                                ivFreeDark.isVisible = false
                             tvFree.isVisible=false
 
                         }
                         else{
-                            ivFree.isVisible=true
+                            if(btnDarkState) {
+                                ivFreeDark.isVisible = true
+                                ivFreeLight.isVisible = false
+                            }
+                            else {
+                                ivFreeLight.isVisible = true
+                                ivFreeDark.isVisible = false
+                            }
                             tvFree.isVisible=true
                         }
                     })
@@ -258,7 +314,6 @@ class MainFragment : Fragment(), OnItemSwipeListener, CategoryListener {
             isClickable = true
             isCheckable = true
             isCheckedIconVisible = true
-            isCloseIconVisible = true
             isFocusable = true
             addView(this)
             this.setOnCloseIconClickListener{

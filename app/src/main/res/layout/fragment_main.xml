@@ -50,7 +50,7 @@
             android:id="@+id/ivFree"
             android:layout_width="200dp"
             android:layout_height="200dp"
-            android:src="@drawable/relax" />
+            android:src="@drawable/ic_baseline_self_improvement_24" />
 
         <Space
             android:layout_width="match_parent"

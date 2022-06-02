@@ -29,6 +29,78 @@
         <item name="colorSurfaceInverse">@color/md_theme_light_inverseSurface</item>
         <item name="colorPrimaryInverse">@color/md_theme_light_primaryInverse</item>
     </style>
+    <!-- Cold  theme -->
+    <style name="Theme.YouToDoWinter" parent="Base.Theme.YouToDo" >
+        <item name="colorPrimary">@color/md_theme_light_primaryw</item>
+        <item name="colorOnPrimary">@color/md_theme_light_onPrimaryw</item>
+        <item name="colorPrimaryContainer">@color/md_theme_light_primaryContainerw</item>
+        <item name="colorOnPrimaryContainer">@color/md_theme_light_onPrimaryContainerw</item>
+        <item name="colorSecondary">@color/md_theme_light_secondaryw</item>
+        <item name="colorOnSecondary">@color/md_theme_light_onSecondaryw</item>
+        <item name="colorSecondaryContainer">@color/md_theme_light_secondaryContainerw</item>
+        <item name="colorOnSecondaryContainer">@color/md_theme_light_onSecondaryContainerw</item>
+        <item name="colorTertiary">@color/md_theme_light_tertiaryw</item>
+        <item name="colorOnTertiary">@color/md_theme_light_onTertiaryw</item>
+        <item name="colorTertiaryContainer">@color/md_theme_light_tertiaryContainerw</item>
+        <item name="colorOnTertiaryContainer">@color/md_theme_light_onTertiaryContainerw</item>
+        <item name="colorError">@color/md_theme_light_errorw</item>
+        <item name="colorErrorContainer">@color/md_theme_light_errorContainerw</item>
+        <item name="colorOnError">@color/md_theme_light_onErrorw</item>
+        <item name="colorOnErrorContainer">@color/md_theme_light_onErrorContainerw</item>
+        <item name="android:colorBackground">@color/md_theme_light_backgroundw</item>
+        <item name="colorOnBackground">@color/md_theme_light_onBackgroundw</item>
+        <item name="colorSurface">@color/md_theme_light_surfacew</item>
+        <item name="colorOnSurface">@color/md_theme_light_onSurfacew</item>
+        <item name="colorSurfaceVariant">@color/md_theme_light_surfaceVariantw</item>
+        <item name="colorOnSurfaceVariant">@color/md_theme_light_onSurfaceVariantw</item>
+        <item name="colorOutline">@color/md_theme_light_outlinew</item>
+        <item name="colorOnSurfaceInverse">@color/md_theme_light_inverseOnSurfacew</item>
+        <item name="colorSurfaceInverse">@color/md_theme_light_inverseSurfacew</item>
+        <item name="colorPrimaryInverse">@color/md_theme_light_primaryInversew</item>
+        <item name="android:tint">@color/icon_tint_light</item>
 
-    
+    </style>
+
+    <!-- Warm  theme -->
+    <style name="Theme.YouToDoFall" parent="Base.Theme.YouToDo" >
+        <item name="colorPrimary">@color/md_theme_light_primaryf</item>
+        <item name="colorOnPrimary">@color/md_theme_light_onPrimaryf</item>
+        <item name="colorPrimaryContainer">@color/md_theme_light_primaryContainerf</item>
+        <item name="colorOnPrimaryContainer">@color/md_theme_light_onPrimaryContainerf</item>
+        <item name="colorSecondary">@color/md_theme_light_secondaryf</item>
+        <item name="colorOnSecondary">@color/md_theme_light_onSecondaryf</item>
+        <item name="colorSecondaryContainer">@color/md_theme_light_secondaryContainerf</item>
+        <item name="colorOnSecondaryContainer">@color/md_theme_light_onSecondaryContainerf</item>
+        <item name="colorTertiary">@color/md_theme_light_tertiaryf</item>
+        <item name="colorOnTertiary">@color/md_theme_light_onTertiaryf</item>
+        <item name="colorTertiaryContainer">@color/md_theme_light_tertiaryContainerf</item>
+        <item name="colorOnTertiaryContainer">@color/md_theme_light_onTertiaryContainerf</item>
+        <item name="colorError">@color/md_theme_light_errorf</item>
+        <item name="colorErrorContainer">@color/md_theme_light_errorContainerf</item>
+        <item name="colorOnError">@color/md_theme_light_onErrorf</item>
+        <item name="colorOnErrorContainer">@color/md_theme_light_onErrorContainerf</item>
+        <item name="android:colorBackground">@color/md_theme_light_backgroundf</item>
+        <item name="colorOnBackground">@color/md_theme_light_onBackgroundf</item>
+        <item name="colorSurface">@color/md_theme_light_surfacef</item>
+        <item name="colorOnSurface">@color/md_theme_light_onSurfacef</item>
+        <item name="colorSurfaceVariant">@color/md_theme_light_surfaceVariantf</item>
+        <item name="colorOnSurfaceVariant">@color/md_theme_light_onSurfaceVariantf</item>
+        <item name="colorOutline">@color/md_theme_light_outlinef</item>
+        <item name="colorOnSurfaceInverse">@color/md_theme_light_inverseOnSurfacef</item>
+        <item name="colorSurfaceInverse">@color/md_theme_light_inverseSurfacef</item>
+        <item name="colorPrimaryInverse">@color/md_theme_light_primaryInversef</item>
+
+    </style>
+    <!-- TextAppearance Titolo MainFragment-->
+    <style name="TextAppearance.Material3.ActionBar.Title.mainTitle" parent="TextAppearance.Material3.ActionBar.Title">
+        <item name="android:fontFamily">@font/roboto_bold</item>
+        <item name="android:textSize">50sp</item>
+    </style>
+
+    <!-- TextAppearance Titolo Altri Fragment-->
+    <style name="TextAppearance.Material3.ActionBar.Title.secondaryTitle" parent="TextAppearance.Material3.ActionBar.Title">
+        <item name="android:fontFamily">@font/roboto_bold</item>
+        <item name="android:textSize">30sp</item>
+    </style>
+
 </resources>

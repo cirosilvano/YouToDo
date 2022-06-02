@@ -13,7 +13,6 @@
         android:layout_height="80dp"
         android:text="@string/edit_button"
         android:textSize="20dp"
-        app:cornerRadius="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.516"
@@ -110,18 +109,19 @@
 
     </com.google.android.material.textfield.TextInputLayout>
 
+
     <TextView
         android:id="@+id/txtCategory"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="352dp"
-        android:text="@string/categoryLabel"
-        android:textSize="20dp"
+        android:layout_marginStart="35dp"
+        android:layout_marginBottom="328dp"
+        android:text="@string/chooseCategoryLabel"
+        android:textAppearance="@style/TextAppearance.Material3.HeadlineSmall"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.121"
+        app:layout_constraintHorizontal_bias="0.113"
         app:layout_constraintStart_toStartOf="parent" />
-
 
     <HorizontalScrollView
         android:id="@+id/horizontalScrollView2"
@@ -172,12 +172,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
-        android:fontFamily="@font/roboto_bold"
         android:text="@string/edit_todo"
-        android:textSize="30dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:textAppearance="@style/TextAppearance.Material3.ActionBar.Title.secondaryTitle"/>
 
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="wrap_content"

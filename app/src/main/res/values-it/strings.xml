@@ -11,6 +11,7 @@
     <string name="free">Sei libero :)</string>
     <string name="changeTheme">Cambia il tema:</string>
     <string name="categoryLabel">Categoria</string>
+    <string name="chooseCategoryLabel">Scegli/Crea una categoria:</string>
     <string name="newCategoryLabel">Nuova categoria</string>
     <string name="toDoLabel">To do</string>
     <string name="dateLabel">Data</string>
@@ -38,4 +39,5 @@
     <string name="backBtnCatMain">INDIETRO </string>
     <string name="changesAppliedMex">Modifiche applicate !</string>
     <string name="setMode">Cambia la modalità: </string>
+    <string name="settingLabel">Opzioni</string>
 </resources>

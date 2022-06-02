@@ -28,15 +28,14 @@
         <item name="colorOnSurfaceInverse">@color/md_theme_light_inverseOnSurface</item>
         <item name="colorSurfaceInverse">@color/md_theme_light_inverseSurface</item>
         <item name="colorPrimaryInverse">@color/md_theme_light_primaryInverse</item>
-        <item name="android:checkboxStyle">@style/MyCheckBoxStyle</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="android:windowLightStatusBar">true</item>
         <item name="android:tint">@color/icon_tint_light</item>
-        <item name="android:colorAccent">#0000FF</item>
+
     </style>
 
 
-    <!-- Winter  theme. -->
+    <!-- Cold  theme -->
     <style name="Theme.YouToDoWinter" parent="Base.Theme.YouToDo" >
         <item name="colorPrimary">@color/md_theme_light_primaryw</item>
         <item name="colorOnPrimary">@color/md_theme_light_onPrimaryw</item>
@@ -64,12 +63,11 @@
         <item name="colorOnSurfaceInverse">@color/md_theme_light_inverseOnSurfacew</item>
         <item name="colorSurfaceInverse">@color/md_theme_light_inverseSurfacew</item>
         <item name="colorPrimaryInverse">@color/md_theme_light_primaryInversew</item>
-        <item name="android:checkboxStyle">@style/MyCheckBoxStyle</item>
         <item name="android:tint">@color/icon_tint_light</item>
-        <item name="android:colorAccent">#FFFF00</item>
+
     </style>
 
-    <!-- Fall  theme. -->
+    <!-- Warm  theme -->
     <style name="Theme.YouToDoFall" parent="Base.Theme.YouToDo" >
         <item name="colorPrimary">@color/md_theme_light_primaryf</item>
         <item name="colorOnPrimary">@color/md_theme_light_onPrimaryf</item>
@@ -97,20 +95,21 @@
         <item name="colorOnSurfaceInverse">@color/md_theme_light_inverseOnSurfacef</item>
         <item name="colorSurfaceInverse">@color/md_theme_light_inverseSurfacef</item>
         <item name="colorPrimaryInverse">@color/md_theme_light_primaryInversef</item>
-        <item name="android:checkboxStyle">@style/MyCheckBoxStyle</item>
-        <item name="android:colorAccent">#FF00FF</item>
 
     </style>
 
 
-    <!-- Checkbox style-->
-    <style name="MyCheckBoxStyle" parent="Widget.AppCompat.CompoundButton.CheckBox">
-        <item name="android:textColorPrimaryDisableOnly">#000000</item>
-        <item name="buttonTint">#000000</item>
+
+
+
+    <!-- TextAppearance Titolo MainFragment-->
+    <style name="TextAppearance.Material3.ActionBar.Title.mainTitle" parent="TextAppearance.Material3.ActionBar.Title">
+        <item name="android:fontFamily">@font/roboto_bold</item>
+        <item name="android:textSize">50sp</item>
     </style>
 
-    <!-- Toolbar style-->
-    <style name="ToolbarTitleStyle" parent="Widget.Material3.Toolbar">
+    <!-- TextAppearance Titolo Altri Fragment-->
+    <style name="TextAppearance.Material3.ActionBar.Title.secondaryTitle" parent="TextAppearance.Material3.ActionBar.Title">
         <item name="android:fontFamily">@font/roboto_bold</item>
         <item name="android:textSize">30sp</item>
     </style>

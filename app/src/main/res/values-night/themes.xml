@@ -28,7 +28,7 @@
         <item name="colorOnSurfaceInverse">@color/md_theme_dark_inverseOnSurface</item>
         <item name="colorSurfaceInverse">@color/md_theme_dark_inverseSurface</item>
         <item name="colorPrimaryInverse">@color/md_theme_dark_primaryInverse</item>
-        <item name="android:checkboxStyle">@style/MyCheckBoxStyle</item>
+
 
     </style>
 
@@ -59,7 +59,6 @@
         <item name="colorOnSurfaceInverse">@color/md_theme_dark_inverseOnSurfacew</item>
         <item name="colorSurfaceInverse">@color/md_theme_dark_inverseSurfacew</item>
         <item name="colorPrimaryInverse">@color/md_theme_dark_primaryInversew</item>
-        <item name="android:checkboxStyle">@style/MyCheckBoxStyle</item>
 
     </style>
 
@@ -90,18 +89,19 @@
         <item name="colorOnSurfaceInverse">@color/md_theme_dark_inverseOnSurfacef</item>
         <item name="colorSurfaceInverse">@color/md_theme_dark_inverseSurfacef</item>
         <item name="colorPrimaryInverse">@color/md_theme_dark_primaryInversef</item>
-        <item name="android:checkboxStyle">@style/MyCheckBoxStyle</item>
 
     </style>
 
-    <!-- Checkbox style-->
-    <style name="MyCheckBoxStyle" parent="Widget.AppCompat.CompoundButton.CheckBox">
-        <item name="android:textColorPrimaryDisableOnly">#FFFFFF</item>
-        <item name="buttonTint">#FFFFFF</item>
+
+
+    <!-- TextAppearance Titolo MainFragment-->
+    <style name="TextAppearance.Material3.ActionBar.Title.mainTitle" parent="TextAppearance.Material3.ActionBar.Title">
+        <item name="android:fontFamily">@font/roboto_bold</item>
+        <item name="android:textSize">50sp</item>
     </style>
 
-    <!-- Toolbar style-->
-    <style name="ToolbarTitleStyle" parent="Widget.Material3.Toolbar">
+    <!-- TextAppearance Titolo Altri Fragment-->
+    <style name="TextAppearance.Material3.ActionBar.Title.secondaryTitle" parent="TextAppearance.Material3.ActionBar.Title">
         <item name="android:fontFamily">@font/roboto_bold</item>
         <item name="android:textSize">30sp</item>
     </style>

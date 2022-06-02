@@ -48,5 +48,8 @@
 
     <string name="changesAppliedMex">Changes have been applied ! </string>
     <string name="setMode">Change the mode: </string>
+    <string name="settingLabel">Settings</string>
+    <string name="chooseCategoryLabel">Choose/Create a category:</string>
+
 
 </resources>

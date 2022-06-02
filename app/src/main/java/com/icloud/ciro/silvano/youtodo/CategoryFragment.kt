@@ -94,12 +94,15 @@ class CategoryFragment : Fragment(), CategoryListener {
 
                     var newVal=binding.txtFieldCategory.text.toString().trim().lowercase()
                     if(!newVal.isEmpty()){
+                        val previous = adapterCat.itemCount
+                        var now : Int = 0
                         /*
                         * La funzione addCatLong serve ad aggiungere una nuova categorie nella tabella category.
                         * Nel momento in cui una nuova categoria proposta dall'utente risulta già inserita nella tabella, tale
                         * funzione ritornerà un numero di righe "moficate" pari a zero e perciò l'utente sarà avvisato con il relativo messaggio*/
-                        var result=toDoViewModel.addCatLong(Category(newVal))
-                        if(result>0){
+                        toDoViewModel.addCatLong(Category(newVal))
+                        now = adapterCat.itemCount
+                        if(now == previous - 1){
                             Toast.makeText(requireContext(), "Successfully Added!", Toast.LENGTH_LONG).show()
                         }
                         else{
@@ -186,12 +189,11 @@ class CategoryFragment : Fragment(), CategoryListener {
      * @param category la categoria che si vuole eliminare individuata dal click del bottone a forma di bidone
      */
     override fun categoryDelete(category: Category) {
-        var success : Int = 0
         val builder = AlertDialog.Builder(requireContext())
         builder.setPositiveButton("Yes") { _,_ ->
             try {
-                success = toDoViewModel.deleteCategory(category)
-            } catch(e : android.database.sqlite.SQLiteConstraintException) {
+                toDoViewModel.deleteCategory(category)
+            } catch(e : Exception) {
                 Toast.makeText(requireContext(), "Impossibile eliminarla !TOdo sotto tale categoria", Toast.LENGTH_LONG).show()
             }
             Toast.makeText(requireContext(), "category successfully removed !", Toast.LENGTH_LONG).show()

@@ -1,14 +1,18 @@
 package com.icloud.ciro.silvano.youtodo.database
 
 import androidx.lifecycle.LiveData
-import androidx.room.*
+import androidx.room.Dao
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
+import androidx.room.Update
+import androidx.room.Delete
+import androidx.room.Query
 
 /*Interfaccia ItemDao
 * Contiene tutti i metodi utilizzati per accedere alle tabella item del database
 */
 @Dao
 interface CardDao {
-
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun addCard(card: Card)
 

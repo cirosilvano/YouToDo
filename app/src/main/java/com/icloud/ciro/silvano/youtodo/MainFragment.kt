@@ -79,12 +79,9 @@ class MainFragment : Fragment(), OnItemSwipeListener, CategoryListener {
             Log.d("", "LISTA DI ELEMENTI ${card}")
             //Nel caso in cui non siano presenti elementi, allora si rende visibile il placeholder
             if(adapter.itemCount>0){
-                if(btnDarkState)
-                    ivFreeLight.isVisible= false
-                else
-                    ivFreeDark.isVisible = false
+                ivFreeDark.isVisible = false
+                ivFreeLight.isVisible= false
                 tvFree.isVisible=false
-
             }
             else{
                 if(btnDarkState) {
@@ -111,9 +108,9 @@ class MainFragment : Fragment(), OnItemSwipeListener, CategoryListener {
                 toDoViewModel.addCategory(Category("tutti"))
                 toDoViewModel.addCategory(Category("lavoro"))
                 toDoViewModel.addCategory(Category("personale"))
-                chipGroupMain.addChip(requireActivity(),"tutti")
-                chipGroupMain.addChip(requireActivity(),"lavoro")
-                chipGroupMain.addChip(requireActivity(),"personale")
+                chipGroupMain.addChip(requireActivity(),"tutti", adapterCat)
+                chipGroupMain.addChip(requireActivity(),"lavoro", adapterCat)
+                chipGroupMain.addChip(requireActivity(),"personale", adapterCat)
             }
 
             //Controllo che verifica se esiste già una chip. Siccome a differenza del database è possibile creare
@@ -127,7 +124,7 @@ class MainFragment : Fragment(), OnItemSwipeListener, CategoryListener {
                     }
                 }
                 if(!found) //se non esistevano già chip con quel nome, allora si può aggiungere
-                    chipGroupMain.addChip(requireActivity(),i.name)
+                    chipGroupMain.addChip(requireActivity(),i.name, adapterCat)
             }
         })
 
@@ -151,12 +148,9 @@ class MainFragment : Fragment(), OnItemSwipeListener, CategoryListener {
                         adapter.setData(filteredList)
 
                         if(adapter.itemCount>0){
-                            if(btnDarkState)
-                                ivFreeLight.isVisible= false
-                            else
-                                ivFreeDark.isVisible = false
+                            ivFreeDark.isVisible = false
+                            ivFreeLight.isVisible= false
                             tvFree.isVisible=false
-
                         }
                         else{
                             if(btnDarkState) {
@@ -193,12 +187,9 @@ class MainFragment : Fragment(), OnItemSwipeListener, CategoryListener {
                         adapter.setData(toDoList)
 
                         if(adapter.itemCount>0){
-                            if(btnDarkState)
-                                ivFreeLight.isVisible= false
-                            else
-                                ivFreeDark.isVisible = false
+                            ivFreeDark.isVisible = false
+                            ivFreeLight.isVisible= false
                             tvFree.isVisible=false
-
                         }
                         else{
                             if(btnDarkState) {
@@ -226,12 +217,9 @@ class MainFragment : Fragment(), OnItemSwipeListener, CategoryListener {
                         adapter.setData(toDoList)
 
                         if(adapter.itemCount>0){
-                            if(btnDarkState)
-                                ivFreeLight.isVisible= false
-                            else
-                                ivFreeDark.isVisible = false
+                            ivFreeDark.isVisible = false
+                            ivFreeLight.isVisible= false
                             tvFree.isVisible=false
-
                         }
                         else{
                             if(btnDarkState) {
@@ -259,12 +247,9 @@ class MainFragment : Fragment(), OnItemSwipeListener, CategoryListener {
                         adapter.setData(doneList)
 
                         if(adapter.itemCount>0){
-                            if(btnDarkState)
-                                ivFreeLight.isVisible= false
-                            else
-                                ivFreeDark.isVisible = false
+                            ivFreeDark.isVisible = false
+                            ivFreeLight.isVisible= false
                             tvFree.isVisible=false
-
                         }
                         else{
                             if(btnDarkState) {
@@ -307,7 +292,7 @@ class MainFragment : Fragment(), OnItemSwipeListener, CategoryListener {
     }//OnCreateView
 
     // create chip programmatically and add it to chip group
-    private fun ChipGroup.addChip(context: Context?, label: String){
+    private fun ChipGroup.addChip(context: Context?, label: String, adapter : CategoryAdapter){
         Chip(context).apply {
             id = View.generateViewId()
             text = label
@@ -317,15 +302,17 @@ class MainFragment : Fragment(), OnItemSwipeListener, CategoryListener {
             isFocusable = true
             addView(this)
             this.setOnCloseIconClickListener{
+                var previous = adapter.itemCount
                 var success : Int = 0
                 //Eliminazione dell'elemento dalla tabella
                 try {
                     Log.d("", this.text.toString())
-                    success = toDoViewModel.deleteCategory(Category(this.text.toString().trim()))
+                    toDoViewModel.deleteCategory(Category(this.text.toString().trim()))
+                    success = adapter.itemCount
                 } catch(e : android.database.sqlite.SQLiteConstraintException) {
                     Toast.makeText(requireContext(), "Impossibile eliminare la category perché ci sono card con quella.  ", Toast.LENGTH_LONG).show()
                 }
-                if(success > 0) {
+                if(success == previous - 1) {
                     //Rimozione della chip
                     removeView(this)
                 }

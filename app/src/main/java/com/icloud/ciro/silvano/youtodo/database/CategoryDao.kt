@@ -1,7 +1,11 @@
 package com.icloud.ciro.silvano.youtodo.database
 
 import androidx.lifecycle.LiveData
-import androidx.room.*
+import androidx.room.Dao
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
+import androidx.room.Delete
+import androidx.room.Query
 
 /*Interfaccia ItemDao
 * Contiene tutti i metodi utilizzati per accedere alle tabella category del database
@@ -13,10 +17,10 @@ interface CategoryDao {
     fun addCategory(category: Category)
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    fun addCatLong(category: Category):Long
+    fun addCatLong(category: Category)
 
     @Delete
-    fun deleteCategory(category: Category) : Int
+    fun deleteCategory(category: Category)
 
     @Query("SELECT * FROM category")
     fun showAllCategories(): LiveData<List<Category>>

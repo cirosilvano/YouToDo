@@ -5,7 +5,7 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 
-/* Classe ItemDatabase
+/* Classe ToDoDatabase
 *  contiene i database holder e serve come principale punto di accesso
 *  per sottolineare la connessione dell'app con i dati contenuti nel database
 */
@@ -17,26 +17,21 @@ abstract class ToDoDatabase : RoomDatabase() {
     abstract fun categoryDao(): CategoryDao
 
     companion object {
+        // Singleton prevents multiple instances of database opening at the
+        // same time.
         @Volatile
         private var INSTANCE: ToDoDatabase? = null
 
         fun getDatabase(context: Context): ToDoDatabase {
-            val tempInstance = INSTANCE
-            if(tempInstance != null){
-                //l'istanza esiste già, dunque viene ritornata
-                return tempInstance
-            }
-
-            //creazione di una nuova istanza nel caso in cui tempIstance==null
-            synchronized(this){
+            return INSTANCE ?: synchronized(this) {
                 val instance = Room.databaseBuilder(
                     context.applicationContext,
                     ToDoDatabase::class.java,
-                    "user_database"
-                ).allowMainThreadQueries().build()
-
+                    "toDo_database"
+                ).build()
                 INSTANCE = instance
-                return instance
+                // return instance
+                instance
             }
         }
     }

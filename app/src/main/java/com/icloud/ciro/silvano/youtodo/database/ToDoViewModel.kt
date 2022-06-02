@@ -4,6 +4,7 @@ import android.app.Application
 import androidx.lifecycle.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlin.properties.Delegates
 
 
 /*classe ItemViewModel
@@ -22,6 +23,7 @@ class ToDoViewModel(application: Application): AndroidViewModel(application) {
 
     private val filterLiveDataByCategory = MutableLiveData<String>()
     val showCardsByCategory: LiveData<List<Card>>
+
 
 
     init {
@@ -49,7 +51,6 @@ class ToDoViewModel(application: Application): AndroidViewModel(application) {
     }
 
     fun addCard(card: Card){
-        //Dispacthers.IO significa che la query è eseguita in background
         viewModelScope.launch(Dispatchers.IO) {
             repository.addCard(card)
         }
@@ -73,8 +74,10 @@ class ToDoViewModel(application: Application): AndroidViewModel(application) {
         }
     }
 
-    fun deleteCategory(category: Category) : Int{
-        return repository.deleteCategory(category)
+    fun deleteCategory(category: Category) {
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.deleteCategory(category)
+        }
     }
 
     fun updateCategory(oldName:String,newName:String){
@@ -83,11 +86,9 @@ class ToDoViewModel(application: Application): AndroidViewModel(application) {
         }
     }
 
-    fun addCatLong(category: Category):Long{
+    fun addCatLong(category: Category) {
         viewModelScope.launch(Dispatchers.IO) {
-             repository.addCatLong(category)
+            repository.addCatLong(category)
         }
-        return 0
     }
-
 }

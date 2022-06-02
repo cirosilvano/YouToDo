@@ -26,8 +26,8 @@ class ToDoRepository(private val cardDao: CardDao, private val categoryDao: Cate
         categoryDao.addCategory(category)
     }
 
-    fun deleteCategory(category: Category): Int {
-        return categoryDao.deleteCategory(category)
+    fun deleteCategory(category: Category) {
+        categoryDao.deleteCategory(category)
     }
 
     fun selectCardsByCategory(name : String) : LiveData<List<Card>> {
@@ -38,8 +38,8 @@ class ToDoRepository(private val cardDao: CardDao, private val categoryDao: Cate
         return cardDao.selectCardsByStatus(done)
     }
 
-    fun addCatLong(category: Category):Long{
-        return categoryDao.addCatLong(category)
+    fun addCatLong(category: Category){
+        categoryDao.addCatLong(category)
     }
 
     fun updateCategory(oldName:String,newName:String){

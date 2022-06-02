@@ -13,6 +13,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.icloud.ciro.silvano.youtodo.database.Category
 import com.icloud.ciro.silvano.youtodo.database.ToDoViewModel
 import com.icloud.ciro.silvano.youtodo.databinding.FragmentCategoryBinding
@@ -166,7 +167,7 @@ class CategoryFragment : Fragment(), CategoryListener {
                 var newName=binding.txtFieldCategory.text.toString().trim().lowercase()
                 if(!newName.isEmpty()){
                     toDoViewModel.updateCategory(oldName,newName)
-                    Toast.makeText(requireContext(), "Successfully updated!", Toast.LENGTH_LONG).show()
+                    Toast.makeText(requireContext(), getString(R.string.cardUpdateSucc), Toast.LENGTH_LONG).show()
                     binding.txtTitleActionCat.isVisible=false
                     binding.txtFieldCategory.isVisible=false
                     binding.btnBackMainCat.isVisible=false
@@ -176,7 +177,7 @@ class CategoryFragment : Fragment(), CategoryListener {
                     binding.txtFieldCategory.setText("")
                 }
                 else{
-                    Toast.makeText(requireContext(), "Please fill out all fields.", Toast.LENGTH_LONG).show()
+                    Toast.makeText(requireContext(), getString(R.string.fillAllFields), Toast.LENGTH_LONG).show()
                 }
                 true
             }
@@ -189,23 +190,27 @@ class CategoryFragment : Fragment(), CategoryListener {
      * @param category la categoria che si vuole eliminare individuata dal click del bottone a forma di bidone
      */
     override fun categoryDelete(category: Category) {
-        val builder = AlertDialog.Builder(requireContext())
-        builder.setPositiveButton("Yes") { _,_ ->
+        val builder = MaterialAlertDialogBuilder(requireContext())
+        builder.setPositiveButton(getString(R.string.yes)) { _,_ ->
             try {
                 toDoViewModel.deleteCategory(category)
             } catch(e : Exception) {
                 Toast.makeText(requireContext(), "Impossibile eliminarla !TOdo sotto tale categoria", Toast.LENGTH_LONG).show()
             }
-            Toast.makeText(requireContext(), "category successfully removed !", Toast.LENGTH_LONG).show()
+            Toast.makeText(requireContext(), getString(R.string.catRemoveSucc), Toast.LENGTH_LONG).show()
         }
 
         builder.setNegativeButton("No") { _,_ ->
 
         }
 
-        builder.setTitle("Are you sure you want to delete ${category.name} ?")
-        builder.setMessage("Are you sure you want to delete ${category.name} ?")
+        var title=R.string.titleDelete
+        var message=getString(R.string.mexDelete)
+        var nameCat=category.name
 
+        builder.setTitle(title)
+        builder.setMessage(message+" "+nameCat)
+        builder.setIcon(R.drawable.ic_baseline_delete_24_dark)
         builder.create().show()
     }
 }

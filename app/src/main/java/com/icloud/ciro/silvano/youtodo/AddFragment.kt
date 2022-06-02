@@ -108,12 +108,12 @@ class AddFragment : Fragment(), DatePickerDialog.OnDateSetListener, TimePickerDi
             * per far in modo che esista sempre come minimo una categoria che esso possa scegliere
             */
            if(adapterCat.itemCount==0){
-               toDoViewModel.addCategory(Category("Tutti"))
-               toDoViewModel.addCategory(Category("Lavoro"))
-               toDoViewModel.addCategory(Category("Personale"))
-               chipGroupAdd.addChip(requireActivity(),"Tutti")
-               chipGroupAdd.addChip(requireActivity(),"Lavoro")
-               chipGroupAdd.addChip(requireActivity(),"Personale")
+               toDoViewModel.addCategory(Category(getString(R.string.all)))
+               toDoViewModel.addCategory(Category(getString(R.string.work)))
+               toDoViewModel.addCategory(Category(getString(R.string.personal)))
+               chipGroupAdd.addChip(requireActivity(),getString(R.string.all))
+               chipGroupAdd.addChip(requireActivity(),getString(R.string.work))
+               chipGroupAdd.addChip(requireActivity(),getString(R.string.personal))
            }
 
            for(i in cat){
@@ -147,15 +147,14 @@ class AddFragment : Fragment(), DatePickerDialog.OnDateSetListener, TimePickerDi
        /* Gestione inserimento nella tabella category della nuova categoria creata dall'utente*/
        binding.editAddCategory.setOnKeyListener(View.OnKeyListener{v, keyCode,event ->
            if(event.action== KeyEvent.ACTION_UP && keyCode== KeyEvent.KEYCODE_ENTER ){
-               Log.d("","CATEGORIA INSERITA TEXTFIELD:${binding.editAddCategory.text.toString()}")
 
                var textVal=binding.editAddCategory.text.toString().trim()
                if(existingCat(textVal)) {
-                   Toast.makeText(requireContext(), "Existing category !", Toast.LENGTH_LONG).show()
+                   Toast.makeText(requireContext(), getString(R.string.ExCat), Toast.LENGTH_LONG).show()
 
                }
               else if(textVal.isEmpty()){
-                   Toast.makeText(requireContext(), "Choose a category !", Toast.LENGTH_LONG).show()
+                   Toast.makeText(requireContext(), getString(R.string.ChooseCat), Toast.LENGTH_LONG).show()
                    binding.editAddCategory.setText("")
                      }
                     else{
@@ -187,7 +186,6 @@ class AddFragment : Fragment(), DatePickerDialog.OnDateSetListener, TimePickerDi
         val category = binding.editAddCategory.text.toString()
         val deadline = "${dateString}T${timeString}"
 
-        Log.d("", "inserimento item con deadline $deadline")
 
         if(inputCheck(name, category, deadline)){
             // Create Item Object
@@ -200,14 +198,14 @@ class AddFragment : Fragment(), DatePickerDialog.OnDateSetListener, TimePickerDi
 
 
 
-            Toast.makeText(requireContext(), "Successfully added!", Toast.LENGTH_LONG).show()
+            Toast.makeText(requireContext(), getString(R.string.cardAddSucc), Toast.LENGTH_LONG).show()
 
             // Navigate Back
             findNavController().navigate(R.id.action_addFragment_to_mainFragment)
             return true
         }
         else{
-            Toast.makeText(requireContext(), "Please fill out all fields.", Toast.LENGTH_LONG).show()
+            Toast.makeText(requireContext(), getString(R.string.fillAllFields), Toast.LENGTH_LONG).show()
             return false
         }
 
@@ -253,7 +251,6 @@ class AddFragment : Fragment(), DatePickerDialog.OnDateSetListener, TimePickerDi
         for(j in chipGroupAdd.children){
             var currChip= j as Chip
             if(name.toLowerCase().contains(currChip.text.toString().toLowerCase())){
-                Log.d("","ENTRO")
 
                 found=true
                 break

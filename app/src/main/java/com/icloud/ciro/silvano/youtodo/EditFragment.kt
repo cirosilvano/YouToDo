@@ -22,6 +22,7 @@ import androidx.navigation.fragment.navArgs
 import androidx.transition.TransitionInflater
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.icloud.ciro.silvano.youtodo.DateTimeFormatHelper.Companion.generateDate
 import com.icloud.ciro.silvano.youtodo.DateTimeFormatHelper.Companion.generateTime
 import com.icloud.ciro.silvano.youtodo.database.Category
@@ -85,12 +86,12 @@ class EditFragment : Fragment(), DatePickerDialog.OnDateSetListener, TimePickerD
                 * Si è deciso di riporle ogni qualvolta l'utente elimina TUTTE le categorie esistenti nella tabella
                 * per far in modo che esista sempre come minimo una categoria che esso possa scegliere
                 */
-               toDoViewModel.addCategory(Category("Tutti"))
-               toDoViewModel.addCategory(Category("Lavoro"))
-               toDoViewModel.addCategory(Category("Personale"))
-               chipGroupEdit.addChip(requireActivity(),"Tutti")
-               chipGroupEdit.addChip(requireActivity(),"Lavoro")
-               chipGroupEdit.addChip(requireActivity(),"Personale")
+               toDoViewModel.addCategory(Category(getString(R.string.all)))
+               toDoViewModel.addCategory(Category(getString(R.string.work)))
+               toDoViewModel.addCategory(Category(getString(R.string.personal)))
+               chipGroupEdit.addChip(requireActivity(),getString(R.string.all))
+               chipGroupEdit.addChip(requireActivity(),getString(R.string.work))
+               chipGroupEdit.addChip(requireActivity(),getString(R.string.personal))
            }
 
            for(i in cat){
@@ -145,15 +146,14 @@ class EditFragment : Fragment(), DatePickerDialog.OnDateSetListener, TimePickerD
         /* Gestione inserimento nella tabella category della nuova categoria creata dall'utente*/
         binding.editCategory.setOnKeyListener(View.OnKeyListener{v, keyCode,event ->
             if(event.action== KeyEvent.ACTION_UP && keyCode== KeyEvent.KEYCODE_ENTER ){
-                Log.d("","CATEGORIA INSERITA TEXTFIELD:${binding.editCategory.text.toString()}")
 
                 var textVal=binding.editCategory.text.toString().trim()
                 if(existingCat(textVal)) {
-                    Toast.makeText(requireContext(), "Existing category !", Toast.LENGTH_LONG).show()
+                    Toast.makeText(requireContext(), getString(R.string.ExCat), Toast.LENGTH_LONG).show()
 
                 }
                 else if(textVal.isEmpty()){
-                    Toast.makeText(requireContext(), "Choose a category !", Toast.LENGTH_LONG).show()
+                    Toast.makeText(requireContext(), getString(R.string.ChooseCat), Toast.LENGTH_LONG).show()
                     binding.editCategory.setText("")
                 }
                 else{
@@ -174,11 +174,10 @@ class EditFragment : Fragment(), DatePickerDialog.OnDateSetListener, TimePickerD
         }
 
 
-        // Eliminazione CardView con ImageButton a forma di bidona in alto a destra della schermata
+        // Eliminazione CardView con ImageButton a forma di bidone in alto a destra della schermata
         val deleteEditButton : ImageButton = binding.deleteEditButton
         deleteEditButton.setOnClickListener{
             deleteCard()
-            findNavController().navigate(R.id.action_editFragment_to_mainFragment)
             true
         }
 
@@ -207,13 +206,13 @@ class EditFragment : Fragment(), DatePickerDialog.OnDateSetListener, TimePickerD
             // Aggiornamento della card nel database
             toDoViewModel.updateCard(card)
 
-            Toast.makeText(requireContext(), "Successfully updated!", Toast.LENGTH_LONG).show()
+            Toast.makeText(requireContext(), getString(R.string.cardUpdateSucc), Toast.LENGTH_LONG).show()
 
             // Torna indietro al MainFragment
             findNavController().navigate(R.id.action_editFragment_to_mainFragment)
         }
         else{
-            Toast.makeText(requireContext(), "Please fill out all fields.", Toast.LENGTH_LONG).show()
+            Toast.makeText(requireContext(),  getString(R.string.fillAllFields), Toast.LENGTH_LONG).show()
         }
 
 
@@ -257,19 +256,23 @@ class EditFragment : Fragment(), DatePickerDialog.OnDateSetListener, TimePickerD
      * Funzione che serve a gestire l'evento di eliminazione della card
     */
     private fun deleteCard() {
-        val builder = AlertDialog.Builder(requireContext())
-        builder.setPositiveButton("Yes") { _,_ ->
+        val builder = MaterialAlertDialogBuilder(requireContext())
+        builder.setPositiveButton(getString(R.string.yes)) { _,_ ->
             toDoViewModel.deleteCard(args.currentCard)
-            Toast.makeText(requireContext(), "Successfully removed ${args.currentCard.name}!", Toast.LENGTH_LONG).show()
+            findNavController().navigate(R.id.action_editFragment_to_mainFragment)
+            Toast.makeText(requireContext(), getString(R.string.mexDelete)  +"${args.currentCard.name}!", Toast.LENGTH_LONG).show()
         }
 
         builder.setNegativeButton("No") { _,_ ->
 
         }
+        var title=R.string.titleDelete
+        var message=getString(R.string.mexDelete)
+        var nameCard=args.currentCard.name as String
 
-        builder.setTitle("Are you sure you want to delete ${args.currentCard.name} ?")
-        builder.setMessage("Are you sure you want to delete ${args.currentCard.name} ?")
-
+        builder.setTitle(title)
+        builder.setMessage(message+" "+nameCard)
+        builder.setIcon(R.drawable.ic_baseline_delete_24_dark)
         builder.create().show()
     }
 
@@ -298,18 +301,14 @@ class EditFragment : Fragment(), DatePickerDialog.OnDateSetListener, TimePickerD
      */
     private fun existingCat(name:String):Boolean {
         var found=false
-        Log.d("","CATEGORIA INSERITA:${name.toString()}")
         for(j in chipGroupEdit.children){
             var currChip= j as Chip
-            Log.d("","CATEGORIA CHIP:${currChip.text.toString()}")
             if(name.toLowerCase().contains(currChip.text.toString().toLowerCase())){
-                Log.d("","ENTRO")
 
                 found=true
                 break
             }
         }
-        Log.d("","TROVATA? ${found}")
         return found
     }
 

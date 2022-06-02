@@ -40,4 +40,17 @@
     <string name="changesAppliedMex">Modifiche applicate !</string>
     <string name="setMode">Cambia la modalità: </string>
     <string name="settingLabel">Opzioni</string>
+    <string name="personal">personale</string>
+    <string name="all">tutti</string>
+    <string name="work">lavoro</string>
+    <!--Messaggi-->
+    <string name="titleDelete">Elimina:</string>
+    <string name="mexDelete">Sei sicuro di voler eliminare</string>
+    <string name="catRemoveSucc">Rimossa con successo !</string>
+    <string name="cardAddSucc">Aggiunta con successo !</string>
+    <string name="fillAllFields"> Perfavore, riempire tutti i campi</string>
+    <string name="cardUpdateSucc">Aggiornata con successo !</string>
+    <string name="yes"> Si</string>
+    <string name="ExCat"> Categoria esistente!</string>
+    <string name="ChooseCat"> Scegli una categoria!</string>
 </resources>

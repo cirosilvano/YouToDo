@@ -13,6 +13,9 @@
     <string name="more_actions">More actions</string>
     <string name="add_button">ADD</string>
     <string name="edit_button">EDIT</string>
+    <string name="personal">personal</string>
+    <string name="all">all</string>
+    <string name="work">work</string>
 
     <!-- Strings used for mainFragment -->
     <string name="free">You\'re free :)</string>
@@ -50,6 +53,17 @@
     <string name="setMode">Change the mode: </string>
     <string name="settingLabel">Settings</string>
     <string name="chooseCategoryLabel">Choose/Create a category:</string>
+
+    <!--Message-->
+    <string name="titleDelete">Delete:</string>
+    <string name="mexDelete">Are you sure you want to delete </string>
+    <string name="catRemoveSucc">Successfully removed!</string>
+    <string name="cardUpdateSucc">Successfully updated!</string>
+    <string name="cardAddSucc">Successfully added!</string>
+    <string name="fillAllFields"> Please fill out all fields.</string>
+    <string name="yes"> Yes</string>
+    <string name="ExCat"> Existing category!</string>
+    <string name="ChooseCat"> Choose a Category!</string>
 
 
 </resources>

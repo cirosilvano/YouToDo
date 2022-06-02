@@ -105,12 +105,14 @@ class MainFragment : Fragment(), OnItemSwipeListener, CategoryListener {
             //Nel caso in cui non siano presenti categorie, vengono inserite le 3 tipologie di default qua sotto
             //Ciò significa che se vengono eliminate tutte le chip, verranno ricreate automaticamente queste 3
             if(adapterCat.itemCount == 0){
-                toDoViewModel.addCategory(Category("tutti"))
-                toDoViewModel.addCategory(Category("lavoro"))
-                toDoViewModel.addCategory(Category("personale"))
-                chipGroupMain.addChip(requireActivity(),"tutti", adapterCat)
-                chipGroupMain.addChip(requireActivity(),"lavoro", adapterCat)
-                chipGroupMain.addChip(requireActivity(),"personale", adapterCat)
+
+
+                toDoViewModel.addCategory(Category(getString(R.string.all)))
+                toDoViewModel.addCategory(Category(getString(R.string.work)))
+                toDoViewModel.addCategory(Category(getString(R.string.personal)))
+                chipGroupMain.addChip(requireActivity(),getString(R.string.all), adapterCat)
+                chipGroupMain.addChip(requireActivity(),getString(R.string.work), adapterCat)
+                chipGroupMain.addChip(requireActivity(),getString(R.string.personal), adapterCat)
             }
 
             //Controllo che verifica se esiste già una chip. Siccome a differenza del database è possibile creare
@@ -339,9 +341,9 @@ class MainFragment : Fragment(), OnItemSwipeListener, CategoryListener {
      */
     override fun onCardSwipe(card: Card) {
         val builder = AlertDialog.Builder(requireContext())
-        builder.setPositiveButton("Yes") { _,_ ->
+        builder.setPositiveButton(R.string.yes) { _,_ ->
             toDoViewModel.deleteCard(card)
-            Toast.makeText(requireContext(), "Successfully removed ${card.name}!", Toast.LENGTH_LONG).show()
+            Toast.makeText(requireContext(), getString(R.string.mexDelete)+" ${card.name}!", Toast.LENGTH_LONG).show()
         }
 
         builder.setNegativeButton("No") { _,_ ->

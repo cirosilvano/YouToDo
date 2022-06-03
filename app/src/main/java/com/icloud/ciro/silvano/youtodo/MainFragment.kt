@@ -106,7 +106,6 @@ class MainFragment : Fragment(), OnItemSwipeListener, CategoryListener {
             //Ciò significa che se vengono eliminate tutte le chip, verranno ricreate automaticamente queste 3
             if(adapterCat.itemCount == 0){
 
-
                 toDoViewModel.addCategory(Category(getString(R.string.all)))
                 toDoViewModel.addCategory(Category(getString(R.string.work)))
                 toDoViewModel.addCategory(Category(getString(R.string.personal)))
@@ -114,6 +113,7 @@ class MainFragment : Fragment(), OnItemSwipeListener, CategoryListener {
                 chipGroupMain.addChip(requireActivity(),getString(R.string.work), adapterCat)
                 chipGroupMain.addChip(requireActivity(),getString(R.string.personal), adapterCat)
             }
+
 
             //Controllo che verifica se esiste già una chip. Siccome a differenza del database è possibile creare
             //duplicati per le chip, è importante effettuare questa verifica
@@ -268,10 +268,7 @@ class MainFragment : Fragment(), OnItemSwipeListener, CategoryListener {
                     true
                 }
 
-                R.id.settings_nav -> {
-                    findNavController().navigate(R.id.action_mainFragment_to_settingsFragment)
-                    true
-                }
+
                 else -> false
             }
         }
@@ -283,6 +280,10 @@ class MainFragment : Fragment(), OnItemSwipeListener, CategoryListener {
                 R.id.GestCat -> {
                     val action = MainFragmentDirections.actionMainFragmentToCategoryFragment()
                     findNavController().navigate(action)
+                    true
+                }
+                R.id.settings_nav -> {
+                    findNavController().navigate(R.id.action_mainFragment_to_settingsFragment)
                     true
                 }
 
@@ -363,10 +364,18 @@ class MainFragment : Fragment(), OnItemSwipeListener, CategoryListener {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         val id=item.itemId
-        if(id==R.id.GestCat){
-            val action = MainFragmentDirections.actionMainFragmentToCategoryFragment()
-            findNavController().navigate(action)
+
+        when(id){
+            R.id.GestCat->{
+                val action = MainFragmentDirections.actionMainFragmentToCategoryFragment()
+                findNavController().navigate(action)
+            }
+            R.id.settings_nav->{
+                findNavController().navigate(R.id.action_mainFragment_to_settingsFragment)
+            }
+            else->false
         }
+
         return super.onOptionsItemSelected(item)
     }
 

@@ -1,8 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
         android:id="@+id/GestCat"
         android:title="Gestione Categorie" />
+
+    <item
+        android:id="@+id/settings_nav"
+        android:enabled="true"
+        android:icon="@drawable/ic_baseline_settings_35"
+        android:title="Settings"
+        app:showAsAction="ifRoom" />
 
 </menu>

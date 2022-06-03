@@ -14,9 +14,5 @@
         android:enabled="true"
         android:icon="@drawable/ic_baseline_done_35"
         android:title="Done"/>
-    <item
-        android:id="@+id/settings_nav"
-        android:enabled="true"
-        android:icon="@drawable/ic_baseline_settings_35"
-        android:title="Settings"/>
+
 </menu>

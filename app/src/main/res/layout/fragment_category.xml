@@ -41,46 +41,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/txtTitleActionCat"
-        android:layout_width="wrap_content"
-        android:layout_height="32dp"
-        android:text="TextView"
-        android:textSize="20dp"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.187"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.361" />
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textInputLayout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:boxBackgroundMode="outline"
-        app:boxCornerRadiusBottomEnd="16dp"
-        app:boxCornerRadiusBottomStart="16dp"
-        app:boxCornerRadiusTopEnd="16dp"
-        app:boxCornerRadiusTopStart="16dp"
-        app:endIconMode="clear_text"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.361"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.474"
-        app:startIconContentDescription="@string/newCategoryLabel">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/txtFieldCategory"
-            android:layout_width="234dp"
-            android:layout_height="55dp"
-            android:visibility="invisible" />
-
-    </com.google.android.material.textfield.TextInputLayout>
-
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/FabAddCat"
         android:layout_width="wrap_content"
@@ -93,19 +53,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.924" />
-
-    <Button
-        android:id="@+id/btnBackMainCat"
-        android:layout_width="wrap_content"
-        android:layout_height="59dp"
-        android:text="@string/backBtnCatMain"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.421"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textInputLayout"
-        app:layout_constraintVertical_bias="0.27" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

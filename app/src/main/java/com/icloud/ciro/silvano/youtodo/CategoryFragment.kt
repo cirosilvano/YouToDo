@@ -1,14 +1,9 @@
 package com.icloud.ciro.silvano.youtodo
 
-import android.app.AlertDialog
 import android.os.Bundle
-import android.view.KeyEvent
+import android.view.*
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import android.widget.Toast
-import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -72,59 +67,9 @@ class CategoryFragment : Fragment(), CategoryListener {
         * che servono ad aggiungere una nuova categorie, rendendo invisibile quelle principali.
         * Si ha lo stesso effetto che si avrebbe con l'aggiunta di un fragment.
         * */
-        binding.FabAddCat.setOnClickListener{
-            binding.txtTitleActionCat.setText(R.string.addCatTitle)
-            binding.catList.isVisible=false
-            binding.txtTitleActionCat.isVisible=true
-            binding.txtFieldCategory.isVisible=true
-            binding.btnBackMainCat.isVisible=true
-            binding.backCategoryButton.isVisible=false
-            binding.FabAddCat.isVisible=false
-
-            binding.btnBackMainCat.setOnClickListener{
-                binding.txtTitleActionCat.isVisible=false
-                binding.txtFieldCategory.isVisible=false
-                binding.catList.isVisible=true
-                binding.txtFieldCategory.setText("")
-                binding.btnBackMainCat.isVisible=false
-                binding.backCategoryButton.isVisible=true
-                binding.FabAddCat.isVisible=true
-            }
-            binding.txtFieldCategory.setOnKeyListener(View.OnKeyListener{v, keyCode,event ->
-                if(event.action== KeyEvent.ACTION_UP && keyCode== KeyEvent.KEYCODE_ENTER ){
-
-                    var newVal=binding.txtFieldCategory.text.toString().trim().lowercase()
-                    if(!newVal.isEmpty()){
-                        val previous = adapterCat.itemCount
-                        var now : Int = 0
-                        /*
-                        * La funzione addCatLong serve ad aggiungere una nuova categorie nella tabella category.
-                        * Nel momento in cui una nuova categoria proposta dall'utente risulta già inserita nella tabella, tale
-                        * funzione ritornerà un numero di righe "moficate" pari a zero e perciò l'utente sarà avvisato con il relativo messaggio*/
-                        toDoViewModel.addCatLong(Category(newVal))
-                        now = adapterCat.itemCount
-                        if(now == previous - 1){
-                            Toast.makeText(requireContext(), "Successfully Added!", Toast.LENGTH_LONG).show()
-                        }
-                        else{
-                            Toast.makeText(requireContext(), "Existing category!", Toast.LENGTH_LONG).show()
-                        }
-                        binding.txtTitleActionCat.isVisible=false
-                        binding.txtFieldCategory.isVisible=false
-                        binding.btnBackMainCat.isVisible=false
-                        binding.catList.isVisible=true
-                        binding.backCategoryButton.isVisible=true
-                        binding.FabAddCat.isVisible=true
-                        binding.txtFieldCategory.setText("")
-                    }
-                    else{
-                        Toast.makeText(requireContext(), "Please fill out all fields.", Toast.LENGTH_LONG).show()
-                    }
-                    true
-                }
-
-                false
-            })
+        binding.FabAddCat.setOnClickListener {
+            val catDialog = CategoryAddDialog()
+            catDialog.show(parentFragmentManager, "")
         }
 
         return binding.root
@@ -142,48 +87,9 @@ class CategoryFragment : Fragment(), CategoryListener {
      * @param category la categoria che si vuole modificare individuata dal click del bottone a forma di matita
      */
     override fun categoryEdit(category: Category) {
-        binding.txtTitleActionCat.setText(R.string.editCatTitle)
-        binding.txtFieldCategory.setText(category.name.toString())
-        var oldName=category.name.toString()
-        binding.btnBackMainCat.isVisible=true
-        binding.catList.isVisible=false
-        binding.txtTitleActionCat.isVisible=true
-        binding.txtFieldCategory.isVisible=true
-        binding.backCategoryButton.isVisible=false
-        binding.FabAddCat.isVisible=false
-        binding.btnBackMainCat.setOnClickListener{
-            binding.txtTitleActionCat.isVisible=false
-            binding.txtFieldCategory.isVisible=false
-            binding.catList.isVisible=true
-            binding.txtFieldCategory.setText("")
-            binding.btnBackMainCat.isVisible=false
-            binding.backCategoryButton.isVisible=true
-            binding.FabAddCat.isVisible=true
-        }
+        val catDialog = CategoryEditDialog(category)
 
-        binding.txtFieldCategory.setOnKeyListener(View.OnKeyListener{v, keyCode,event ->
-            if(event.action== KeyEvent.ACTION_UP && keyCode== KeyEvent.KEYCODE_ENTER ){
-
-                var newName=binding.txtFieldCategory.text.toString().trim().lowercase()
-                if(!newName.isEmpty()){
-                    toDoViewModel.updateCategory(oldName,newName)
-                    Toast.makeText(requireContext(), getString(R.string.cardUpdateSucc), Toast.LENGTH_LONG).show()
-                    binding.txtTitleActionCat.isVisible=false
-                    binding.txtFieldCategory.isVisible=false
-                    binding.btnBackMainCat.isVisible=false
-                    binding.catList.isVisible=true
-                    binding.backCategoryButton.isVisible=true
-                    binding.FabAddCat.isVisible=true
-                    binding.txtFieldCategory.setText("")
-                }
-                else{
-                    Toast.makeText(requireContext(), getString(R.string.fillAllFields), Toast.LENGTH_LONG).show()
-                }
-                true
-            }
-
-            false
-        })
+        catDialog.show(parentFragmentManager, "")
     }
 
     /**Funzione per la gestione dell'eliminazione della categoria

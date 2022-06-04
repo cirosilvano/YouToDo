@@ -150,29 +150,31 @@ class EditFragment : Fragment(), DatePickerDialog.OnDateSetListener, TimePickerD
             if(event.action== KeyEvent.ACTION_UP && keyCode== KeyEvent.KEYCODE_ENTER ){
 
                 var textVal=binding.editCategory.text.toString().trim()
-                binding.editCategoryLayout.error = null
+
                 if(existingCat(textVal)) {
                     Toast.makeText(requireContext(), getString(R.string.ExCat), Toast.LENGTH_LONG).show()
 
                 }
-                else if(textVal.isEmpty()){
-                    Toast.makeText(requireContext(), getString(R.string.ChooseCat), Toast.LENGTH_LONG).show()
-                    binding.editCategory.setText("")
-                }
-                else{
-                    /*controllo che la lunghezza della categoria sia adeguata*/
-                    if(textVal.length>20){
-                        Toast.makeText(requireContext(), getString(R.string.maxNumChar), Toast.LENGTH_LONG).show()
+                else {
+                    if(textVal.isEmpty()){
+                        Toast.makeText(requireContext(), getString(R.string.ChooseCat), Toast.LENGTH_LONG).show()
+                        binding.editCategory.setText("")
                     }
                     else{
-                        chipGroupEdit.addChip(
-                            requireActivity(),
-                            binding.editCategory.text.toString()
-                        )
-                        toDoViewModel.addCategory(Category(binding.editCategory.text.toString()))
-                        chipGroupEdit.clearCheck()
-                    }
+                        /*controllo che la lunghezza della categoria sia adeguata*/
+                        if(textVal.length>20){
+                            Toast.makeText(requireContext(), getString(R.string.maxNumChar), Toast.LENGTH_LONG).show()
+                        }
+                        else{
+                            chipGroupEdit.addChip(
+                                requireActivity(),
+                                binding.editCategory.text.toString()
+                            )
+                            toDoViewModel.addCategory(Category(binding.editCategory.text.toString()))
+                            chipGroupEdit.clearCheck()
+                        }
 
+                    }
                 }
                 binding.editCategory.setText("")
                 true
@@ -326,7 +328,7 @@ class EditFragment : Fragment(), DatePickerDialog.OnDateSetListener, TimePickerD
         var found=false
         for(j in chipGroupEdit.children){
             var currChip= j as Chip
-            if(name.toLowerCase().contains(currChip.text.toString().toLowerCase())){
+            if(name.toLowerCase().equals(currChip.text.toString().toLowerCase())){
 
                 found=true
                 break

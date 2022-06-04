@@ -29,7 +29,7 @@ class CategoryFragment : Fragment(), CategoryListener {
         //Inflate del layout per il fragment
         _binding = FragmentCategoryBinding.inflate(inflater, container, false)
 
-        //Creazione del riferimento al bottone "Indientro" che servirà a portare nel MainFragment
+        //Creazione del riferimento al bottone "Indietro" che servirà a portare nel MainFragment
         val btnBack = binding.backCategoryButton
 
         //Gestione dell'evento di click nel bottone indietro (la freccia in altro a sinistra della schermata)

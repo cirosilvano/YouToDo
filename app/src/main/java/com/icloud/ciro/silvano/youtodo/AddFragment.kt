@@ -267,7 +267,7 @@ class AddFragment : Fragment(), DatePickerDialog.OnDateSetListener, TimePickerDi
         var found=false
         for(j in chipGroupAdd.children){
             var currChip= j as Chip
-            if(name.toLowerCase().contains(currChip.text.toString().toLowerCase())){
+            if(name.toLowerCase().equals(currChip.text.toString().toLowerCase())){
 
                 found=true
                 break

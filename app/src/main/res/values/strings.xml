@@ -64,6 +64,8 @@
     <string name="yes"> Yes</string>
     <string name="ExCat"> Existing category!</string>
     <string name="ChooseCat"> Choose a Category!</string>
+    <string name="required">*required</string>
+    <string name="maxNumChar">Max 20 characters</string>
 
 
 </resources>

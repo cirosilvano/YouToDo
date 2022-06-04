@@ -14,6 +14,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.core.view.children
+import androidx.core.widget.doOnTextChanged
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -158,9 +159,15 @@ class AddFragment : Fragment(), DatePickerDialog.OnDateSetListener, TimePickerDi
                    binding.editAddCategory.setText("")
                      }
                     else{
+                        /*controllo che la lunghezza della categoria sia adeguata*/
+                        if(textVal.length>20){
+                            Toast.makeText(requireContext(), getString(R.string.maxNumChar), Toast.LENGTH_LONG).show()
+                         }
+                        else{
                         chipGroupAdd.addChip(requireActivity(), binding.editAddCategory.text.toString())
                         toDoViewModel.addCategory(Category(binding.editAddCategory.text.toString()))
                         chipGroupAdd.clearCheck()
+                        }
                     }
                binding.editAddCategory.setText("")
                true
@@ -169,13 +176,23 @@ class AddFragment : Fragment(), DatePickerDialog.OnDateSetListener, TimePickerDi
            false
        })
 
-
+       /*controllo che la lunghezza della categoria: se l'utente sfora il numero massimo di caratteri, viene segnalato l'errore*/
+       binding.editAddCategory.doOnTextChanged { text, start, before, count ->
+           if(text!!.length>20){
+               binding.editAddCategoryLayout.error = getString(R.string.maxNumChar)
+           }
+           else{
+               binding.editAddCategoryLayout.error = null
+           }
+       }
        /*Gestione dell' evento click sul bottone ADD che si trova in fondo alla schermata*/
        binding.btnAdd.setOnClickListener {
            insertItemToDatabase()
        }
        return binding.root
     }
+
+
 
     /**
      * Funzione che serve a gestire il corretto inserimento del nuovo "impegno" dell'utente nel database

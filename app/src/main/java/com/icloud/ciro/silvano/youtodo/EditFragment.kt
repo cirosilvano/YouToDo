@@ -15,6 +15,7 @@ import android.widget.TimePicker
 import androidx.fragment.app.Fragment
 import android.widget.Toast
 import androidx.core.view.children
+import androidx.core.widget.doOnTextChanged
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -66,6 +67,7 @@ class EditFragment : Fragment(), DatePickerDialog.OnDateSetListener, TimePickerD
         //Inflate del layout per il fragment
         _binding = FragmentEditBinding.inflate(inflater, container, false)
         chipGroupEdit=binding.chipGroupEdit
+
 
         //Creazione dell'adapter per le categorie
         val adapterCat=CategoryAdapter(this)
@@ -148,6 +150,7 @@ class EditFragment : Fragment(), DatePickerDialog.OnDateSetListener, TimePickerD
             if(event.action== KeyEvent.ACTION_UP && keyCode== KeyEvent.KEYCODE_ENTER ){
 
                 var textVal=binding.editCategory.text.toString().trim()
+                binding.editCategoryLayout.error = null
                 if(existingCat(textVal)) {
                     Toast.makeText(requireContext(), getString(R.string.ExCat), Toast.LENGTH_LONG).show()
 
@@ -157,9 +160,19 @@ class EditFragment : Fragment(), DatePickerDialog.OnDateSetListener, TimePickerD
                     binding.editCategory.setText("")
                 }
                 else{
-                    chipGroupEdit.addChip(requireActivity(), binding.editCategory.text.toString())
-                    toDoViewModel.addCategory(Category(binding.editCategory.text.toString()))
-                    chipGroupEdit.clearCheck()
+                    /*controllo che la lunghezza della categoria sia adeguata*/
+                    if(textVal.length>20){
+                        Toast.makeText(requireContext(), getString(R.string.maxNumChar), Toast.LENGTH_LONG).show()
+                    }
+                    else{
+                        chipGroupEdit.addChip(
+                            requireActivity(),
+                            binding.editCategory.text.toString()
+                        )
+                        toDoViewModel.addCategory(Category(binding.editCategory.text.toString()))
+                        chipGroupEdit.clearCheck()
+                    }
+
                 }
                 binding.editCategory.setText("")
                 true
@@ -167,6 +180,16 @@ class EditFragment : Fragment(), DatePickerDialog.OnDateSetListener, TimePickerD
 
             false
         })
+
+        /*controllo che la lunghezza della categoria: se l'utente sfora il numero massimo di caratteri, viene segnalato l'errore*/
+        binding.editCategory.doOnTextChanged { text, start, before, count ->
+            if(text!!.length>20){
+                binding.editCategoryLayout.error = getString(R.string.maxNumChar)
+            }
+            else{
+                binding.editCategoryLayout.error = null
+            }
+        }
 
         /*Gestione dell' evento click sul bottone EDIT che si trova in fondo alla schermata*/
         binding.btnEdit.setOnClickListener{

@@ -62,11 +62,8 @@ class CategoryFragment : Fragment(), CategoryListener {
 
         /*
         * Gestione FAB per aggiungere una nuova categoria:
-        * Per non dover gestire un altro Fragment contenente solamente una textfield e un bottone
-        * si è optato per questa strada. Al click del FAB vegono rese visibili le componenti
-        * che servono ad aggiungere una nuova categorie, rendendo invisibile quelle principali.
-        * Si ha lo stesso effetto che si avrebbe con l'aggiunta di un fragment.
-        * */
+        * Al click del FAB apparira un DialogFragment
+        */
         binding.FabAddCat.setOnClickListener {
             val catDialog = CategoryAddDialog()
             catDialog.show(parentFragmentManager, "")

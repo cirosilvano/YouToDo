@@ -4,13 +4,11 @@
 
     <item
         android:id="@+id/GestCat"
-        android:title="Gestione Categorie" />
+        android:title="@string/manageLabel" />
 
     <item
         android:id="@+id/settings_nav"
         android:enabled="true"
-        android:icon="@drawable/ic_baseline_settings_35"
-        android:title="Settings"
-        app:showAsAction="ifRoom" />
+        android:title="@string/settingLabel" />
 
 </menu>

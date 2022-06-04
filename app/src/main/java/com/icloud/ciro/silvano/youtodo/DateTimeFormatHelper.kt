@@ -1,5 +1,6 @@
 package com.icloud.ciro.silvano.youtodo
 
+import android.content.ContentValues.TAG
 import android.content.Context
 import android.content.res.Resources
 import android.util.Log
@@ -8,6 +9,7 @@ import java.time.DayOfWeek
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.Period
+import java.time.format.DateTimeParseException
 
 class DateTimeFormatHelper {
     companion object {
@@ -35,20 +37,20 @@ class DateTimeFormatHelper {
         /**
          * Genera una stringa Date-parseable (con parametro backwards = false) a partire da anno, mese e giorno.
          * Il formato restituito è YYYY-MM-DD per backwards=false, DD-MM-YYYY per backwards=true.
+         * Il metodo non controlla la validità della data.
          *
          * @param year - Int, l'anno della data da convertire.
          * @param month - mese nel formato 1-12 dove 1 è gennaio, 12 dicembre.
          * @param day - giorno del mese (a partire da 1)
          * @param backwards - specifica il formato della data. Il valore false restituisce il formato YYYY-MM-DD,
          * mentre true restituisce DD-MM-YYYY. La data backwards non è Date-parseable
-         * @return
+         * @return una stringa Date-parseable (con parametro backwards = false) a partire da anno, mese e giorno.
          */
         fun generateDate(year:Int, month: Int, day: Int, backwards: Boolean): String {
             var monthStr = (month).toString()
             var dayStr = day.toString()
             if(monthStr.length == 1) monthStr = "0${monthStr}"
             if(dayStr.length == 1) dayStr = "0${dayStr}"
-            Log.d("", "genero data $dayStr/$monthStr/$year")
             if(backwards) return "$dayStr-$monthStr-$year"
             return "$year-$monthStr-$dayStr"
         }

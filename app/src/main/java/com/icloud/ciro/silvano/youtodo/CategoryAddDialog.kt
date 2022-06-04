@@ -12,6 +12,7 @@ import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.ViewModelProvider
+import com.google.android.material.textfield.TextInputLayout
 import com.icloud.ciro.silvano.youtodo.database.Category
 import com.icloud.ciro.silvano.youtodo.database.ToDoViewModel
 import com.icloud.ciro.silvano.youtodo.databinding.FragmentCategoryAddDialogBinding
@@ -45,16 +46,33 @@ class CategoryAddDialog() : DialogFragment() {
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 binding.confirm.isEnabled = s!!.isNotEmpty()
+                if(s!!.length>20){
+                    binding.addCategory.error = getString(R.string.maxNumChar)
+                    binding.textInputCategoryLayout.setEndIconMode(TextInputLayout.END_ICON_NONE)
+
+                }
+                else{
+                    binding.addCategory.error = null
+                    binding.textInputCategoryLayout.setEndIconMode(TextInputLayout.END_ICON_CLEAR_TEXT)
+
+                }
             }
         })
 
         binding.confirm.setOnClickListener {
             var newVal=binding.addCategory.text.toString().trim().lowercase()
 
-            if(newVal.isNotEmpty())
-                toDoViewModel.addCatLong(Category(newVal))
+            if(newVal.length>20){
+                Toast.makeText(requireContext(), getString(R.string.maxNumChar), Toast.LENGTH_SHORT).show()
+
+            }
+            else{
+                 if(newVal.isNotEmpty()) {
+                     toDoViewModel.addCatLong(Category(newVal))
+                 }
 
             dismiss()
+            }
         }
 
         binding.dismiss.setOnClickListener {

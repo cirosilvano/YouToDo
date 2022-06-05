@@ -81,7 +81,7 @@
         <item name="colorOnErrorContainer">@color/md_theme_dark_onErrorContainerf</item>
         <item name="android:colorBackground">@color/md_theme_dark_backgroundf</item>
         <item name="colorOnBackground">@color/md_theme_dark_onBackgroundf</item>
-        <item name="colorSurface">@color/md_theme_dark_surfacef</item>
+        <item name="colorSurface">@color/md_theme_dark_surfacew</item>
         <item name="colorOnSurface">@color/md_theme_dark_onSurfacef</item>
         <item name="colorSurfaceVariant">@color/md_theme_dark_surfaceVariantf</item>
         <item name="colorOnSurfaceVariant">@color/md_theme_dark_onSurfaceVariantf</item>

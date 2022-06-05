@@ -19,18 +19,21 @@
         android:elevation="5dp">
 
         <HorizontalScrollView
-            android:id="@+id/horizontalScrollView3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="14dp"
-            android:layout_marginTop="10dp"
+            android:id="@+id/horizontalScrollViewCard"
+            android:layout_width="276dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="25dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="150dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.1"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
             <TextView
                 android:id="@+id/itemName"
-                android:layout_width="224dp"
-                android:layout_height="40dp"
+                android:layout_width="326dp"
+                android:layout_height="50dp"
                 android:layout_marginStart="10dp"
                 android:fontFamily="@font/roboto"
                 android:scrollHorizontally="true"

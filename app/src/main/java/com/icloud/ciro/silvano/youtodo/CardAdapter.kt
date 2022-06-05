@@ -107,10 +107,33 @@ class CardAdapter(val onItemSwipeListener: OnItemSwipeListener) :
             true
         }
 
+        // gestione del caso in cui si tenga premuto sul testo della card
+        holder.name.setOnLongClickListener {
+            /* Invocazione della funzione dell'interfaccia implementata dal fragment in cui verra creata la
+             * recyclerView che farà uso di questo adapter. Nel caso specifico, questo fragment è
+             * MainFragment e la funzione permette di aggiornare lo stato della card (da unchecked a checked e viceversa)
+             */
+            onItemSwipeListener.onCheckCardClick(currentItem)
+
+            /* setOnLongClickListener richiede come valore di ritorno un Boolean che specifica se
+             * la callback ha consumato l'evento. Nel caso specifico, questo avverrà sempre con successo
+             */
+            true
+        }
+
         /* gestione del caso in cui si clicchi su una card. Nel caso specifico, il click permette
          * di passare al fragment in cui è possibile editare la specifica card
          */
         holder.cardLayout.setOnClickListener {
+            val action = MainFragmentDirections.actionMainFragmentToEditFragment(currentItem)
+            holder.itemView.findNavController().navigate(action)
+        }
+
+
+        /* gestione del caso in cui si clicchi sul testo della card. Nel caso specifico, il click permette
+         * di passare al fragment in cui è possibile editare la specifica card
+         */
+        holder.name.setOnClickListener{
             val action = MainFragmentDirections.actionMainFragmentToEditFragment(currentItem)
             holder.itemView.findNavController().navigate(action)
         }

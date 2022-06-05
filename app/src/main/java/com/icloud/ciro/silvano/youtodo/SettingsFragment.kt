@@ -134,13 +134,6 @@ class SettingsFragment : Fragment() {
             }
         }
 
-        //Gestione tocco bottone che serve a tornare al mainFragment e che inoltre invia un messaggio di feedback all'utente
-        binding.btnApply.setOnClickListener {
-            var mex=getString(R.string.changesAppliedMex)
-            Toast.makeText(requireContext(), "${mex}", Toast.LENGTH_LONG).show()
-            findNavController().navigate(R.id.action_settingsFragment_to_mainFragment)
-        }
-
         //Gestione tocco bottone che serve a tornare al mainFragment
         binding.backSettingsButton.setOnClickListener {
             findNavController().navigate(R.id.action_settingsFragment_to_mainFragment)

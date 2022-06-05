@@ -2,7 +2,6 @@
     <!-- Base application theme. -->
     <style name="Base.Theme.YouToDo" parent="Theme.Material3.DayNight.NoActionBar">
         <item name="colorPrimary">@color/md_theme_dark_primary</item>
-        <item name="colorPrimaryDark">@color/md_theme_dark_backgroundw</item>
         <item name="colorOnPrimary">@color/md_theme_dark_onPrimary</item>
         <item name="colorPrimaryContainer">@color/md_theme_dark_primaryContainer</item>
         <item name="colorOnPrimaryContainer">@color/md_theme_dark_onPrimaryContainer</item>
@@ -28,7 +27,8 @@
         <item name="colorOnSurfaceInverse">@color/md_theme_dark_inverseOnSurface</item>
         <item name="colorSurfaceInverse">@color/md_theme_dark_inverseSurface</item>
         <item name="colorPrimaryInverse">@color/md_theme_dark_primaryInverse</item>
-
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="colorAccent">#FFFFFF</item>
 
     </style>
 
@@ -59,6 +59,7 @@
         <item name="colorOnSurfaceInverse">@color/md_theme_dark_inverseOnSurfacew</item>
         <item name="colorSurfaceInverse">@color/md_theme_dark_inverseSurfacew</item>
         <item name="colorPrimaryInverse">@color/md_theme_dark_primaryInversew</item>
+        <item name="colorAccent">#FFFFFF</item>
 
     </style>
 
@@ -89,6 +90,7 @@
         <item name="colorOnSurfaceInverse">@color/md_theme_dark_inverseOnSurfacef</item>
         <item name="colorSurfaceInverse">@color/md_theme_dark_inverseSurfacef</item>
         <item name="colorPrimaryInverse">@color/md_theme_dark_primaryInversef</item>
+        <item name="colorAccent">#FFFFFF</item>
 
     </style>
 

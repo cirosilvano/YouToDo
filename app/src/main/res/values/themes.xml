@@ -2,7 +2,6 @@
     <!-- Base application theme. -->
     <style name="Base.Theme.YouToDo" parent="Theme.Material3.DayNight.NoActionBar">
         <item name="colorPrimary">@color/md_theme_light_primary</item>
-        <item name="colorPrimaryDark">#000000</item>
         <item name="colorOnPrimary">@color/md_theme_light_onPrimary</item>
         <item name="colorPrimaryContainer">@color/md_theme_light_primaryContainer</item>
         <item name="colorOnPrimaryContainer">@color/md_theme_light_onPrimaryContainer</item>
@@ -31,7 +30,7 @@
         <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="android:windowLightStatusBar">true</item>
         <item name="android:tint">@color/icon_tint_light</item>
-
+        <item name="colorAccent">#000000</item>
     </style>
 
 
@@ -64,6 +63,7 @@
         <item name="colorSurfaceInverse">@color/md_theme_light_inverseSurfacew</item>
         <item name="colorPrimaryInverse">@color/md_theme_light_primaryInversew</item>
         <item name="android:tint">@color/icon_tint_light</item>
+        <item name="colorAccent">#000000</item>
 
     </style>
 
@@ -95,10 +95,9 @@
         <item name="colorOnSurfaceInverse">@color/md_theme_light_inverseOnSurfacef</item>
         <item name="colorSurfaceInverse">@color/md_theme_light_inverseSurfacef</item>
         <item name="colorPrimaryInverse">@color/md_theme_light_primaryInversef</item>
+        <item name="colorAccent">#000000</item>
 
     </style>
-
-
 
 
 

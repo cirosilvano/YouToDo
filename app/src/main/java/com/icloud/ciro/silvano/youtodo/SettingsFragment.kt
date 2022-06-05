@@ -9,8 +9,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
 import androidx.transition.TransitionInflater
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.icloud.ciro.silvano.youtodo.databinding.FragmentSettingsBinding
 
 class SettingsFragment : Fragment() {
@@ -45,6 +47,9 @@ class SettingsFragment : Fragment() {
         var btnDefaultState = sharedPreferences!!.getBoolean("TOGGLE_DEFAULT", false)
         var btnTheme1State = sharedPreferences!!.getBoolean("TOGGLE_THEME1", false)
         var btnTheme2State = sharedPreferences!!.getBoolean("TOGGLE_THEME2", false)
+        val bottomAppBar: BottomNavigationView = binding.bottomNavigationView
+
+        binding.bottomNavigationView.menu.getItem(2).setChecked(true)
 
 
         //Impostazione dello stato dei toggleButtons appartenenti al gruppo dei temi
@@ -132,6 +137,30 @@ class SettingsFragment : Fragment() {
                     }
                 }
             }
+        }
+
+        //Gestione dei click per i vari tasti del menù
+
+        bottomAppBar.setOnItemSelectedListener { menuItem->
+            when (menuItem.itemId) {
+                //Questo tasto mostra tutte le card che sono state create
+                R.id.home_nav -> {
+                    findNavController().navigate(R.id.action_settingsFragment_to_mainFragment)
+                    true
+                }
+
+                R.id.settings_nav->{
+
+                }
+
+                R.id.category_nav->{
+                    findNavController().navigate(R.id.action_settingsFragment_to_categoryFragment)
+                    true
+                }
+                else->false
+            }
+            true
+
         }
 
         //Gestione tocco bottone che serve a tornare al mainFragment

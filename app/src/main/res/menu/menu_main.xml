@@ -1,18 +1,19 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/all_nav"
+        android:id="@+id/home_nav"
         android:enabled="true"
-        android:icon="@drawable/ic_baseline_format_list_bulleted_35"
-        android:title="All cards"/>
+        android:icon="@drawable/ic_baseline_home_24"
+        android:title="@string/allCards"/>
     <item
-        android:id="@+id/to_do_nav"
+        android:id="@+id/category_nav"
         android:enabled="true"
-        android:icon="@drawable/ic_baseline_rule_24"
-        android:title="To do" />
+        android:icon="@drawable/ic_baseline_category_24"
+        android:title="@string/categoriesLabel"/>
     <item
-        android:id="@+id/done_nav"
+        android:id="@+id/settings_nav"
         android:enabled="true"
-        android:icon="@drawable/ic_baseline_done_35"
-        android:title="Done"/>
+        android:icon="@drawable/ic_baseline_settings_35"
+        android:title="@string/settingLabel" />
+
 
 </menu>

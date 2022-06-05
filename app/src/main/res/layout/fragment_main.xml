@@ -24,7 +24,7 @@
             android:layout_width="match_parent"
             android:layout_height="70dp"
 
-            app:menu="@menu/menu_category">
+            app:menu="@menu/menu_filter">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -123,16 +123,14 @@
         android:id="@+id/addFAB"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="25dp"
+        android:layout_marginBottom="100dp"
         android:clickable="true"
         android:contentDescription="@string/newToDoLabel"
         android:src="@drawable/ic_add_24"
         android:text="@string/newToDoLabel"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.917"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.866" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

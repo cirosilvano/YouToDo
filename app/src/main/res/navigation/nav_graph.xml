@@ -52,6 +52,9 @@
         <action
             android:id="@+id/action_settingsFragment_to_mainFragment"
             app:destination="@id/mainFragment" />
+        <action
+            android:id="@+id/action_settingsFragment_to_categoryFragment"
+            app:destination="@id/categoryFragment" />
     </fragment>
     <fragment
         android:id="@+id/categoryFragment"
@@ -61,6 +64,9 @@
         <action
             android:id="@+id/action_categoryFragment_to_mainFragment"
             app:destination="@id/mainFragment" />
+        <action
+            android:id="@+id/action_categoryFragment_to_settingsFragment"
+            app:destination="@id/settingsFragment" />
     </fragment>
 
 </navigation>

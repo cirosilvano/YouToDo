@@ -174,10 +174,36 @@ class MainFragment : Fragment(), OnItemSwipeListener, CategoryListener {
             findNavController().navigate(R.id.action_mainFragment_to_addFragment)
         }
 
+
+
         //Gestione dei click per i vari tasti del menù
         val bottomAppBar: BottomNavigationView = binding.bottomNavigationView
 
-        bottomAppBar.setOnItemSelectedListener { menuItem ->
+        bottomAppBar.setOnItemSelectedListener { menuItem->
+            when (menuItem.itemId) {
+
+                R.id.home_nav -> {
+                    true
+                }
+
+                R.id.settings_nav->{
+                    findNavController().navigate(R.id.action_mainFragment_to_settingsFragment)
+                }
+
+                R.id.category_nav->{
+                    val action = MainFragmentDirections.actionMainFragmentToCategoryFragment()
+                    findNavController().navigate(action)
+                    true
+                }
+                else->false
+            }
+            true
+
+        }
+
+        //Gestione del click delle opzioni del menù a tendina che compare premendo i 3 punti in alto a destra
+        var topAppBar:MaterialToolbar=binding.topAppBar
+        topAppBar.setOnMenuItemClickListener { menuItem ->
             when (menuItem.itemId) {
                 //Questo tasto mostra tutte le card che sono state create
                 R.id.all_nav -> {
@@ -207,7 +233,6 @@ class MainFragment : Fragment(), OnItemSwipeListener, CategoryListener {
                     })
                     true
                 }
-
                 //Questo tasto mostra tutte le card che non sono ancora state completate (la check non è spuntata)
                 R.id.to_do_nav -> {
                     toDoViewModel.showAllCards.removeObservers(viewLifecycleOwner)
@@ -268,119 +293,100 @@ class MainFragment : Fragment(), OnItemSwipeListener, CategoryListener {
                     true
                 }
 
-
                 else -> false
             }
         }
 
-        //Gestione del click delle opzioni del menù a tendina che compare premendo i 3 punti in alto a destra
-        var topAppBar:MaterialToolbar=binding.topAppBar
-        topAppBar.setOnMenuItemClickListener { menuItem ->
-            when (menuItem.itemId) {
-                R.id.GestCat -> {
-                    val action = MainFragmentDirections.actionMainFragmentToCategoryFragment()
-                    findNavController().navigate(action)
-                    true
-                }
-                R.id.settings_nav -> {
-                    findNavController().navigate(R.id.action_mainFragment_to_settingsFragment)
-                    true
-                }
+ return binding.root
+}//OnCreateView
 
-                else -> false
-            }
-        }
+// create chip programmatically and add it to chip group
+private fun ChipGroup.addChip(context: Context?, label: String, adapter : CategoryAdapter){
+ Chip(context).apply {
+     id = View.generateViewId()
+     text = label
+     isClickable = true
+     isCheckable = true
+     isCheckedIconVisible = true
+     isFocusable = true
+     addView(this)
+     this.setOnCloseIconClickListener{
+         var previous = adapter.itemCount
+         var success : Int = 0
+         //Eliminazione dell'elemento dalla tabella
+         try {
+             Log.d("", this.text.toString())
+             toDoViewModel.deleteCategory(Category(this.text.toString().trim()))
+             success = adapter.itemCount
+         } catch(e : android.database.sqlite.SQLiteConstraintException) {
+             Toast.makeText(requireContext(), "Impossibile eliminare la category perché ci sono card con quella.  ", Toast.LENGTH_LONG).show()
+         }
+         if(success == previous - 1) {
+             //Rimozione della chip
+             removeView(this)
+         }
+     }
+ }
+}
 
-        return binding.root
-    }//OnCreateView
+/**
+* Funzione che modifica lo stato della card di cui si è premuta la check
+* @param card card di cui si vuole cambiare lo stato (da checked a unchecked o viceversa)
+*/
+override fun onCheckCardClick(card: Card) {
+ //Si verifica lo stato della card e si invoca l'update con lo stato opposto
 
-    // create chip programmatically and add it to chip group
-    private fun ChipGroup.addChip(context: Context?, label: String, adapter : CategoryAdapter){
-        Chip(context).apply {
-            id = View.generateViewId()
-            text = label
-            isClickable = true
-            isCheckable = true
-            isCheckedIconVisible = true
-            isFocusable = true
-            addView(this)
-            this.setOnCloseIconClickListener{
-                var previous = adapter.itemCount
-                var success : Int = 0
-                //Eliminazione dell'elemento dalla tabella
-                try {
-                    Log.d("", this.text.toString())
-                    toDoViewModel.deleteCategory(Category(this.text.toString().trim()))
-                    success = adapter.itemCount
-                } catch(e : android.database.sqlite.SQLiteConstraintException) {
-                    Toast.makeText(requireContext(), "Impossibile eliminare la category perché ci sono card con quella.  ", Toast.LENGTH_LONG).show()
-                }
-                if(success == previous - 1) {
-                    //Rimozione della chip
-                    removeView(this)
-                }
-            }
-        }
-    }
+ if(card.isDone)
+     toDoViewModel.updateCard(Card(card.id, card.name, card.category, card.deadline, false))
+ else
+     toDoViewModel.updateCard(Card(card.id, card.name, card.category, card.deadline, true))
+}
 
-    /**
-     * Funzione che modifica lo stato della card di cui si è premuta la check
-     * @param card card di cui si vuole cambiare lo stato (da checked a unchecked o viceversa)
-     */
-    override fun onCheckCardClick(card: Card) {
-        //Si verifica lo stato della card e si invoca l'update con lo stato opposto
+/**
+* Funzione che triggera il messaggio di eliminazione nel caso in cui venga fatto uno swipe sulla card
+* @param card card su cui è stato lo swipe e per la quale si propone la cancellazione
+*/
+override fun onCardSwipe(card: Card) {
+ val builder = AlertDialog.Builder(requireContext())
+ builder.setPositiveButton(R.string.yes) { _,_ ->
+     toDoViewModel.deleteCard(card)
+     Toast.makeText(requireContext(), getString(R.string.mexDelete)+" ${card.name}!", Toast.LENGTH_LONG).show()
+ }
 
-        if(card.isDone)
-            toDoViewModel.updateCard(Card(card.id, card.name, card.category, card.deadline, false))
-        else
-            toDoViewModel.updateCard(Card(card.id, card.name, card.category, card.deadline, true))
-    }
+ builder.setNegativeButton("No") { _,_ ->
 
-    /**
-     * Funzione che triggera il messaggio di eliminazione nel caso in cui venga fatto uno swipe sulla card
-     * @param card card su cui è stato lo swipe e per la quale si propone la cancellazione
-     */
-    override fun onCardSwipe(card: Card) {
-        val builder = AlertDialog.Builder(requireContext())
-        builder.setPositiveButton(R.string.yes) { _,_ ->
-            toDoViewModel.deleteCard(card)
-            Toast.makeText(requireContext(), getString(R.string.mexDelete)+" ${card.name}!", Toast.LENGTH_LONG).show()
-        }
+ }
 
-        builder.setNegativeButton("No") { _,_ ->
+ builder.setTitle("Are you sure you want to delete ${card.name} ?")
+ builder.setMessage("Are you sure you want to delete ${card.name} ?")
 
-        }
+ builder.create().show()
+}
 
-        builder.setTitle("Are you sure you want to delete ${card.name} ?")
-        builder.setMessage("Are you sure you want to delete ${card.name} ?")
+override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+ inflater.inflate(R.menu.menu_filter,menu)
+ super.onCreateOptionsMenu(menu, inflater)
+}
 
-        builder.create().show()
-    }
+override fun onOptionsItemSelected(item: MenuItem): Boolean {
+/*  val id=item.itemId
 
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.menu_category,menu)
-        super.onCreateOptionsMenu(menu, inflater)
-    }
+ when(id){
+     R.id.GestCat->{
+         val action = MainFragmentDirections.actionMainFragmentToCategoryFragment()
+         findNavController().navigate(action)
+     }
+     R.id.settings_nav->{
+         findNavController().navigate(R.id.action_mainFragment_to_settingsFragment)
+     }
+     else->false
+ }*/
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        val id=item.itemId
+ return super.onOptionsItemSelected(item)
+}
 
-        when(id){
-            R.id.GestCat->{
-                val action = MainFragmentDirections.actionMainFragmentToCategoryFragment()
-                findNavController().navigate(action)
-            }
-            R.id.settings_nav->{
-                findNavController().navigate(R.id.action_mainFragment_to_settingsFragment)
-            }
-            else->false
-        }
+override fun categoryEdit(category: Category) {}
 
-        return super.onOptionsItemSelected(item)
-    }
-
-    override fun categoryEdit(category: Category) {}
-
-    override fun categoryDelete(category: Category) {}
+override fun categoryDelete(category: Category) {}
 
 }

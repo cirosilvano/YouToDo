@@ -8,6 +8,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.transition.TransitionInflater
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.icloud.ciro.silvano.youtodo.database.Category
 import com.icloud.ciro.silvano.youtodo.database.ToDoViewModel
@@ -22,6 +23,9 @@ class CategoryFragment : Fragment(), CategoryListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        val inflater = TransitionInflater.from(requireContext())
+        exitTransition = inflater.inflateTransition(R.transition.fade)
+        enterTransition = inflater.inflateTransition(R.transition.slide_left)
 
     }
 
@@ -31,6 +35,8 @@ class CategoryFragment : Fragment(), CategoryListener {
 
         //Creazione del riferimento al bottone "Indietro" che servirà a portare nel MainFragment
         val btnBack = binding.backCategoryButton
+
+        binding.bottomNavigationView.menu.getItem(1).setChecked(true)
 
         //Gestione dell'evento di click nel bottone indietro (la freccia in altro a sinistra della schermata)
         btnBack.setOnClickListener {
@@ -68,6 +74,31 @@ class CategoryFragment : Fragment(), CategoryListener {
             val catDialog = CategoryAddDialog()
             catDialog.show(parentFragmentManager, "")
         }
+
+        //Gestione dei click per i vari tasti del menù
+
+        binding.bottomNavigationView.setOnItemSelectedListener { menuItem->
+            when (menuItem.itemId) {
+                //Questo tasto mostra tutte le card che sono state create
+                R.id.home_nav -> {
+                    findNavController().navigate(R.id.action_categoryFragment_to_mainFragment)
+                    true
+                }
+
+                R.id.settings_nav->{
+                    findNavController().navigate(R.id.action_categoryFragment_to_settingsFragment)
+                }
+
+                R.id.category_nav->{
+
+                    true
+                }
+                else->false
+            }
+            true
+
+        }
+
 
         return binding.root
     }

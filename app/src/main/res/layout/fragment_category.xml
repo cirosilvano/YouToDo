@@ -21,12 +21,14 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/catList"
-        android:layout_width="419dp"
-        android:layout_height="508dp"
+        android:layout_width="410dp"
+        android:layout_height="448dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.385" />
 
     <TextView
         android:id="@+id/txtTitleCategory"
@@ -45,14 +47,22 @@
         android:id="@+id/FabAddCat"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="25dp"
+        android:layout_marginBottom="100dp"
         android:clickable="true"
         android:src="@drawable/ic_add_24"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNavigationView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.917"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.924" />
+        app:menu="@menu/menu_main"
+        />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

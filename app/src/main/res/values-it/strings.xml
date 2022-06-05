@@ -11,9 +11,11 @@
     <string name="free">Sei libero :)</string>
     <string name="changeTheme">Cambia il tema:</string>
     <string name="categoryLabel">Categoria</string>
+
     <string name="chooseCategoryLabel">Scegli/Crea una categoria:</string>
     <string name="newCategoryLabel">Nuova categoria</string>
-    <string name="toDoLabel">To do</string>
+    <string name="toDoLabel">Da fare</string>
+    <string name="doneLabel">Svolti</string>
     <string name="dateLabel">Data</string>
     <string name="timeLabel">Ora</string>
     <string name="newToDoLabel">Nuovo todo</string>
@@ -43,7 +45,8 @@
     <string name="personal">personale</string>
     <string name="all">tutti</string>
     <string name="work">lavoro</string>
-
+    <string name="categoriesLabel">Categorie</string>
+    <string name="allCards">I miei impegni</string>
     <!--Messaggi-->
     <string name="titleDelete">Elimina:</string>
     <string name="mexDelete">Sei sicuro di voler eliminare</string>
@@ -56,5 +59,7 @@
     <string name="ChooseCat"> Scegli una categoria!</string>
     <string name="required">*richiesto</string>
     <string name="maxNumChar">Max 20 caratteri</string>
+    <string name="allMyTask">Tutti i miei impegni</string>
+
 
 </resources>

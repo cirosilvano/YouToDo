@@ -20,31 +20,24 @@
 
         <HorizontalScrollView
             android:id="@+id/horizontalScrollViewCard"
-            android:layout_width="276dp"
-            android:layout_height="48dp"
+            android:layout_width="wrap_content"
+            android:layout_height="46dp"
             android:layout_marginStart="25dp"
             android:layout_marginTop="16dp"
-            android:layout_marginEnd="150dp"
+            android:layout_marginEnd="160dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.1"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
             <TextView
                 android:id="@+id/itemName"
-                android:layout_width="326dp"
+                android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:layout_marginStart="10dp"
                 android:fontFamily="@font/roboto"
                 android:scrollHorizontally="true"
                 android:text="Write a chapter"
-                android:textSize="30sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toEndOf="@+id/cbDone"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.195" />
+                android:textSize="30sp" />
         </HorizontalScrollView>
 
         <TextView

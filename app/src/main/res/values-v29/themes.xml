@@ -29,7 +29,6 @@
         <item name="colorSurfaceInverse">@color/md_theme_light_inverseSurface</item>
         <item name="colorPrimaryInverse">@color/md_theme_light_primaryInverse</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
-        <item name="android:windowLightStatusBar">true</item>
     </style>
     <!-- Cold  theme -->
     <style name="Theme.YouToDoWinter" parent="Base.Theme.YouToDo" >

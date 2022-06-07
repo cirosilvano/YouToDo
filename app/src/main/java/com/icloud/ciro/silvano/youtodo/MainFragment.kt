@@ -38,9 +38,6 @@ class MainFragment : Fragment(), OnItemSwipeListener, CategoryListener {
         setHasOptionsMenu(true)
         super.onCreate(savedInstanceState)
         val inflater = TransitionInflater.from(requireContext())
-        exitTransition = inflater.inflateTransition(R.transition.fade)
-        enterTransition = inflater.inflateTransition(R.transition.slide_right)
-
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle? ): View? {

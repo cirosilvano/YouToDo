@@ -78,14 +78,14 @@ class AddFragment : Fragment(), DatePickerDialog.OnDateSetListener, TimePickerDi
        }
 
        // GESTIONE DATE-TIME PICKING
-       binding.editDate.setOnFocusChangeListener{view,b->
+       binding.addDate.setOnFocusChangeListener{view,b->
            if(b) {
                getDateTimeCalendar()
                DatePickerDialog(requireContext(), this, year, month, day).show()
            }
        }
 
-       binding.editTime.setOnFocusChangeListener{view,b->
+       binding.addTime.setOnFocusChangeListener{view,b->
            if(b) {
                getDateTimeCalendar()
                TimePickerDialog(requireContext(), this, hour, minute, true).show()
@@ -210,9 +210,9 @@ class AddFragment : Fragment(), DatePickerDialog.OnDateSetListener, TimePickerDi
             val category= Category(category)
             // Add Data to Database
 
-            toDoViewModel.addCard(card)
-            toDoViewModel.addCategory(category)
 
+            toDoViewModel.addCategory(category)
+            toDoViewModel.addCard(card)
 
 
             Toast.makeText(requireContext(), getString(R.string.cardAddSucc), Toast.LENGTH_LONG).show()
@@ -281,7 +281,7 @@ class AddFragment : Fragment(), DatePickerDialog.OnDateSetListener, TimePickerDi
         savedMonth = p2+1
         savedDay = p3
         getDateTimeCalendar()
-        binding.editDate.setText(generateDate(savedYear, savedMonth, savedDay, true))
+        binding.addDate.setText(generateDate(savedYear, savedMonth, savedDay, true))
         dateString = generateDate(savedYear, savedMonth, savedDay, false)
     }
 
@@ -290,7 +290,7 @@ class AddFragment : Fragment(), DatePickerDialog.OnDateSetListener, TimePickerDi
         savedMinute = p2
         getDateTimeCalendar()
         val gen = generateTime(savedHour, savedMinute)
-        binding.editTime.setText(gen)
+        binding.addTime.setText(gen)
         timeString = "${gen}:00"
     }
 

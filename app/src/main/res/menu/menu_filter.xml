@@ -4,7 +4,7 @@
     <item
         android:icon="@drawable/ic_baseline_filter_alt_24"
         android:title="menu"
-        app:showAsAction="always">
+        app:showAsAction="ifRoom">
         <menu>
             <item
                 android:id="@+id/all_nav"

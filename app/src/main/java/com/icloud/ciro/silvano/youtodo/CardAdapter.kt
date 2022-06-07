@@ -6,8 +6,6 @@ import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
-import android.widget.CheckBox
-import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
@@ -15,8 +13,7 @@ import com.icloud.ciro.silvano.youtodo.database.Card
 import java.lang.Float.min
 import java.time.LocalDateTime
 import android.animation.AnimatorListenerAdapter
-import android.widget.Button
-import android.widget.ImageButton
+import android.widget.*
 import androidx.cardview.widget.CardView
 import com.google.android.material.card.MaterialCardView
 import com.icloud.ciro.silvano.youtodo.DateTimeFormatHelper.Companion.generateDateTime
@@ -38,6 +35,7 @@ class CardAdapter(val onItemSwipeListener: OnItemSwipeListener) :
         val category: TextView = itemView.findViewById(R.id.itemCategory)
         val deadline: TextView = itemView.findViewById(R.id.itemDeadline)
         val cardLayout: MaterialCardView =itemView.findViewById(R.id.cardItem)
+        val scrollView: HorizontalScrollView = itemView.findViewById(R.id.horizontalScrollViewCard)
 
         /**
          * Funzione che permette di aggiornare gli elementi della UI relativa ad una card con i valori
@@ -51,7 +49,7 @@ class CardAdapter(val onItemSwipeListener: OnItemSwipeListener) :
             name.text = name_tx
             category.text = category_tx
             cardLayout.isChecked=checked
-            deadline.text = DateTimeFormatHelper.generateDeadlineString(deadline_tx, itemView.context)
+            //deadline.text = DateTimeFormatHelper.generateDeadlineString(deadline_tx, itemView.context)
         }
     }
 

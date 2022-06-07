@@ -100,7 +100,7 @@
         app:helperTextEnabled="true"
         app:helperText="@string/required">
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/editDate"
+            android:id="@+id/addDate"
             android:layout_width="234dp"
             android:layout_height="56dp"
             android:hint="@string/dateLabel"
@@ -130,7 +130,7 @@
         app:helperTextEnabled="true"
         app:helperText="@string/required">
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/editTime"
+            android:id="@+id/addTime"
             android:layout_width="234dp"
             android:layout_height="56dp"
             android:hint="@string/timeLabel"

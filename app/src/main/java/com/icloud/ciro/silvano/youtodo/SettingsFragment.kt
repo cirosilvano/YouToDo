@@ -7,9 +7,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatDelegate
-import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
 import androidx.transition.TransitionInflater
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -25,10 +23,10 @@ class SettingsFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val inflater = TransitionInflater.from(requireContext())
+        TransitionInflater.from(requireContext())
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
 
         _binding = FragmentSettingsBinding.inflate(inflater, container, false)
 
@@ -41,13 +39,13 @@ class SettingsFragment : Fragment() {
         prefEditor = sharedPreferences?.edit()
 
         //Stati dei ToggleButtons
-        var btnDarkState = sharedPreferences!!.getBoolean("TOGGLE_DARK", false)
-        var btnDefaultState = sharedPreferences!!.getBoolean("TOGGLE_DEFAULT", false)
-        var btnTheme1State = sharedPreferences!!.getBoolean("TOGGLE_THEME1", false)
-        var btnTheme2State = sharedPreferences!!.getBoolean("TOGGLE_THEME2", false)
+        val btnDarkState = sharedPreferences!!.getBoolean("TOGGLE_DARK", false)
+        val btnDefaultState = sharedPreferences!!.getBoolean("TOGGLE_DEFAULT", false)
+        val btnTheme1State = sharedPreferences!!.getBoolean("TOGGLE_THEME1", false)
+        val btnTheme2State = sharedPreferences!!.getBoolean("TOGGLE_THEME2", false)
         val bottomAppBar: BottomNavigationView = binding.bottomNavigationView
 
-        binding.bottomNavigationView.menu.getItem(2).setChecked(true)
+        binding.bottomNavigationView.menu.getItem(2).isChecked = true
 
 
         //Impostazione dello stato dei toggleButtons appartenenti al gruppo dei temi
@@ -72,7 +70,7 @@ class SettingsFragment : Fragment() {
         *Gestione della selezione dei toggleButtons appartenenti al gruppo dei temi. Per ogni
         *tipo di selezione viene salvato un certo stato per i TogglesButtons del gruppo e per il tema.
         */
-        binding.toggleButtonTheme.addOnButtonCheckedListener { toggleButton, checkedId, isChecked ->
+        binding.toggleButtonTheme.addOnButtonCheckedListener { _, checkedId, isChecked ->
 
             if (isChecked) {
                 when (checkedId) {
@@ -115,7 +113,7 @@ class SettingsFragment : Fragment() {
         *Gestione della selezione dei toggleButtons appartenenti al gruppo delle modalità. Per ogni
         *tipo di selezione viene salvato un certo stato per i TogglesButtons del gruppo e per la modalità.
         */
-        binding.toggleButtonMode.addOnButtonCheckedListener { toggleButton, checkedId, isChecked ->
+        binding.toggleButtonMode.addOnButtonCheckedListener { _, checkedId, isChecked ->
 
             if (isChecked) {
                 when (checkedId) {
@@ -144,7 +142,6 @@ class SettingsFragment : Fragment() {
                 //Questo tasto mostra tutte le card che sono state create
                 R.id.home_nav -> {
                     findNavController().navigate(R.id.action_settingsFragment_to_mainFragment)
-                    true
                 }
 
                 R.id.settings_nav->{
@@ -153,9 +150,7 @@ class SettingsFragment : Fragment() {
 
                 R.id.category_nav->{
                     findNavController().navigate(R.id.action_settingsFragment_to_categoryFragment)
-                    true
                 }
-                else->false
             }
             true
 

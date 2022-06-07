@@ -1,7 +1,10 @@
 package com.icloud.ciro.silvano.youtodo.database
 
 import android.os.Parcelable
-import androidx.room.*
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+import androidx.room.ColumnInfo
+import androidx.room.ForeignKey
 import kotlinx.parcelize.Parcelize
 
 /*Classe Entity:

@@ -1,5 +1,6 @@
 package com.icloud.ciro.silvano.youtodo
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,13 +13,14 @@ import com.icloud.ciro.silvano.youtodo.database.Category
  * Questa classe ci permette di gestire le liste di Card ottenute tramite l'invocazione delle query select
  * sulla tabella card. Permette di creare oggetti ViewHolder e di settare i dati alle view
  */
-class CategoryAdapter(val catListener: CategoryListener): RecyclerView.Adapter<CategoryAdapter.MyViewHolder>() {
+class CategoryAdapter(private val catListener: CategoryListener): RecyclerView.Adapter<CategoryAdapter.MyViewHolder>() {
 
-    var listCat=emptyList<Category>()
+    private var listCat = emptyList<Category>()
 
     class MyViewHolder(categoryView : View) : RecyclerView.ViewHolder(categoryView){
-        var btnModifyCat : ImageButton =categoryView.findViewById(R.id.btnModifyCat)
-        var txtCatFrag : TextView =categoryView.findViewById(R.id.txtCatFrag)
+        private var txtCatFrag : TextView = categoryView.findViewById(R.id.txtCatFrag)
+
+        var btnModifyCat : ImageButton = categoryView.findViewById(R.id.btnModifyCat)
         val btnDeleteCat : ImageButton = categoryView.findViewById(R.id.btnDeleteCat)
 
         /**
@@ -42,7 +44,6 @@ class CategoryAdapter(val catListener: CategoryListener): RecyclerView.Adapter<C
         return MyViewHolder(
             LayoutInflater.from(parent.context).inflate(R.layout.categorylist_item, parent, false)
         )
-
     }
 
     /**
@@ -73,7 +74,6 @@ class CategoryAdapter(val catListener: CategoryListener): RecyclerView.Adapter<C
              */
             catListener.categoryDelete(currentCat)
         }
-
     }
 
     /**
@@ -87,14 +87,12 @@ class CategoryAdapter(val catListener: CategoryListener): RecyclerView.Adapter<C
 
     /**
      * Funzione che permette di assegnare la lista delle categorie che sarà gestita dall'adapter
-     * @param card lista di oggetti Category che verrà gestita dall'adapter
+     * @param cat lista di oggetti Category che verrà gestita dall'adapter
      */
+    @SuppressLint("NotifyDataSetChanged")
     fun setDataCat(cat: List<Category>) {
         this.listCat = cat
         notifyDataSetChanged()
     }
-
-
-
 }
 

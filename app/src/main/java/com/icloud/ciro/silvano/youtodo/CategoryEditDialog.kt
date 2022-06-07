@@ -20,11 +20,7 @@ class CategoryEditDialog(category: Category) : DialogFragment() {
     private val binding get()=_binding!!
     private val cat : Category = category
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
-
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
 
         _binding = FragmentCategoryEditDialogBinding.inflate(inflater, container, false)
 
@@ -45,19 +41,20 @@ class CategoryEditDialog(category: Category) : DialogFragment() {
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 binding.confirm.isEnabled = s!!.isNotEmpty()
                 binding.confirm.isEnabled = s.toString().trim().lowercase() != cat.name.trim().lowercase()
-                if(s!!.length>20){
+
+                if(s.length>20){
                     binding.editCategory.error = getString(R.string.maxNumChar)
-                    binding.textInputCategoryLayout.setEndIconMode(END_ICON_NONE)
+                    binding.textInputCategoryLayout.endIconMode = END_ICON_NONE
                 }
                 else{
                     binding.editCategory.error = null
-                    binding.textInputCategoryLayout.setEndIconMode(END_ICON_CLEAR_TEXT)
+                    binding.textInputCategoryLayout.endIconMode = END_ICON_CLEAR_TEXT
                 }
             }
         })
 
         binding.confirm.setOnClickListener {
-            var newVal=binding.editCategory.text.toString().trim().lowercase()
+            val newVal=binding.editCategory.text.toString().trim().lowercase()
 
             if(newVal.length>20){
                 Toast.makeText(requireContext(), getString(R.string.maxNumChar), Toast.LENGTH_SHORT).show()

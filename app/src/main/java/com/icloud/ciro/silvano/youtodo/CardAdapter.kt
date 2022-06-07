@@ -1,31 +1,20 @@
 package com.icloud.ciro.silvano.youtodo
 
-import android.animation.Animator
-import android.util.Log
 import android.view.LayoutInflater
-import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.icloud.ciro.silvano.youtodo.database.Card
-import java.lang.Float.min
-import java.time.LocalDateTime
-import android.animation.AnimatorListenerAdapter
+import android.annotation.SuppressLint
 import android.widget.*
-import androidx.cardview.widget.CardView
 import com.google.android.material.card.MaterialCardView
-import com.icloud.ciro.silvano.youtodo.DateTimeFormatHelper.Companion.generateDateTime
-import com.icloud.ciro.silvano.youtodo.DateTimeFormatHelper.Companion.generateTime
-import java.time.LocalDate
-import java.time.Period
 
 /**
  * Questa classe ci permette di gestire le liste di Card ottenute tramite l'invocazione delle query select
  * sulla tabella card. Permette di creare oggetti ViewHolder e di settare i dati alle view
  */
-class CardAdapter(val onItemSwipeListener: OnItemSwipeListener) :
+class CardAdapter(private val onItemSwipeListener: OnItemSwipeListener) :
     RecyclerView.Adapter<CardAdapter.MyViewHolder>() {
 
     private var cardList = emptyList<Card>()
@@ -35,7 +24,6 @@ class CardAdapter(val onItemSwipeListener: OnItemSwipeListener) :
         val category: TextView = itemView.findViewById(R.id.itemCategory)
         val deadline: TextView = itemView.findViewById(R.id.itemDeadline)
         val cardLayout: MaterialCardView =itemView.findViewById(R.id.cardItem)
-        val scrollView: HorizontalScrollView = itemView.findViewById(R.id.horizontalScrollViewCard)
 
         /**
          * Funzione che permette di aggiornare gli elementi della UI relativa ad una card con i valori
@@ -49,7 +37,7 @@ class CardAdapter(val onItemSwipeListener: OnItemSwipeListener) :
             name.text = name_tx
             category.text = category_tx
             cardLayout.isChecked=checked
-            //deadline.text = DateTimeFormatHelper.generateDeadlineString(deadline_tx, itemView.context)
+            deadline.text = DateTimeFormatHelper.generateDeadlineString(deadline_tx, itemView.context)
         }
     }
 
@@ -82,7 +70,7 @@ class CardAdapter(val onItemSwipeListener: OnItemSwipeListener) :
      * @see onBindViewHolder nella classe Adapter
      */
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        var currentItem = cardList[position]
+        val currentItem = cardList[position]
 
         holder.bind(
             currentItem.name,
@@ -184,6 +172,7 @@ class CardAdapter(val onItemSwipeListener: OnItemSwipeListener) :
      * Funzione che permette di assegnare la lista di oggetti card che sarà gestita dall'adapter
      * @param card lista di oggetti Card che verrà gestita dall'adapter
      */
+    @SuppressLint("NotifyDataSetChanged")
     fun setData(card: List<Card>) {
         this.cardList = card
         notifyDataSetChanged()

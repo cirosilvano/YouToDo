@@ -17,14 +17,11 @@ class ToDoViewModel(application: Application): AndroidViewModel(application) {
     val showAllCards: LiveData<List<Card>>
     val showAllCategories: LiveData<List<Category>>
 
-    //
     private val filterLiveDataByStatus = MutableLiveData<Int>()
     val showCardsByStatus: LiveData<List<Card>>
 
     private val filterLiveDataByCategory = MutableLiveData<String>()
     val showCardsByCategory: LiveData<List<Card>>
-
-
 
     init {
         val cardDao = ToDoDatabase.getDatabase(application).cardDao()

@@ -18,7 +18,7 @@ import java.time.LocalDateTime
  */
 class DateTimeFormatHelperTest {
 
-    val context : Context = InstrumentationRegistry.getInstrumentation().targetContext
+    private val context : Context = InstrumentationRegistry.getInstrumentation().targetContext
 
     /**
      * Test corto perché il metodo è un semplice concatenatore di stringhe
@@ -85,7 +85,7 @@ class DateTimeFormatHelperTest {
             generateDeadlineString(tomorrow.toString().dropLast(4), context))
 
         // test weekdays
-        var dayString = ""
+        var dayString : String
         var tdt: LocalDateTime
 
         for(i in 2..6) {
@@ -98,10 +98,10 @@ class DateTimeFormatHelperTest {
         }
 
         // test date normali
-        var tdtStr: String
-
         tdt = yesterday.minusDays(1) // l'altroieri
-        tdtStr = generateDateTime(tdt.year, tdt.monthValue, tdt.dayOfMonth, tdt.hour, tdt.minute)
+
+        var tdtStr: String =
+            generateDateTime(tdt.year, tdt.monthValue, tdt.dayOfMonth, tdt.hour, tdt.minute)
         assertEquals(
             tdtStr,
             generateDeadlineString(

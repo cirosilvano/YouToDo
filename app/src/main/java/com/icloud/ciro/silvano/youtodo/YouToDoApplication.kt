@@ -14,7 +14,6 @@ class YouToDoApplication : Application() {
          * Metodo applyToActivitiesIfAvailable della classe DynamicColors
          * Applica i colori dinamici all'attività specificata con la sovrapposizione del tema designata dall'attributo del tema "dynamicColorThemeOverlay".
          */
-
         DynamicColors.applyToActivitiesIfAvailable(this)
     }
 }

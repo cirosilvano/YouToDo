@@ -1,6 +1,7 @@
 package com.icloud.ciro.silvano.youtodo
 
 import com.icloud.ciro.silvano.youtodo.database.Category
+
 /**
  * Interfaccia che permette di comunicare l'elemento corrente selezionato
  * nella RecyclerView contenuta nel Fragment che implementerà tale interfaccia.

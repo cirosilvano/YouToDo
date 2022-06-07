@@ -11,7 +11,6 @@ import androidx.fragment.app.Fragment
 import android.widget.*
 import androidx.core.view.children
 import androidx.core.view.isVisible
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -31,16 +30,15 @@ class MainFragment : Fragment(), OnItemSwipeListener, CategoryListener {
     private val binding get() = _binding!!
     private lateinit var toDoViewModel : ToDoViewModel
     private lateinit var chipGroupMain: ChipGroup
-    private var mainActivity = activity
     private var sharedPreferences: SharedPreferences?=null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         setHasOptionsMenu(true)
         super.onCreate(savedInstanceState)
-        val inflater = TransitionInflater.from(requireContext())
+        TransitionInflater.from(requireContext())
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle? ): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle? ): View {
         //Inflate del layout per il fragment
         _binding = FragmentMainBinding.inflate(inflater, container, false)
 
@@ -57,10 +55,10 @@ class MainFragment : Fragment(), OnItemSwipeListener, CategoryListener {
 
         //Queste due elementi dell'interfaccia sono mostrati quando non sono presenti card per una certa categoria (o una certa vista nell'applicazione)
         sharedPreferences = activity?.getSharedPreferences("themePref", MODE_PRIVATE)
-        var btnDarkState = sharedPreferences!!.getBoolean("TOGGLE_DARK", false)
-        var ivFreeLight = binding.ivFreeLight
-        var ivFreeDark = binding.ivFreeDark
-        var tvFree=binding.tvFree
+        val btnDarkState = sharedPreferences!!.getBoolean("TOGGLE_DARK", false)
+        val ivFreeLight = binding.ivFreeLight
+        val ivFreeDark = binding.ivFreeDark
+        val tvFree=binding.tvFree
 
         //Creazione dell'adapter per le categorie
         val adapterCat=CategoryAdapter(this)
@@ -70,10 +68,9 @@ class MainFragment : Fragment(), OnItemSwipeListener, CategoryListener {
         //Il codice all'interno dell'observer sarà eseguito solo se:
         //-gli elementi all'interno del database subiscono modifiche di qualsiasi tipo (aggiunta, rimozione, update)
         //-l'observer passa dallo stato inattivo ad attivo
-        toDoViewModel.showAllCards.observe(viewLifecycleOwner, Observer{ card ->
+        toDoViewModel.showAllCards.observe(viewLifecycleOwner) { card ->
             adapter.setData(card) //si setta l'adapter della recyclerView con i nuovi elementi
 
-            Log.d("", "LISTA DI ELEMENTI ${card}")
             //Nel caso in cui non siano presenti elementi, allora si rende visibile il placeholder
             if(adapter.itemCount>0){
                 ivFreeDark.isVisible = false
@@ -91,12 +88,12 @@ class MainFragment : Fragment(), OnItemSwipeListener, CategoryListener {
                 }
                 tvFree.isVisible=true
             }
-        })
+        }
 
         //Gestione delle chip che contengono le categorie
         chipGroupMain = binding.chipGroupMain
 
-        toDoViewModel.showAllCategories.observe(viewLifecycleOwner,Observer { cat ->
+        toDoViewModel.showAllCategories.observe(viewLifecycleOwner) { cat ->
             adapterCat.setDataCat(cat)
 
             //Nel caso in cui non siano presenti categorie, vengono inserite le 3 tipologie di default qua sotto
@@ -114,18 +111,19 @@ class MainFragment : Fragment(), OnItemSwipeListener, CategoryListener {
 
             //Controllo che verifica se esiste già una chip. Siccome a differenza del database è possibile creare
             //duplicati per le chip, è importante effettuare questa verifica
-            for(i in cat){
-                var found:Boolean=false
+            for(i in cat) {
+                var found = false
+
                 for(j in chipGroupMain.children){
-                    var currChip= j as Chip
-                    if(i.name==currChip.text){
+                    val currChip = j as Chip
+
+                    if(i.name == currChip.text)
                         found=true
-                    }
                 }
                 if(!found) //se non esistevano già chip con quel nome, allora si può aggiungere
                     chipGroupMain.addChip(requireActivity(),i.name, adapterCat)
             }
-        })
+        }
 
         //Questo listener si attiva quando viene cliccata una qualsiasi delle chip
         chipGroupMain.setOnCheckedChangeListener { _, checkedId ->
@@ -134,7 +132,7 @@ class MainFragment : Fragment(), OnItemSwipeListener, CategoryListener {
             (chipGroupMain.findViewById<Chip>(checkedId))?.let {
 
                 it.setOnClickListener { chipName ->
-                    var myChip:Chip= chipName as Chip //si ottiene il nome della chip che è stata cliccata
+                    val myChip:Chip= chipName as Chip //si ottiene il nome della chip che è stata cliccata
 
                     //Rimozione di tutti gli observers che non riguardano la lista che vogliamo sia osservata
                     toDoViewModel.showAllCards.removeObservers(viewLifecycleOwner)
@@ -143,7 +141,7 @@ class MainFragment : Fragment(), OnItemSwipeListener, CategoryListener {
                     //Si invoca la select filtrando in base al nome della categoria specificata dalla chip
                     toDoViewModel.setCategory(myChip.text.toString())
 
-                    toDoViewModel.showCardsByCategory.observe(viewLifecycleOwner, Observer { filteredList ->
+                    toDoViewModel.showCardsByCategory.observe(viewLifecycleOwner) { filteredList ->
                         adapter.setData(filteredList)
 
                         if(adapter.itemCount>0){
@@ -162,27 +160,20 @@ class MainFragment : Fragment(), OnItemSwipeListener, CategoryListener {
                             }
                             tvFree.isVisible=true
                         }
-                    })
+                    }
                 }
            }
-       }
+        }
 
         binding.addFAB.setOnClickListener {
             findNavController().navigate(R.id.action_mainFragment_to_addFragment)
         }
 
-
-
         //Gestione dei click per i vari tasti del menù
         val bottomAppBar: BottomNavigationView = binding.bottomNavigationView
 
-        bottomAppBar.setOnItemSelectedListener { menuItem->
+        bottomAppBar.setOnItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
-
-                R.id.home_nav -> {
-                    true
-                }
-
                 R.id.settings_nav->{
                     findNavController().navigate(R.id.action_mainFragment_to_settingsFragment)
                 }
@@ -190,16 +181,15 @@ class MainFragment : Fragment(), OnItemSwipeListener, CategoryListener {
                 R.id.category_nav->{
                     val action = MainFragmentDirections.actionMainFragmentToCategoryFragment()
                     findNavController().navigate(action)
-                    true
                 }
-                else->false
+
             }
             true
 
         }
 
         //Gestione del click delle opzioni del menù a tendina che compare premendo i 3 punti in alto a destra
-        var topAppBar:MaterialToolbar=binding.topAppBar
+        val topAppBar:MaterialToolbar=binding.topAppBar
         topAppBar.setOnMenuItemClickListener { menuItem ->
             when (menuItem.itemId) {
                 //Questo tasto mostra tutte le card che sono state create
@@ -208,7 +198,7 @@ class MainFragment : Fragment(), OnItemSwipeListener, CategoryListener {
                     toDoViewModel.showCardsByStatus.removeObservers(viewLifecycleOwner)
                     toDoViewModel.showCardsByCategory.removeObservers(viewLifecycleOwner)
 
-                    toDoViewModel.showAllCards.observe(viewLifecycleOwner, Observer { toDoList ->
+                    toDoViewModel.showAllCards.observe(viewLifecycleOwner) { toDoList ->
                         adapter.setData(toDoList)
 
                         if(adapter.itemCount>0){
@@ -227,7 +217,7 @@ class MainFragment : Fragment(), OnItemSwipeListener, CategoryListener {
                             }
                             tvFree.isVisible=true
                         }
-                    })
+                    }
                     true
                 }
                 //Questo tasto mostra tutte le card che non sono ancora state completate (la check non è spuntata)
@@ -237,7 +227,7 @@ class MainFragment : Fragment(), OnItemSwipeListener, CategoryListener {
 
                     //Si invoca la select filtrando in base allo stato delle cards (in questo caso sono restituite quelle non checkate)
                     toDoViewModel.setDone(0)
-                    toDoViewModel.showCardsByStatus.observe(viewLifecycleOwner, Observer { toDoList ->
+                    toDoViewModel.showCardsByStatus.observe(viewLifecycleOwner) { toDoList ->
                         adapter.setData(toDoList)
 
                         if(adapter.itemCount>0){
@@ -256,7 +246,7 @@ class MainFragment : Fragment(), OnItemSwipeListener, CategoryListener {
                             }
                             tvFree.isVisible=true
                         }
-                    })
+                    }
                     true
                 }
 
@@ -267,7 +257,7 @@ class MainFragment : Fragment(), OnItemSwipeListener, CategoryListener {
 
                     //Si invoca la select filtrando in base allo stato delle cards (in questo caso sono restituite quelle checkate)
                     toDoViewModel.setDone(1)
-                    toDoViewModel.showCardsByStatus.observe(viewLifecycleOwner, Observer { doneList ->
+                    toDoViewModel.showCardsByStatus.observe(viewLifecycleOwner) { doneList ->
                         adapter.setData(doneList)
 
                         if(adapter.itemCount>0){
@@ -286,7 +276,7 @@ class MainFragment : Fragment(), OnItemSwipeListener, CategoryListener {
                             }
                             tvFree.isVisible=true
                         }
-                    })
+                    }
                     true
                 }
 
@@ -308,8 +298,8 @@ private fun ChipGroup.addChip(context: Context?, label: String, adapter : Catego
      isFocusable = true
      addView(this)
      this.setOnCloseIconClickListener{
-         var previous = adapter.itemCount
-         var success : Int = 0
+         val previous = adapter.itemCount
+         var success = 0
          //Eliminazione dell'elemento dalla tabella
          try {
              Log.d("", this.text.toString())
@@ -318,6 +308,7 @@ private fun ChipGroup.addChip(context: Context?, label: String, adapter : Catego
          } catch(e : android.database.sqlite.SQLiteConstraintException) {
              Toast.makeText(requireContext(), "Impossibile eliminare la category perché ci sono card con quella.  ", Toast.LENGTH_LONG).show()
          }
+
          if(success == previous - 1) {
              //Rimozione della chip
              removeView(this)
@@ -363,23 +354,6 @@ override fun onCardSwipe(card: Card) {
 override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
  inflater.inflate(R.menu.menu_filter,menu)
  super.onCreateOptionsMenu(menu, inflater)
-}
-
-override fun onOptionsItemSelected(item: MenuItem): Boolean {
-/*  val id=item.itemId
-
- when(id){
-     R.id.GestCat->{
-         val action = MainFragmentDirections.actionMainFragmentToCategoryFragment()
-         findNavController().navigate(action)
-     }
-     R.id.settings_nav->{
-         findNavController().navigate(R.id.action_mainFragment_to_settingsFragment)
-     }
-     else->false
- }*/
-
- return super.onOptionsItemSelected(item)
 }
 
 override fun categoryEdit(category: Category) {}

@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
 import android.widget.Toast
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -23,17 +22,17 @@ class CategoryFragment : Fragment(), CategoryListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val inflater = TransitionInflater.from(requireContext())
+        TransitionInflater.from(requireContext())
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         //Inflate del layout per il fragment
         _binding = FragmentCategoryBinding.inflate(inflater, container, false)
 
         //Creazione del riferimento al bottone "Indietro" che servirà a portare nel MainFragment
         val btnBack = binding.backCategoryButton
 
-        binding.bottomNavigationView.menu.getItem(1).setChecked(true)
+        binding.bottomNavigationView.menu.getItem(1).isChecked = true
 
         //Gestione dell'evento di click nel bottone indietro (la freccia in altro a sinistra della schermata)
         btnBack.setOnClickListener {
@@ -59,9 +58,9 @@ class CategoryFragment : Fragment(), CategoryListener {
         * -gli elementi all'interno del database subiscono modifiche di qualsiasi tipo (aggiunta, rimozione, update)
         * -l'observer passa dallo stato inattivo ad attivo
         */
-        toDoViewModel.showAllCategories.observe(viewLifecycleOwner, Observer { cat ->
+        toDoViewModel.showAllCategories.observe(viewLifecycleOwner)  { cat ->
             adapterCat.setDataCat(cat)//si setta l'adapter della recyclerView con i nuovi elementi
-        })
+        }
 
         /*
         * Gestione FAB per aggiungere una nuova categoria:
@@ -79,18 +78,11 @@ class CategoryFragment : Fragment(), CategoryListener {
                 //Questo tasto mostra tutte le card che sono state create
                 R.id.home_nav -> {
                     findNavController().navigate(R.id.action_categoryFragment_to_mainFragment)
-                    true
                 }
 
                 R.id.settings_nav->{
                     findNavController().navigate(R.id.action_categoryFragment_to_settingsFragment)
                 }
-
-                R.id.category_nav->{
-
-                    true
-                }
-                else->false
             }
             true
 
@@ -140,7 +132,7 @@ class CategoryFragment : Fragment(), CategoryListener {
         var nameCat=category.name
 
         builder.setTitle(title)
-        builder.setMessage(message+" "+nameCat)
+        builder.setMessage("$message $nameCat")
         builder.setIcon(R.drawable.ic_baseline_delete_24_dark)
         builder.create().show()
     }

@@ -6,7 +6,6 @@ import android.content.Context
 import android.icu.util.Calendar
 import android.os.Bundle
 import android.text.TextUtils
-import android.util.Log
 import android.view.KeyEvent
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -15,7 +14,6 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.core.view.children
 import androidx.core.widget.doOnTextChanged
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.transition.TransitionInflater
@@ -36,20 +34,20 @@ class AddFragment : Fragment(), DatePickerDialog.OnDateSetListener, TimePickerDi
     private lateinit var chipGroupAdd:ChipGroup
 
     // VARIABILI DI SUPPORTO DATE-TIME
-    var year = 0
-    var month = 0
-    var day = 0
-    var hour = 0
-    var minute = 0
+    private var year = 0
+    private var month = 0
+    private var day = 0
+    private var hour = 0
+    private var minute = 0
 
-    var savedYear = 0
-    var savedMonth = 0
-    var savedDay = 0
-    var savedHour = 0
-    var savedMinute = 0
+    private var savedYear = 0
+    private var savedMonth = 0
+    private var savedDay = 0
+    private var savedHour = 0
+    private var savedMinute = 0
 
-    var dateString = ""
-    var timeString = ""
+    private var dateString = ""
+    private var timeString = ""
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -59,7 +57,7 @@ class AddFragment : Fragment(), DatePickerDialog.OnDateSetListener, TimePickerDi
         enterTransition = inflater.inflateTransition(R.transition.slide_left)
     }
 
-   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
        //Inflate del layout per il fragment
        _binding = FragmentAddBinding.inflate(inflater, container, false)
 
@@ -78,14 +76,14 @@ class AddFragment : Fragment(), DatePickerDialog.OnDateSetListener, TimePickerDi
        }
 
        // GESTIONE DATE-TIME PICKING
-       binding.addDate.setOnFocusChangeListener{view,b->
+       binding.addDate.setOnFocusChangeListener{ _, b->
            if(b) {
                getDateTimeCalendar()
                DatePickerDialog(requireContext(), this, year, month, day).show()
            }
        }
 
-       binding.addTime.setOnFocusChangeListener{view,b->
+       binding.addTime.setOnFocusChangeListener{_, b->
            if(b) {
                getDateTimeCalendar()
                TimePickerDialog(requireContext(), this, hour, minute, true).show()
@@ -102,7 +100,7 @@ class AddFragment : Fragment(), DatePickerDialog.OnDateSetListener, TimePickerDi
        //Il codice all'interno dell'observer sarà eseguito solo se:
        //-gli elementi all'interno del database subiscono modifiche di qualsiasi tipo (aggiunta, rimozione, update)
        //-l'observer passa dallo stato inattivo ad attivo
-       toDoViewModel.showAllCategories.observe(viewLifecycleOwner, Observer{ cat ->
+       toDoViewModel.showAllCategories.observe(viewLifecycleOwner) { cat ->
            adapterCat.setDataCat(cat)
             /*Creazione delle chip di default propposte all'utente.
             * Si è deciso di riporle ogni qualvolta l'utente elimina TUTTE le categorie esistenti nella tabella
@@ -118,9 +116,9 @@ class AddFragment : Fragment(), DatePickerDialog.OnDateSetListener, TimePickerDi
            }
 
            for(i in cat){
-               var found:Boolean=false
+               var found = false
                for(j in chipGroupAdd.children){
-                   var currChip= j as Chip
+                   val currChip= j as Chip
                    if(i.name==currChip.text){
                        found=true
                    }
@@ -128,33 +126,31 @@ class AddFragment : Fragment(), DatePickerDialog.OnDateSetListener, TimePickerDi
                if(!found)
                    chipGroupAdd.addChip(requireActivity(),i.name)
            }
-       })
-
-
+       }
 
        /*
        * Gestione click della chip: se una chip viene cliccata, si prende il suo
        * nome e lo si inserisce nella editText sottostante
        */
        chipGroupAdd.setOnCheckedChangeListener { _, checkedId ->
-           (chipGroupAdd.findViewById<Chip>(checkedId))?.let {
-               it.setOnClickListener {
-                   var myChip:Chip=it as Chip
+           (chipGroupAdd.findViewById<Chip>(checkedId))?.let { it ->
+               it.setOnClickListener { chip ->
+                   val myChip: Chip = chip as Chip
                    binding.editAddCategory.setText(myChip.text.toString())
                }
            }
        }
 
        /* Gestione inserimento nella tabella category della nuova categoria creata dall'utente*/
-       binding.editAddCategory.setOnKeyListener(View.OnKeyListener{v, keyCode,event ->
+       binding.editAddCategory.setOnKeyListener { _, keyCode, event ->
            if(event.action== KeyEvent.ACTION_UP && keyCode== KeyEvent.KEYCODE_ENTER ){
 
-               var textVal=binding.editAddCategory.text.toString().trim()
+               val textVal=binding.editAddCategory.text.toString().trim()
                if(existingCat(textVal)) {
                    Toast.makeText(requireContext(), getString(R.string.ExCat), Toast.LENGTH_LONG).show()
 
                }
-              else if(textVal.isEmpty()){
+               else if(textVal.isEmpty()) {
                    Toast.makeText(requireContext(), getString(R.string.ChooseCat), Toast.LENGTH_LONG).show()
                    binding.editAddCategory.setText("")
                      }
@@ -170,14 +166,13 @@ class AddFragment : Fragment(), DatePickerDialog.OnDateSetListener, TimePickerDi
                         }
                     }
                binding.editAddCategory.setText("")
-               true
            }
 
            false
-       })
+       }
 
        /*controllo che la lunghezza della categoria: se l'utente sfora il numero massimo di caratteri, viene segnalato l'errore*/
-       binding.editAddCategory.doOnTextChanged { text, start, before, count ->
+       binding.editAddCategory.doOnTextChanged { text, _, _, _ ->
            if(text!!.length>20){
                binding.editAddCategoryLayout.error = getString(R.string.maxNumChar)
            }
@@ -207,13 +202,10 @@ class AddFragment : Fragment(), DatePickerDialog.OnDateSetListener, TimePickerDi
         if(inputCheck(name, category, deadline)){
             // Create Item Object
             val card = Card(0, name, category, deadline, false)
-            val category= Category(category)
-            // Add Data to Database
+            val cat = Category(category)
 
-
-            toDoViewModel.addCategory(category)
+            toDoViewModel.addCategory(cat)
             toDoViewModel.addCard(card)
-
 
             Toast.makeText(requireContext(), getString(R.string.cardAddSucc), Toast.LENGTH_LONG).show()
 
@@ -225,8 +217,6 @@ class AddFragment : Fragment(), DatePickerDialog.OnDateSetListener, TimePickerDi
             Toast.makeText(requireContext(), getString(R.string.fillAllFields), Toast.LENGTH_LONG).show()
             return false
         }
-
-
     }
 
     /**
@@ -236,16 +226,16 @@ class AddFragment : Fragment(), DatePickerDialog.OnDateSetListener, TimePickerDi
      * @param deadline, data e ora dell'impegno
      * @return true se l'input è corretto, false altrimenti
      */
-    private fun inputCheck(todo : String, category: String, deadline : String) : Boolean {
-        return !(TextUtils.isEmpty(todo) || TextUtils.isEmpty(category) || TextUtils.isEmpty(deadline))
-    }
+     private fun inputCheck(todo : String, category: String, deadline : String) : Boolean {
+        return !(TextUtils.isEmpty(todo) || TextUtils.isEmpty(category) || deadline.length != 19)
+     }
 
     /**
      * Funzione che crea e aggiunge una chip al groupChip programmaticamente
      * @param context, contesto
      * @param label, testo da inserire nella chip
      */
-    private fun ChipGroup.addChip(context: Context?, label: String){
+     private fun ChipGroup.addChip(context: Context?, label: String){
         Chip(context).apply {
             id = View.generateViewId()
             text = label
@@ -256,7 +246,7 @@ class AddFragment : Fragment(), DatePickerDialog.OnDateSetListener, TimePickerDi
             isFocusable = true
             addView(this)
         }
-    }
+     }
 
     /**
      * Funzione che controlla se la categoria inserita dall'utente è tra quelle già presenti nel database
@@ -265,10 +255,10 @@ class AddFragment : Fragment(), DatePickerDialog.OnDateSetListener, TimePickerDi
      */
     private fun existingCat(name:String):Boolean {
         var found=false
-        for(j in chipGroupAdd.children){
-            var currChip= j as Chip
-            if(name.toLowerCase().equals(currChip.text.toString().toLowerCase())){
 
+        for(j in chipGroupAdd.children){
+            val currChip= j as Chip
+            if(name.lowercase() == currChip.text.toString().lowercase()) {
                 found=true
                 break
             }
@@ -303,11 +293,6 @@ class AddFragment : Fragment(), DatePickerDialog.OnDateSetListener, TimePickerDi
         minute = cal.get(Calendar.MINUTE)
     }
 
-    override fun categoryEdit(category: Category) {
-    }
-
-    override fun categoryDelete(category: Category) {
-    }
-
-
+    override fun categoryEdit(category: Category) {}
+    override fun categoryDelete(category: Category) {}
 }

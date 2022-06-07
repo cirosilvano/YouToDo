@@ -3,13 +3,10 @@ package com.icloud.ciro.silvano.youtodo
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.core.view.isVisible
-import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.textfield.TextInputLayout
@@ -17,8 +14,7 @@ import com.icloud.ciro.silvano.youtodo.database.Category
 import com.icloud.ciro.silvano.youtodo.database.ToDoViewModel
 import com.icloud.ciro.silvano.youtodo.databinding.FragmentCategoryAddDialogBinding
 
-
-class CategoryAddDialog() : DialogFragment() {
+class CategoryAddDialog : DialogFragment() {
 
     private var _binding: FragmentCategoryAddDialogBinding? = null
     private val binding get()=_binding!!
@@ -29,7 +25,7 @@ class CategoryAddDialog() : DialogFragment() {
         setStyle(STYLE_NORMAL, 0)
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
 
         _binding = FragmentCategoryAddDialogBinding.inflate(inflater, container, false)
 
@@ -46,21 +42,21 @@ class CategoryAddDialog() : DialogFragment() {
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 binding.confirm.isEnabled = s!!.isNotEmpty()
-                if(s!!.length>20){
+                if(s.length>20){
                     binding.addCategory.error = getString(R.string.maxNumChar)
-                    binding.textInputCategoryLayout.setEndIconMode(TextInputLayout.END_ICON_NONE)
+                    binding.textInputCategoryLayout.endIconMode = TextInputLayout.END_ICON_NONE
 
                 }
                 else{
                     binding.addCategory.error = null
-                    binding.textInputCategoryLayout.setEndIconMode(TextInputLayout.END_ICON_CLEAR_TEXT)
+                    binding.textInputCategoryLayout.endIconMode = TextInputLayout.END_ICON_CLEAR_TEXT
 
                 }
             }
         })
 
         binding.confirm.setOnClickListener {
-            var newVal=binding.addCategory.text.toString().trim().lowercase()
+            val newVal=binding.addCategory.text.toString().trim().lowercase()
 
             if(newVal.length>20){
                 Toast.makeText(requireContext(), getString(R.string.maxNumChar), Toast.LENGTH_SHORT).show()

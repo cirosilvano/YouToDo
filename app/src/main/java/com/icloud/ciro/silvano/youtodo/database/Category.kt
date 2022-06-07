@@ -9,7 +9,6 @@ import kotlinx.parcelize.Parcelize
 * Rappresenta la tabella "category" del database
 * Specifica il tipo di categorie a cui può appartenere ognuna delle cards
 */
-
 @Parcelize
 @Entity(tableName = "category")
 data class Category (

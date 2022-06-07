@@ -24,7 +24,7 @@ import org.junit.runner.RunWith
 
 
 @RunWith(AndroidJUnit4::class)
-class MainFragmentTest {
+class ToDoTest {
 
     @get: Rule
     val activityRule = ActivityScenarioRule(MainActivity::class.java)

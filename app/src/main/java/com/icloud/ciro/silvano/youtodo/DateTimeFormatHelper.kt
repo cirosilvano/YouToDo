@@ -1,15 +1,12 @@
 package com.icloud.ciro.silvano.youtodo
 
-import android.content.ContentValues.TAG
 import android.content.Context
 import android.content.res.Resources
-import android.util.Log
 import java.lang.IllegalArgumentException
 import java.time.DayOfWeek
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.Period
-import java.time.format.DateTimeParseException
 
 class DateTimeFormatHelper {
     companion object {

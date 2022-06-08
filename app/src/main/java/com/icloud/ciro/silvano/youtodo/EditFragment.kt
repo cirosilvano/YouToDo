@@ -123,6 +123,7 @@ class EditFragment : Fragment(), DatePickerDialog.OnDateSetListener, TimePickerD
             if(b) {
                 getDateTimeCalendar()
                 DatePickerDialog(requireContext(), this, year, month, day).show()
+                binding.editDate.clearFocus()
             }
         }
 
@@ -130,6 +131,7 @@ class EditFragment : Fragment(), DatePickerDialog.OnDateSetListener, TimePickerD
             if(b) {
                 getDateTimeCalendar()
                 TimePickerDialog(requireContext(), this, hour, minute, true).show()
+                binding.editTime.clearFocus()
             }
         }
 

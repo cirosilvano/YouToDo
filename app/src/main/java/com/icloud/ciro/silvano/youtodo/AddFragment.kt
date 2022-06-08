@@ -80,13 +80,18 @@ class AddFragment : Fragment(), DatePickerDialog.OnDateSetListener, TimePickerDi
            if(b) {
                getDateTimeCalendar()
                DatePickerDialog(requireContext(), this, year, month, day).show()
+               binding.addDate.clearFocus()
            }
        }
+
 
        binding.addTime.setOnFocusChangeListener{_, b->
            if(b) {
                getDateTimeCalendar()
                TimePickerDialog(requireContext(), this, hour, minute, true).show()
+               binding.addTime.clearFocus()
+
+
            }
        }
 

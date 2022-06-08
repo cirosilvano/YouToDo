@@ -98,6 +98,7 @@
         <entry key="app/src/main/res/layout/cardview_item.xml" value="0.39069366455078125" />
         <entry key="app/src/main/res/layout/fragment_add.xml" value="0.16846466064453125" />
         <entry key="app/src/main/res/layout/fragment_category.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_category_add_dialog.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_edit.xml" value="0.20106048583984376" />
         <entry key="app/src/main/res/layout/fragment_item.xml" value="0.1806640625" />
         <entry key="app/src/main/res/layout/fragment_main.xml" value="0.24346166917980624" />

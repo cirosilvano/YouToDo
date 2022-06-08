@@ -156,11 +156,6 @@ class SettingsFragment : Fragment() {
 
         }
 
-        //Gestione tocco bottone che serve a tornare al mainFragment
-        binding.backSettingsButton.setOnClickListener {
-            findNavController().navigate(R.id.action_settingsFragment_to_mainFragment)
-        }
-
         return binding.root
     }
 }

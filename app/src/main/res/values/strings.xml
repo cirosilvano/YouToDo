@@ -17,7 +17,7 @@
     <string name="all">all</string>
     <string name="work">work</string>
     <string name="allCards">My tasks</string>
-    <string name="allMyTask">All my task</string>
+    <string name="allMyTask">All my tasks</string>
 
     <!-- Strings used for mainFragment -->
     <string name="free">You\'re free :)</string>

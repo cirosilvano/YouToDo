@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="button_placeholder">Bottone</string>
+    <string name="card_name">Titolo to-do</string>
+    <string name="deadline_example">Oggi, 10:50</string>
     <string name="action_settings">Impostazioni</string>
     <string name="next">Successivo</string>
     <string name="previous">Precedente</string>
@@ -9,8 +12,13 @@
     <string name="add_button">AGGIUNGI</string>
     <string name="edit_button">MODIFICA</string>
     <string name="free">Sei libero :)</string>
+    <string name="freeImage">Nessun card visibile</string>
     <string name="changeTheme">Cambia il tema:</string>
     <string name="categoryLabel">Categoria</string>
+
+    <!-- Stringhe usate per settingsFragment -->
+    <string name="toggleButton">ToggleButton</string>
+    <string name="defaultTheme">DEFAULT</string>
 
     <string name="chooseCategoryLabel">Scegli/Crea una categoria:</string>
     <string name="newCategoryLabel">Nuova categoria</string>
@@ -47,6 +55,7 @@
     <string name="work">lavoro</string>
     <string name="categoriesLabel">Categorie</string>
     <string name="allCards">I miei impegni</string>
+
     <!--Messaggi-->
     <string name="titleDelete">Elimina:</string>
     <string name="mexDelete">Sei sicuro di voler eliminare</string>
@@ -60,6 +69,21 @@
     <string name="required">*richiesto</string>
     <string name="maxNumChar">Max 20 caratteri</string>
     <string name="allMyTask">Tutti i miei impegni</string>
+
+    <!--Descrizione contenuto degli ImageButtons e dei Fab-->
+    <string name="backImageButton">Torna indietro</string>
+    <string name="deleteImageButton">Cancella</string>
+    <string name="editImageButton">Modifica</string>
+    <string name="filterImageButton">Filtra to-do</string>
+    <string name="addCatFab">Aggiungi categoria</string>
+    <string name="addCardFab">Aggiungi card</string>
+
+    <!--Dialog add ed edit per le categorie-->
+    <string name="addDialogTitle">Inserire una nuova categoria?</string>
+    <string name="editDialogTitle">Modificare \"%s\"?</string>
+    <string name="addConfirmButton">Aggiungi</string>
+    <string name="editConfirmButton">Modifica</string>
+    <string name="dismissButton">Annulla</string>
 
 
 </resources>

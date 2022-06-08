@@ -25,7 +25,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
         android:text="@string/manageLabel"
-        android:textSize="27dp"
+        android:textSize="27sp"
         android:textAppearance="@style/TextAppearance.Material3.ActionBar.Title.secondaryTitle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.61"
@@ -40,6 +40,7 @@
         android:layout_marginBottom="100dp"
         android:clickable="true"
         android:src="@drawable/ic_add_24"
+        android:contentDescription="@string/addCatFab"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 

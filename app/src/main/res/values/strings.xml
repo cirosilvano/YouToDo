@@ -1,4 +1,7 @@
 <resources>
+    <string name="button_placeholder">Button</string>
+    <string name="card_name">To-do title</string>
+    <string name="deadline_example">Today, 10:50</string>
     <string name="title" translatable="false">YouToDo</string>
     <string name="action_settings">Settings</string>
     <!-- Strings used for fragments for navigation -->
@@ -21,6 +24,7 @@
 
     <!-- Strings used for mainFragment -->
     <string name="free">You\'re free :)</string>
+    <string name="freeImage">No cards displayed</string>
     <string name="changeTheme">Choose your theme:</string>
 
     <!-- Strings used for editFragment and addFragment -->
@@ -33,6 +37,10 @@
     <string name="newToDoLabel">New ToDo</string>
     <string name="apply">APPLY</string>
     <string name="DynamicColors">Dynamic colors</string>
+
+    <!-- Strings used for settingsFragment -->
+    <string name="toggleButton">ToggleButton</string>
+    <string name="defaultTheme">DEFAULT</string>
 
     <!-- weekdays -->
     <string name="monday">Monday</string>
@@ -70,5 +78,20 @@
     <string name="required">*required</string>
     <string name="maxNumChar">Max 20 characters</string>
     <string name="categoriesLabel">Categories</string>
+
+    <!--ImageButton and Fab content description-->
+    <string name="backImageButton">Go back</string>
+    <string name="deleteImageButton">Delete</string>
+    <string name="editImageButton">Edit</string>
+    <string name="filterImageButton">Filter to-do</string>
+    <string name="addCatFab">Add new category</string>
+    <string name="addCardFab">Add new card</string>
+
+    <!--Dialog for adding and editing categories-->
+    <string name="addDialogTitle">Add a new category?</string>
+    <string name="editDialogTitle">Edit \"%s\"?</string>
+    <string name="addConfirmButton">Add</string>
+    <string name="editConfirmButton">Edit</string>
+    <string name="dismissButton">Back</string>
 
 </resources>

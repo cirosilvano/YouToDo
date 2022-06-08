@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/cardItem"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -32,11 +31,11 @@
 
             <TextView
                 android:id="@+id/itemName"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="50dp"
                 android:fontFamily="@font/roboto"
                 android:scrollHorizontally="true"
-                android:text="Write a chapter"
+                android:text="@string/card_name"
                 android:textSize="30sp" />
         </HorizontalScrollView>
 
@@ -47,7 +46,7 @@
             android:layout_marginStart="25dp"
             android:layout_marginBottom="14dp"
             android:fontFamily="@font/roboto"
-            android:text="Today, 10:50"
+            android:text="@string/deadline_example"
             android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent" />

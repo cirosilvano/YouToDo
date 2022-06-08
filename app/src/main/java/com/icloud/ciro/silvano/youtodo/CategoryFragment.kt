@@ -120,9 +120,9 @@ class CategoryFragment : Fragment(), CategoryListener {
 
         }
 
-        var title=R.string.titleDelete
-        var message=getString(R.string.mexDelete)
-        var nameCat=category.name
+        val title = R.string.titleDelete
+        val message = getString(R.string.mexDelete)
+        val nameCat = category.name
 
         builder.setTitle(title)
         builder.setMessage("$message $nameCat")

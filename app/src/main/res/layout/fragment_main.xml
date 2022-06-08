@@ -49,13 +49,15 @@
             android:id="@+id/ivFreeLight"
             android:layout_width="200dp"
             android:layout_height="200dp"
-            android:src="@drawable/relax" />
+            android:src="@drawable/relax"
+            android:contentDescription="@string/freeImage" />
 
         <ImageView
             android:id="@+id/ivFreeDark"
             android:layout_width="200dp"
             android:layout_height="200dp"
-            android:src="@drawable/relax_white" />
+            android:src="@drawable/relax_white"
+            android:contentDescription="@string/freeImage" />
 
         <Space
             android:layout_width="match_parent"

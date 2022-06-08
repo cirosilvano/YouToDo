@@ -24,7 +24,7 @@ class CategoryEditDialog(category: Category) : DialogFragment() {
 
         _binding = FragmentCategoryEditDialogBinding.inflate(inflater, container, false)
 
-        binding.textView.text = "Edit \""+cat.name+"\""
+        binding.textView.text = getString(R.string.editDialogTitle, cat.name)
         binding.editCategory.setText(cat.name)
 
         val toDoViewModel = ViewModelProvider(this).get(ToDoViewModel::class.java)

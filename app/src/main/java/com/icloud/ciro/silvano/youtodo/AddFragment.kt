@@ -61,12 +61,19 @@ class AddFragment : Fragment(), DatePickerDialog.OnDateSetListener, TimePickerDi
        //Inflate del layout per il fragment
        _binding = FragmentAddBinding.inflate(inflater, container, false)
 
+       //Identificazione del bottone a forma di freccia in alto a sinistra che serve a tornare al MainFragment
+       val btnBack = binding.backAddButton
 
        //Inizializzaizone del chipGroup che ospiterà le chip conteneti le categorie
        chipGroupAdd=binding.chipGroupAdd
 
        //ViewModel per comunicare con la repository
        toDoViewModel = ViewModelProvider(this).get(ToDoViewModel::class.java)
+
+       //Gestione dell'evento click su bottone che serve a tornare al MainFragme
+       btnBack.setOnClickListener {
+           findNavController().navigate(R.id.action_addFragment_to_mainFragment)
+       }
 
        // GESTIONE DATE-TIME PICKING
        binding.addDate.setOnFocusChangeListener{ _, b->

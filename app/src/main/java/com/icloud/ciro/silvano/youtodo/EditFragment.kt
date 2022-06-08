@@ -205,6 +205,12 @@ class EditFragment : Fragment(), DatePickerDialog.OnDateSetListener, TimePickerD
             deleteCard()
         }
 
+        // Torna indietro
+        val backEditButton: ImageButton = binding.backEditButton
+        backEditButton.setOnClickListener {
+            findNavController().navigate(R.id.action_editFragment_to_mainFragment)
+        }
+
         return binding.root
     }
 

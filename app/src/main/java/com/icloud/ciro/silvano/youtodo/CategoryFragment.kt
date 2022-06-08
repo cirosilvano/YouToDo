@@ -30,14 +30,7 @@ class CategoryFragment : Fragment(), CategoryListener {
         _binding = FragmentCategoryBinding.inflate(inflater, container, false)
 
         //Creazione del riferimento al bottone "Indietro" che servirà a portare nel MainFragment
-        val btnBack = binding.backCategoryButton
-
         binding.bottomNavigationView.menu.getItem(1).isChecked = true
-
-        //Gestione dell'evento di click nel bottone indietro (la freccia in altro a sinistra della schermata)
-        btnBack.setOnClickListener {
-            findNavController().navigate(R.id.action_categoryFragment_to_mainFragment)
-        }
 
         //Creazione dell'adapter per le category ed assegnamento di esso alla recyclerView
         val adapterCat=CategoryAdapter(this)

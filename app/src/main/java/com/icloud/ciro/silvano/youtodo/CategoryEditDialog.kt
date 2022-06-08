@@ -39,8 +39,8 @@ class CategoryEditDialog(category: Category) : DialogFragment() {
             }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                binding.confirm.isEnabled = s!!.isNotEmpty()
-                binding.confirm.isEnabled = s.toString().trim().lowercase() != cat.name.trim().lowercase()
+                binding.confirm.isEnabled =
+                    !(s!!.isEmpty() && s.toString().trim().lowercase() != cat.name.trim().lowercase())
 
                 if(s.length>20){
                     binding.editCategory.error = getString(R.string.maxNumChar)

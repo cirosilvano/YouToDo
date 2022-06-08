@@ -119,18 +119,26 @@ class EditFragment : Fragment(), DatePickerDialog.OnDateSetListener, TimePickerD
         dateString = generateDate(ldt.year, ldt.monthValue, ldt.dayOfMonth, false)
         timeString = "${generateTime(ldt.hour, ldt.minute)}:00"
 
-        binding.editDate.setOnFocusChangeListener{ _, b ->
-            if(b) {
-                getDateTimeCalendar()
-                DatePickerDialog(requireContext(), this, year, month, day).show()
+        binding.editDate.setOnFocusChangeListener{ view, isFocused ->
+            if(isFocused) {
+                view.performClick()
             }
         }
 
-        binding.editTime.setOnFocusChangeListener{ _, b ->
-            if(b) {
-                getDateTimeCalendar()
-                TimePickerDialog(requireContext(), this, hour, minute, true).show()
+        binding.editDate.setOnClickListener {
+            getDateTimeCalendar()
+            DatePickerDialog(requireContext(), this, year, month, day).show()
+        }
+
+        binding.editTime.setOnFocusChangeListener{ view, isFocused ->
+            if(isFocused) {
+                view.performClick()
             }
+        }
+
+        binding.editTime.setOnClickListener {
+            getDateTimeCalendar()
+            TimePickerDialog(requireContext(), this, hour, minute, true).show()
         }
 
         /*

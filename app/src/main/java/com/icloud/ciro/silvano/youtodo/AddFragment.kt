@@ -76,18 +76,26 @@ class AddFragment : Fragment(), DatePickerDialog.OnDateSetListener, TimePickerDi
        }
 
        // GESTIONE DATE-TIME PICKING
-       binding.addDate.setOnFocusChangeListener{ _, b->
-           if(b) {
-               getDateTimeCalendar()
-               DatePickerDialog(requireContext(), this, year, month, day).show()
+       binding.addDate.setOnFocusChangeListener{ view, isFocused ->
+           if(isFocused) {
+               view.performClick()
            }
        }
 
-       binding.addTime.setOnFocusChangeListener{_, b->
-           if(b) {
-               getDateTimeCalendar()
-               TimePickerDialog(requireContext(), this, hour, minute, true).show()
+       binding.addDate.setOnClickListener {
+           getDateTimeCalendar()
+           DatePickerDialog(requireContext(), this, year, month, day).show()
+       }
+
+       binding.addTime.setOnFocusChangeListener{view, isFocused->
+           if(isFocused) {
+               view.performClick()
            }
+       }
+
+       binding.addTime.setOnClickListener{
+           getDateTimeCalendar()
+           TimePickerDialog(requireContext(), this, hour, minute, true).show()
        }
 
        // fine time picking -------

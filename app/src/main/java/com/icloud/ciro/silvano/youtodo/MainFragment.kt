@@ -4,8 +4,10 @@ import android.app.AlertDialog
 import android.content.Context
 import android.content.Context.MODE_PRIVATE
 import android.content.SharedPreferences
+import android.graphics.Canvas
 import android.os.Bundle
 import android.util.Log
+import android.util.TypedValue
 import android.view.*
 import androidx.fragment.app.Fragment
 import android.widget.*
@@ -13,7 +15,9 @@ import androidx.core.view.children
 import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import androidx.transition.TransitionInflater
 import com.google.android.material.appbar.MaterialToolbar
 import com.icloud.ciro.silvano.youtodo.database.ToDoViewModel
@@ -23,8 +27,19 @@ import com.google.android.material.chip.ChipGroup
 import com.icloud.ciro.silvano.youtodo.database.Category
 import com.icloud.ciro.silvano.youtodo.database.Card
 import com.icloud.ciro.silvano.youtodo.databinding.FragmentMainBinding
+import kotlin.math.abs
+import kotlin.math.roundToInt
 
 class MainFragment : Fragment(), OnItemSwipeListener, CategoryListener {
+
+    private lateinit var dragHelper: ItemTouchHelper
+    private lateinit var swipeHelper: ItemTouchHelper
+
+    private val Int.dp
+        get() = TypedValue.applyDimension(
+            TypedValue.COMPLEX_UNIT_DIP,
+            toFloat(), resources.displayMetrics
+        ).roundToInt()
 
     private var _binding: FragmentMainBinding? = null
     private val binding get() = _binding!!
@@ -284,8 +299,105 @@ class MainFragment : Fragment(), OnItemSwipeListener, CategoryListener {
             }
         }
 
- return binding.root
+        //define swipe helper here
+        swipeHelper = ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(
+            0,
+            ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT
+        ) {
+
+            //grandezza-410
+            private val limitScrollX = dipToPx(140f, binding.itemsList.context)
+            private var currentScrollX = 0
+            private var currentScrollXWhenInActive = 0
+            private var initWhenActive = 0f
+            private var firstInActive = false
+
+            override fun onMove(
+                recyclerView: RecyclerView,
+                viewHolder: RecyclerView.ViewHolder,
+                target: RecyclerView.ViewHolder
+            ): Boolean {
+                return true
+            }
+
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+            }
+
+            override fun getSwipeThreshold(viewHolder: RecyclerView.ViewHolder): Float {
+                return Integer.MAX_VALUE.toFloat()
+            }
+
+            override fun getSwipeEscapeVelocity(defaultValue: Float): Float {
+                return Integer.MAX_VALUE.toFloat()
+            }
+
+            override fun onChildDraw(
+                c: Canvas,
+                recyclerView: RecyclerView,
+                viewHolder: RecyclerView.ViewHolder,
+                dX: Float,
+                dY: Float,
+                actionState: Int,
+                isCurrentlyActive: Boolean
+            ) {
+                if(actionState == ItemTouchHelper.ACTION_STATE_SWIPE) {
+                    if(dX == 0f) {
+                        currentScrollX = viewHolder.itemView.scrollX
+                        firstInActive = true
+                    }
+
+                    if(isCurrentlyActive) {
+                        //swipe with finger
+                        var scrollOffset = currentScrollX + (-dX).toInt()
+
+                        if(scrollOffset > limitScrollX)
+                            scrollOffset = limitScrollX
+                        else
+                            if(scrollOffset < 0)
+                                scrollOffset = 0
+
+                        viewHolder.itemView.scrollTo(scrollOffset, 0)
+                    }
+                    else {
+                        //swipe with auto animation
+                        if(firstInActive) {
+                            firstInActive = false
+                            currentScrollXWhenInActive = viewHolder.itemView.scrollX
+                            initWhenActive = dX
+                        }
+
+                        if(viewHolder.itemView.scrollX < limitScrollX) {
+                            viewHolder.itemView.scrollTo((currentScrollXWhenInActive * dX / initWhenActive).toInt(), 0)
+                        }
+                    }
+                }
+            }
+
+            override fun clearView(
+                recyclerView: RecyclerView,
+                viewHolder: RecyclerView.ViewHolder
+            ) {
+                super.clearView(recyclerView, viewHolder)
+
+                if(viewHolder.itemView.scrollX > limitScrollX) {
+                    viewHolder.itemView.scrollTo(limitScrollX, 0)
+                }
+                else
+                    if(viewHolder.itemView.scrollX < 0) {
+                        viewHolder.itemView.scrollTo(0, 0)
+                    }
+            }
+        })
+
+        swipeHelper.attachToRecyclerView(recyclerView)
+
+        return binding.root
 }//OnCreateView
+
+
+private fun dipToPx(dipValue: Float, context: Context) : Int {
+    return (dipValue * context.resources.displayMetrics.density).toInt()
+}
 
 // create chip programmatically and add it to chip group
 private fun ChipGroup.addChip(context: Context?, label: String, adapter : CategoryAdapter){
@@ -338,7 +450,7 @@ override fun onCardSwipe(card: Card) {
  val builder = AlertDialog.Builder(requireContext())
  builder.setPositiveButton(R.string.yes) { _,_ ->
      toDoViewModel.deleteCard(card)
-     Toast.makeText(requireContext(), getString(R.string.mexDelete)+" ${card.name}!", Toast.LENGTH_LONG).show()
+     Toast.makeText(requireContext(), "Deleted ${card.name}!", Toast.LENGTH_LONG).show()
  }
 
  builder.setNegativeButton("No") { _,_ ->

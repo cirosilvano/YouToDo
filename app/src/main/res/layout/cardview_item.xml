@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/cardItem"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -55,8 +56,8 @@
             android:id="@+id/itemCategory"
             android:layout_width="wrap_content"
             android:layout_height="35dp"
-            android:layout_marginEnd="25dp"
-            android:layout_marginBottom="10dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginBottom="16dp"
             android:checked="true"
             android:clickable="false"
             app:chipCornerRadius="20dp"
@@ -66,7 +67,22 @@
 
         </com.google.android.material.chip.Chip>
 
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="500dp"
+        android:layout_height="match_parent">
+
+        <ImageButton
+            android:id="@+id/deleteButton"
+            android:layout_width="65dp"
+            android:layout_height="53dp"
+            android:layout_marginEnd="52dp"
+            android:layout_marginBottom="32dp"
+            android:src="@drawable/ic_baseline_delete_24"
+            android:text="Button"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </com.google.android.material.card.MaterialCardView>

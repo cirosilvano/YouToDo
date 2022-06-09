@@ -1,12 +1,12 @@
 package com.icloud.ciro.silvano.youtodo
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.icloud.ciro.silvano.youtodo.database.Card
-import android.annotation.SuppressLint
 import android.widget.*
 import com.google.android.material.card.MaterialCardView
 
@@ -24,6 +24,7 @@ class CardAdapter(private val onItemSwipeListener: OnItemSwipeListener) :
         val category: TextView = itemView.findViewById(R.id.itemCategory)
         val deadline: TextView = itemView.findViewById(R.id.itemDeadline)
         val cardLayout: MaterialCardView =itemView.findViewById(R.id.cardItem)
+        val delButton : ImageButton = itemView.findViewById(R.id.deleteButton)
 
         /**
          * Funzione che permette di aggiornare gli elementi della UI relativa ad una card con i valori
@@ -107,6 +108,10 @@ class CardAdapter(private val onItemSwipeListener: OnItemSwipeListener) :
             true
         }
 
+        holder.delButton.setOnClickListener {
+            onItemSwipeListener.onCardSwipe(currentItem)
+        }
+
         /* gestione del caso in cui si clicchi su una card. Nel caso specifico, il click permette
          * di passare al fragment in cui è possibile editare la specifica card
          */
@@ -123,49 +128,6 @@ class CardAdapter(private val onItemSwipeListener: OnItemSwipeListener) :
             val action = MainFragmentDirections.actionMainFragmentToEditFragment(currentItem)
             holder.itemView.findNavController().navigate(action)
         }
-
-        /*
-        holder.cardLayout.setOnTouchListener(View.OnTouchListener { view, event ->
-            // variables to store current configuration of quote card.
-            val displayMetrics = holder.cardLayout.context.resources.displayMetrics
-            val cardWidth = holder.cardLayout.width
-            val cardStart = (displayMetrics.widthPixels.toFloat() / 2) - (cardWidth / 2)
-
-            when (event.action) {
-                MotionEvent.ACTION_MOVE -> {
-                    val newX: Float = event.rawX
-                    if (newX - cardWidth < cardStart) { // or newX < cardStart + cardWidth
-                        holder.cardLayout.animate().x(
-                            min(cardStart, newX - (cardWidth / 2))
-                        )
-                            .setDuration(0)
-                            .start()
-                    }
-                    true
-                }
-                MotionEvent.ACTION_UP -> {
-                    var currentX = holder.cardLayout.x
-                    holder.cardLayout.animate()
-                        .x(cardStart)
-                        .setDuration(150)
-                        .setListener(object : AnimatorListenerAdapter() {
-                            override fun onAnimationEnd(animation: Animator) {
-                                // check if the swipe distance was more than
-                                // minimum swipe required to load a new quote
-                                if (currentX < -80) {
-                                    // Add logic to load a new quote if swiped adequately
-                                    onItemSwipeListener.onCardSwipe(currentItem)
-                                    currentX = 0f
-                                }
-
-                            }
-                        })
-                    true
-                }
-            }
-            true
-
-        })*/
     }
 
     /**

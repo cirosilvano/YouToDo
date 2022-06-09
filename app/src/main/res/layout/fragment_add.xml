@@ -11,15 +11,13 @@
         android:id="@+id/btnAdd"
         android:layout_width="200dp"
         android:layout_height="80dp"
-        android:layout_marginBottom="44dp"
+        android:layout_marginBottom="50dp"
         android:text="@string/add_button"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.492"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtCategory"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/textView6"
@@ -52,21 +50,20 @@
         android:id="@+id/textInputLayoutToDo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
         app:boxBackgroundMode="outline"
-        app:startIconContentDescription="@string/toDoLabel"
-        app:endIconMode="clear_text"
-        app:boxCornerRadiusTopEnd="16dp"
-        app:boxCornerRadiusTopStart="16dp"
         app:boxCornerRadiusBottomEnd="16dp"
         app:boxCornerRadiusBottomStart="16dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:boxCornerRadiusTopEnd="16dp"
+        app:boxCornerRadiusTopStart="16dp"
+        app:endIconMode="clear_text"
+        app:helperText="@string/required"
+        app:helperTextEnabled="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.462"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.164"
-        app:helperTextEnabled="true"
-        app:helperText="@string/required">
+        app:layout_constraintTop_toBottomOf="@+id/textView6"
+        app:startIconContentDescription="@string/toDoLabel">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/addName"
@@ -83,90 +80,82 @@
         android:id="@+id/textInputLayoutDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
         android:focusable="false"
         app:boxBackgroundMode="outline"
-        app:endIconContentDescription="@string/dateLabel"
-        app:startIconDrawable="@drawable/ic_baseline_calendar_today_24"
-        app:endIconMode="clear_text"
-        app:boxCornerRadiusTopEnd="16dp"
-        app:boxCornerRadiusTopStart="16dp"
         app:boxCornerRadiusBottomEnd="16dp"
         app:boxCornerRadiusBottomStart="16dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:boxCornerRadiusTopEnd="16dp"
+        app:boxCornerRadiusTopStart="16dp"
+        app:endIconContentDescription="@string/dateLabel"
+        app:endIconMode="clear_text"
+        app:helperText="@string/required"
+        app:helperTextEnabled="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.462"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.284"
-        app:helperTextEnabled="true"
-        app:helperText="@string/required">
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayoutToDo"
+        app:startIconDrawable="@drawable/ic_baseline_calendar_today_24">
+
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/addDate"
             android:layout_width="234dp"
             android:layout_height="56dp"
-            android:hint="@string/dateLabel"
-            />
+            android:hint="@string/dateLabel" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
 
         android:id="@+id/textInputLayoutTime"
         android:layout_width="wrap_content"
-        android:focusable="false"
         android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:focusable="false"
         app:boxBackgroundMode="outline"
-        app:startIconContentDescription="@string/dateLabel"
-        app:endIconMode="clear_text"
-        app:startIconDrawable="@drawable/ic_baseline_access_time_24"
-        app:boxCornerRadiusTopEnd="16dp"
-        app:boxCornerRadiusTopStart="16dp"
         app:boxCornerRadiusBottomEnd="16dp"
         app:boxCornerRadiusBottomStart="16dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:boxCornerRadiusTopEnd="16dp"
+        app:boxCornerRadiusTopStart="16dp"
+        app:endIconMode="clear_text"
+        app:helperText="@string/required"
+        app:helperTextEnabled="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.462"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.405"
-        app:helperTextEnabled="true"
-        app:helperText="@string/required">
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayoutDate"
+        app:startIconContentDescription="@string/dateLabel"
+        app:startIconDrawable="@drawable/ic_baseline_access_time_24">
+
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/addTime"
             android:layout_width="234dp"
             android:layout_height="56dp"
-            android:hint="@string/timeLabel"
-            />
+            android:hint="@string/timeLabel" />
 
     </com.google.android.material.textfield.TextInputLayout>
-
 
 
     <TextView
         android:id="@+id/txtCategory"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="35dp"
-        android:layout_marginBottom="328dp"
+        android:layout_marginTop="40dp"
         android:text="@string/chooseCategoryLabel"
         android:textAppearance="@style/TextAppearance.Material3.HeadlineSmall"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.113"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayoutTime" />
 
 
     <HorizontalScrollView
         android:id="@+id/horizontalScrollView2"
-        android:layout_width="234dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="120dp"
-        android:layout_marginEnd="120dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.571"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.658">
+        android:layout_marginTop="10dp"
+        android:paddingHorizontal="10dp"
+        android:scrollbars="none"
+        app:layout_constraintTop_toBottomOf="@+id/txtCategory"
+        tools:layout_editor_absoluteX="120dp">
 
         <com.google.android.material.chip.ChipGroup
             android:id="@+id/chipGroupAdd"
@@ -181,24 +170,23 @@
         android:id="@+id/editAddCategoryLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
         app:boxBackgroundMode="outline"
-        app:startIconContentDescription="@string/newCategoryLabel"
-        app:endIconMode="clear_text"
-        app:boxCornerRadiusTopEnd="16dp"
-        app:boxCornerRadiusTopStart="16dp"
         app:boxCornerRadiusBottomEnd="16dp"
         app:boxCornerRadiusBottomStart="16dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:boxCornerRadiusTopEnd="16dp"
+        app:boxCornerRadiusTopStart="16dp"
+        app:counterEnabled="true"
+        app:counterMaxLength="20"
+        app:endIconMode="clear_text"
+        app:errorEnabled="true"
+        app:helperText="@string/required"
+        app:helperTextEnabled="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.471"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.787"
-        app:helperTextEnabled="true"
-        app:helperText="@string/required"
-        app:counterEnabled="true"
-        app:counterMaxLength="20"
-        app:errorEnabled="true">
+        app:layout_constraintTop_toBottomOf="@+id/horizontalScrollView2"
+        app:startIconContentDescription="@string/newCategoryLabel">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/editAddCategory"

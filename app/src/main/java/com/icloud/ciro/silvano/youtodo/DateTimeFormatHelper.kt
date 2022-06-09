@@ -116,6 +116,8 @@ class DateTimeFormatHelper {
             val period = Period.between(ldToday, ld)
             val res = context.resources
 
+            if(period.years != 0) return generateDateTime(ldt.year,ldt.monthValue,ldt.dayOfMonth,ldt.hour, ldt.minute)
+
             when(period.days) {
                 -1 -> return "${res.getString(R.string.yesterday)}, ${generateTime(ldt.hour,ldt.minute)}"
                 0 -> return "${res.getString(R.string.today)}, ${generateTime(ldt.hour,ldt.minute)}"

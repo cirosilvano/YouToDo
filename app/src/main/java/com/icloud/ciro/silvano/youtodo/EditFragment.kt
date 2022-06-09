@@ -191,6 +191,16 @@ class EditFragment : Fragment(), DatePickerDialog.OnDateSetListener, TimePickerD
             false
         }
 
+        /*controllo che la lunghezza del testo del to-do: se l'utente sfora il numero massimo di caratteri, viene segnalato l'errore*/
+        binding.editName.doOnTextChanged { text, _, _, _ ->
+            if(text!!.length > 50){
+                binding.textInputLayoutToDo.error = getString(R.string.maxNumCharName)
+            }
+            else{
+                binding.textInputLayoutToDo.error = null
+            }
+        }
+
         /*controllo che la lunghezza della categoria: se l'utente sfora il numero massimo di caratteri, viene segnalato l'errore*/
         binding.editCategory.doOnTextChanged { text, _, _, _ ->
             if(text!!.length > 20){
@@ -203,7 +213,12 @@ class EditFragment : Fragment(), DatePickerDialog.OnDateSetListener, TimePickerD
 
         /*Gestione dell' evento click sul bottone EDIT che si trova in fondo alla schermata*/
         binding.btnEdit.setOnClickListener{
-            updateItem()
+            if( binding.editName.text.toString().length>50){
+                Toast.makeText(requireContext(), getString(R.string.maxNumCharName), Toast.LENGTH_LONG).show()
+            }
+            else {
+                updateItem()
+            }
         }
 
 
@@ -292,7 +307,7 @@ class EditFragment : Fragment(), DatePickerDialog.OnDateSetListener, TimePickerD
         builder.setPositiveButton(getString(R.string.yes)) { _,_ ->
             toDoViewModel.deleteCard(args.currentCard)
             findNavController().navigate(R.id.action_editFragment_to_mainFragment)
-            Toast.makeText(requireContext(), getString(R.string.mexDelete)  +"${args.currentCard.name}!", Toast.LENGTH_LONG).show()
+            Toast.makeText(requireContext(), getString(R.string.catRemoveSucc) , Toast.LENGTH_LONG).show()
         }
 
         builder.setNegativeButton("No") { _,_ ->

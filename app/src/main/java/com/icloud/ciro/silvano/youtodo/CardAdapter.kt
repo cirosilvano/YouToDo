@@ -1,6 +1,7 @@
 package com.icloud.ciro.silvano.youtodo
 
 import android.annotation.SuppressLint
+import android.text.method.ScrollingMovementMethod
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -25,7 +26,7 @@ class CardAdapter(private val onItemSwipeListener: OnItemSwipeListener) :
         val deadline: TextView = itemView.findViewById(R.id.itemDeadline)
         val cardLayout: MaterialCardView =itemView.findViewById(R.id.cardItem)
         val delButton : ImageButton = itemView.findViewById(R.id.deleteButton)
-
+        //name.movementMethod = ScrollingMovementMethod()
         /**
          * Funzione che permette di aggiornare gli elementi della UI relativa ad una card con i valori
          * associati all'elemento specifico della lista gestita dall'adapter
@@ -72,7 +73,6 @@ class CardAdapter(private val onItemSwipeListener: OnItemSwipeListener) :
      */
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val currentItem = cardList[position]
-
         holder.bind(
             currentItem.name,
             currentItem.category,

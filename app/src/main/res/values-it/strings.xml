@@ -68,6 +68,7 @@
     <string name="ChooseCat"> Scegli una categoria!</string>
     <string name="required">*richiesto</string>
     <string name="maxNumChar">Max 20 caratteri</string>
+    <string name="maxNumCharName">Max 50 caratteri</string>
     <string name="allMyTask">Tutti i miei impegni</string>
 
     <!--Descrizione contenuto degli ImageButtons e dei Fab-->

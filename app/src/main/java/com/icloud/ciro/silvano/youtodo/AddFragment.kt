@@ -179,6 +179,16 @@ class AddFragment : Fragment(), DatePickerDialog.OnDateSetListener, TimePickerDi
            false
        }
 
+       /*controllo che la lunghezza del testo del to-do: se l'utente sfora il numero massimo di caratteri, viene segnalato l'errore*/
+       binding.addName.doOnTextChanged { text, _, _, _ ->
+           if(text!!.length > 50){
+               binding.textInputLayoutToDo.error = getString(R.string.maxNumCharName)
+           }
+           else{
+               binding.textInputLayoutToDo.error = null
+           }
+       }
+
        /*controllo che la lunghezza della categoria: se l'utente sfora il numero massimo di caratteri, viene segnalato l'errore*/
        binding.editAddCategory.doOnTextChanged { text, _, _, _ ->
            if(text!!.length>20){
@@ -190,7 +200,12 @@ class AddFragment : Fragment(), DatePickerDialog.OnDateSetListener, TimePickerDi
        }
        /*Gestione dell' evento click sul bottone ADD che si trova in fondo alla schermata*/
        binding.btnAdd.setOnClickListener {
-           insertItemToDatabase()
+           if( binding.addName.text.toString().length>50){
+               Toast.makeText(requireContext(), getString(R.string.maxNumCharName), Toast.LENGTH_LONG).show()
+           }
+           else {
+               insertItemToDatabase()
+           }
        }
        return binding.root
     }

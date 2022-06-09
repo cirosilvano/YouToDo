@@ -63,13 +63,17 @@
         app:layout_constraintHorizontal_bias="0.462"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView6"
-        app:startIconContentDescription="@string/toDoLabel">
+        app:startIconContentDescription="@string/toDoLabel"
+        app:counterEnabled="true"
+        app:counterMaxLength="50"
+        app:errorEnabled="true">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/addName"
             android:layout_width="252dp"
             android:layout_height="56dp"
-            android:hint="@string/toDoLabel" />
+            android:hint="@string/toDoLabel"
+            />
 
 
     </com.google.android.material.textfield.TextInputLayout>

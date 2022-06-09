@@ -24,6 +24,7 @@ import com.icloud.ciro.silvano.youtodo.database.ToDoViewModel
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.icloud.ciro.silvano.youtodo.database.Category
 import com.icloud.ciro.silvano.youtodo.database.Card
 import com.icloud.ciro.silvano.youtodo.databinding.FragmentMainBinding
@@ -447,20 +448,25 @@ override fun onCheckCardClick(card: Card) {
 * @param card card su cui è stato lo swipe e per la quale si propone la cancellazione
 */
 override fun onCardSwipe(card: Card) {
- val builder = AlertDialog.Builder(requireContext())
+    val builder = MaterialAlertDialogBuilder(requireContext())
  builder.setPositiveButton(R.string.yes) { _,_ ->
      toDoViewModel.deleteCard(card)
-     Toast.makeText(requireContext(), "Deleted ${card.name}!", Toast.LENGTH_LONG).show()
+     Toast.makeText(requireContext(), getString(R.string.catRemoveSucc), Toast.LENGTH_LONG).show()
  }
 
  builder.setNegativeButton("No") { _,_ ->
 
  }
 
- builder.setTitle("Are you sure you want to delete ${card.name} ?")
- builder.setMessage("Are you sure you want to delete ${card.name} ?")
 
- builder.create().show()
+    val title = R.string.titleDelete
+    val message = getString(R.string.mexDelete)
+
+    builder.setTitle(title)
+    builder.setMessage("$message ${card.name}")
+    builder.setIcon(R.drawable.ic_baseline_delete_24_dark)
+    builder.create().show()
+
 }
 
 override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {

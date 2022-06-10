@@ -11,11 +11,11 @@
         android:id="@+id/button2"
         android:layout_width="10dp"
         android:layout_height="20dp"
-        android:layout_marginStart="40dp"
+        android:layout_marginStart="30dp"
         android:layout_marginTop="24dp"
         app:cornerRadius="20dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/txtCatFrag"
@@ -37,11 +37,11 @@
         android:layout_width="47dp"
         android:layout_height="43dp"
         android:layout_marginTop="15dp"
-        android:layout_marginEnd="40dp"
+        android:layout_marginEnd="60dp"
         android:backgroundTint="#00FFFFFF"
+        android:contentDescription="@string/deleteImageButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:contentDescription="@string/deleteImageButton"
         app:srcCompat="@drawable/ic_baseline_delete_24_dark" />
 
     <ImageButton

@@ -70,7 +70,7 @@
             android:fontFamily="@font/roboto_light"
             android:gravity="center"
             android:text="@string/free"
-            android:textSize="20sp" />
+            android:textSize="16sp" />
 
     </LinearLayout>
 

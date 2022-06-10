@@ -13,7 +13,7 @@
     <string name="edit_button">MODIFICA</string>
     <string name="free">Sei libero :)</string>
     <string name="freeCategory">Non hai nessun task per la categoria \"%s\" :)</string>
-    <string name="freeToDo">Non hai nessun task da competare :)</string>
+    <string name="freeToDo">Non hai nessun task da completare :)</string>
     <string name="freeCompleted">Non hai completato nessun task :(</string>
     <string name="freeImage">Nessun card visibile</string>
     <string name="changeTheme">Cambia il tema:</string>

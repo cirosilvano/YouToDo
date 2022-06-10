@@ -24,6 +24,9 @@
 
     <!-- Strings used for mainFragment -->
     <string name="free">You\'re free :)</string>
+    <string name="freeCategory">You have no tasks related to category \"%s\" :)</string>
+    <string name="freeToDo">You have no tasks to complete :)</string>
+    <string name="freeCompleted">No tasks completed :(</string>
     <string name="freeImage">No cards displayed</string>
     <string name="changeTheme">Choose your theme:</string>
 

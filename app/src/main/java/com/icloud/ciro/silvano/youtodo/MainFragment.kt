@@ -71,7 +71,7 @@ class MainFragment : Fragment(), OnItemSwipeListener, CategoryListener {
         val btnDarkState = sharedPreferences!!.getBoolean("TOGGLE_DARK", false)
         val ivFreeLight = binding.ivFreeLight
         val ivFreeDark = binding.ivFreeDark
-        val tvFree=binding.tvFree
+        val tvFree = binding.tvFree
 
         //Creazione dell'adapter per le categorie
         val adapterCat=CategoryAdapter(this)
@@ -99,6 +99,7 @@ class MainFragment : Fragment(), OnItemSwipeListener, CategoryListener {
                     ivFreeLight.isVisible = true
                     ivFreeDark.isVisible = false
                 }
+                tvFree.text = getString(R.string.free)
                 tvFree.isVisible=true
             }
         }
@@ -145,7 +146,6 @@ class MainFragment : Fragment(), OnItemSwipeListener, CategoryListener {
             (chipGroupMain.findViewById<Chip>(checkedId))?.let {
 
                 it.setOnClickListener { chipName ->
-                    Log.d("", "COSA SEI? $lastChipSelected")
                     if((chipName as Chip).text.toString() != lastChipSelected) {
                         //Rimozione di tutti gli observers che non riguardano la lista che vogliamo sia osservata
                         toDoViewModel.showAllCards.removeObservers(viewLifecycleOwner)
@@ -171,6 +171,7 @@ class MainFragment : Fragment(), OnItemSwipeListener, CategoryListener {
                                     ivFreeLight.isVisible = true
                                     ivFreeDark.isVisible = false
                                 }
+                                tvFree.text = getString(R.string.freeCategory, chipName.text.toString())
                                 tvFree.isVisible=true
                             }
                         }
@@ -197,6 +198,7 @@ class MainFragment : Fragment(), OnItemSwipeListener, CategoryListener {
                                     ivFreeLight.isVisible = true
                                     ivFreeDark.isVisible = false
                                 }
+                                tvFree.text = getString(R.string.free)
                                 tvFree.isVisible=true
                             }
                         }
@@ -257,6 +259,7 @@ class MainFragment : Fragment(), OnItemSwipeListener, CategoryListener {
                                 ivFreeLight.isVisible = true
                                 ivFreeDark.isVisible = false
                             }
+                            tvFree.text = getString(R.string.free)
                             tvFree.isVisible=true
                         }
                     }
@@ -287,6 +290,7 @@ class MainFragment : Fragment(), OnItemSwipeListener, CategoryListener {
                                 ivFreeLight.isVisible = true
                                 ivFreeDark.isVisible = false
                             }
+                            tvFree.text = getString(R.string.freeToDo)
                             tvFree.isVisible=true
                         }
                     }
@@ -318,6 +322,7 @@ class MainFragment : Fragment(), OnItemSwipeListener, CategoryListener {
                                 ivFreeLight.isVisible = true
                                 ivFreeDark.isVisible = false
                             }
+                            tvFree.text = getString(R.string.freeCompleted)
                             tvFree.isVisible=true
                         }
                     }

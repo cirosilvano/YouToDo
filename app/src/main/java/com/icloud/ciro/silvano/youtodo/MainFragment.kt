@@ -5,6 +5,7 @@ import android.content.Context.MODE_PRIVATE
 import android.content.SharedPreferences
 import android.graphics.Canvas
 import android.os.Bundle
+import android.util.Log
 import android.util.TypedValue
 import android.view.*
 import androidx.fragment.app.Fragment
@@ -144,6 +145,7 @@ class MainFragment : Fragment(), OnItemSwipeListener, CategoryListener {
             (chipGroupMain.findViewById<Chip>(checkedId))?.let {
 
                 it.setOnClickListener { chipName ->
+                    Log.d("", "COSA SEI? $lastChipSelected")
                     if((chipName as Chip).text.toString() != lastChipSelected) {
                         //Rimozione di tutti gli observers che non riguardano la lista che vogliamo sia osservata
                         toDoViewModel.showAllCards.removeObservers(viewLifecycleOwner)
@@ -233,6 +235,7 @@ class MainFragment : Fragment(), OnItemSwipeListener, CategoryListener {
             when (menuItem.itemId) {
                 //Questo tasto mostra tutte le card che sono state create
                 R.id.all_nav -> {
+                    chipGroupMain.clearCheck()
                     toDoViewModel.showAllCards.removeObservers(viewLifecycleOwner)
                     toDoViewModel.showCardsByStatus.removeObservers(viewLifecycleOwner)
                     toDoViewModel.showCardsByCategory.removeObservers(viewLifecycleOwner)
@@ -261,6 +264,7 @@ class MainFragment : Fragment(), OnItemSwipeListener, CategoryListener {
                 }
                 //Questo tasto mostra tutte le card che non sono ancora state completate (la check non è spuntata)
                 R.id.to_do_nav -> {
+                    chipGroupMain.clearCheck()
                     toDoViewModel.showAllCards.removeObservers(viewLifecycleOwner)
                     toDoViewModel.showCardsByCategory.removeObservers(viewLifecycleOwner)
 
@@ -291,6 +295,7 @@ class MainFragment : Fragment(), OnItemSwipeListener, CategoryListener {
 
                 //Questo tasto mostra tutte le card che sono state completate (è stata spuntata la check)
                 R.id.done_nav -> {
+                    chipGroupMain.clearCheck()
                     toDoViewModel.showAllCards.removeObservers(viewLifecycleOwner)
                     toDoViewModel.showCardsByCategory.removeObservers(viewLifecycleOwner)
 

@@ -1,12 +1,10 @@
 package com.icloud.ciro.silvano.youtodo
 
-import android.app.AlertDialog
 import android.content.Context
 import android.content.Context.MODE_PRIVATE
 import android.content.SharedPreferences
 import android.graphics.Canvas
 import android.os.Bundle
-import android.util.Log
 import android.util.TypedValue
 import android.view.*
 import androidx.fragment.app.Fragment
@@ -28,12 +26,10 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.icloud.ciro.silvano.youtodo.database.Category
 import com.icloud.ciro.silvano.youtodo.database.Card
 import com.icloud.ciro.silvano.youtodo.databinding.FragmentMainBinding
-import kotlin.math.abs
 import kotlin.math.roundToInt
 
 class MainFragment : Fragment(), OnItemSwipeListener, CategoryListener {
 
-    private lateinit var dragHelper: ItemTouchHelper
     private lateinit var swipeHelper: ItemTouchHelper
 
     private val Int.dp
@@ -143,42 +139,69 @@ class MainFragment : Fragment(), OnItemSwipeListener, CategoryListener {
 
         //Questo listener si attiva quando viene cliccata una qualsiasi delle chip
         chipGroupMain.setOnCheckedChangeListener { _, checkedId ->
-
+            var lastChipSelected = ""
             //Si seleziona la chip che è stata cliccata
             (chipGroupMain.findViewById<Chip>(checkedId))?.let {
 
                 it.setOnClickListener { chipName ->
-                    val myChip:Chip= chipName as Chip //si ottiene il nome della chip che è stata cliccata
+                    if((chipName as Chip).text.toString() != lastChipSelected) {
+                        //Rimozione di tutti gli observers che non riguardano la lista che vogliamo sia osservata
+                        toDoViewModel.showAllCards.removeObservers(viewLifecycleOwner)
+                        toDoViewModel.showCardsByStatus.removeObservers(viewLifecycleOwner)
 
-                    //Rimozione di tutti gli observers che non riguardano la lista che vogliamo sia osservata
-                    toDoViewModel.showAllCards.removeObservers(viewLifecycleOwner)
-                    toDoViewModel.showCardsByStatus.removeObservers(viewLifecycleOwner)
+                        //Si invoca la select filtrando in base al nome della categoria specificata dalla chip
+                        toDoViewModel.setCategory(chipName.text.toString())
 
-                    //Si invoca la select filtrando in base al nome della categoria specificata dalla chip
-                    toDoViewModel.setCategory(myChip.text.toString())
+                        toDoViewModel.showCardsByCategory.observe(viewLifecycleOwner) { filteredList ->
+                            adapter.setData(filteredList)
 
-                    toDoViewModel.showCardsByCategory.observe(viewLifecycleOwner) { filteredList ->
-                        adapter.setData(filteredList)
-
-                        if(adapter.itemCount>0){
-                            ivFreeDark.isVisible = false
-                            ivFreeLight.isVisible= false
-                            tvFree.isVisible=false
-                        }
-                        else{
-                            if(btnDarkState) {
-                                ivFreeDark.isVisible = true
-                                ivFreeLight.isVisible = false
-                            }
-                            else {
-                                ivFreeLight.isVisible = true
+                            if(adapter.itemCount>0){
                                 ivFreeDark.isVisible = false
+                                ivFreeLight.isVisible= false
+                                tvFree.isVisible=false
                             }
-                            tvFree.isVisible=true
+                            else{
+                                if(btnDarkState) {
+                                    ivFreeDark.isVisible = true
+                                    ivFreeLight.isVisible = false
+                                }
+                                else {
+                                    ivFreeLight.isVisible = true
+                                    ivFreeDark.isVisible = false
+                                }
+                                tvFree.isVisible=true
+                            }
                         }
                     }
+                    else {
+                        toDoViewModel.showAllCards.removeObservers(viewLifecycleOwner)
+                        toDoViewModel.showCardsByStatus.removeObservers(viewLifecycleOwner)
+                        toDoViewModel.showCardsByCategory.removeObservers(viewLifecycleOwner)
+
+                        toDoViewModel.showAllCards.observe(viewLifecycleOwner) { toDoList ->
+                            adapter.setData(toDoList)
+
+                            if(adapter.itemCount>0){
+                                ivFreeDark.isVisible = false
+                                ivFreeLight.isVisible= false
+                                tvFree.isVisible=false
+                            }
+                            else{
+                                if(btnDarkState) {
+                                    ivFreeDark.isVisible = true
+                                    ivFreeLight.isVisible = false
+                                }
+                                else {
+                                    ivFreeLight.isVisible = true
+                                    ivFreeDark.isVisible = false
+                                }
+                                tvFree.isVisible=true
+                            }
+                        }
+                    }
+                    lastChipSelected = chipName.text.toString()
                 }
-           }
+            }
         }
 
         binding.addFAB.setOnClickListener {
@@ -415,7 +438,6 @@ private fun ChipGroup.addChip(context: Context?, label: String, adapter : Catego
          var success = 0
          //Eliminazione dell'elemento dalla tabella
          try {
-             Log.d("", this.text.toString())
              toDoViewModel.deleteCategory(Category(this.text.toString().trim()))
              success = adapter.itemCount
          } catch(e : android.database.sqlite.SQLiteConstraintException) {

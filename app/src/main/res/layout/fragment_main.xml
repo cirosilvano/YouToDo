@@ -12,6 +12,8 @@
         android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="#00FFFFFF"
+        android:backgroundTint="#00FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -24,13 +26,15 @@
             android:layout_width="match_parent"
             android:layout_height="70dp"
 
+            android:background="#00FFFFFF"
+            android:backgroundTint="#00FFFFFF"
             app:menu="@menu/menu_filter">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="70dp"
                 android:text="@string/welcome_text"
-                android:textAppearance="@style/TextAppearance.Material3.ActionBar.Title.mainTitle"/>
+                android:textAppearance="@style/TextAppearance.Material3.ActionBar.Title.mainTitle" />
         </com.google.android.material.appbar.MaterialToolbar>
 
     </com.google.android.material.appbar.AppBarLayout>

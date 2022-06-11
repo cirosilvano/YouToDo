@@ -1,7 +1,6 @@
 package com.icloud.ciro.silvano.youtodo
 
 import android.annotation.SuppressLint
-import android.text.method.ScrollingMovementMethod
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,7 +14,7 @@ import com.google.android.material.card.MaterialCardView
  * Questa classe ci permette di gestire le liste di Card ottenute tramite l'invocazione delle query select
  * sulla tabella card. Permette di creare oggetti ViewHolder e di settare i dati alle view
  */
-class CardAdapter(private val onItemSwipeListener: OnItemSwipeListener) :
+class CardAdapter(private val onItemSwipeListener: CardListener) :
     RecyclerView.Adapter<CardAdapter.MyViewHolder>() {
 
     private var cardList = emptyList<Card>()
@@ -86,21 +85,7 @@ class CardAdapter(private val onItemSwipeListener: OnItemSwipeListener) :
              * recyclerView che farà uso di questo adapter. Nel caso specifico, questo fragment è
              * MainFragment e la funzione permette di aggiornare lo stato della card (da unchecked a checked e viceversa)
              */
-            onItemSwipeListener.onCheckCardClick(currentItem)
-
-            /* setOnLongClickListener richiede come valore di ritorno un Boolean che specifica se
-             * la callback ha consumato l'evento. Nel caso specifico, questo avverrà sempre con successo
-             */
-            true
-        }
-
-        // gestione del caso in cui si tenga premuto sul testo della card
-        holder.name.setOnLongClickListener {
-            /* Invocazione della funzione dell'interfaccia implementata dal fragment in cui verra creata la
-             * recyclerView che farà uso di questo adapter. Nel caso specifico, questo fragment è
-             * MainFragment e la funzione permette di aggiornare lo stato della card (da unchecked a checked e viceversa)
-             */
-            onItemSwipeListener.onCheckCardClick(currentItem)
+            onItemSwipeListener.onLongCardClick(currentItem)
 
             /* setOnLongClickListener richiede come valore di ritorno un Boolean che specifica se
              * la callback ha consumato l'evento. Nel caso specifico, questo avverrà sempre con successo
@@ -116,15 +101,6 @@ class CardAdapter(private val onItemSwipeListener: OnItemSwipeListener) :
          * di passare al fragment in cui è possibile editare la specifica card
          */
         holder.cardLayout.setOnClickListener {
-            val action = MainFragmentDirections.actionMainFragmentToEditFragment(currentItem)
-            holder.itemView.findNavController().navigate(action)
-        }
-
-
-        /* gestione del caso in cui si clicchi sul testo della card. Nel caso specifico, il click permette
-         * di passare al fragment in cui è possibile editare la specifica card
-         */
-        holder.name.setOnClickListener{
             val action = MainFragmentDirections.actionMainFragmentToEditFragment(currentItem)
             holder.itemView.findNavController().navigate(action)
         }

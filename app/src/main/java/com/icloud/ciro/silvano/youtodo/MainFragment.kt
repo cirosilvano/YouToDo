@@ -5,13 +5,12 @@ import android.content.Context.MODE_PRIVATE
 import android.content.SharedPreferences
 import android.graphics.Canvas
 import android.os.Bundle
-import android.util.Log
-import android.util.TypedValue
 import android.view.*
 import androidx.fragment.app.Fragment
 import android.widget.*
 import androidx.core.view.children
 import androidx.core.view.isVisible
+import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
@@ -23,21 +22,13 @@ import com.icloud.ciro.silvano.youtodo.database.ToDoViewModel
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.icloud.ciro.silvano.youtodo.database.Category
 import com.icloud.ciro.silvano.youtodo.database.Card
 import com.icloud.ciro.silvano.youtodo.databinding.FragmentMainBinding
-import kotlin.math.roundToInt
 
-class MainFragment : Fragment(), OnItemSwipeListener, CategoryListener {
+class MainFragment : Fragment(), CardListener, CategoryListener {
 
     private lateinit var swipeHelper: ItemTouchHelper
-
-    private val Int.dp
-        get() = TypedValue.applyDimension(
-            TypedValue.COMPLEX_UNIT_DIP,
-            toFloat(), resources.displayMetrics
-        ).roundToInt()
 
     private var _binding: FragmentMainBinding? = null
     private val binding get() = _binding!!
@@ -333,38 +324,76 @@ class MainFragment : Fragment(), OnItemSwipeListener, CategoryListener {
             }
         }
 
-        //define swipe helper here
+        //definizione dello swipe della recyclerView. Questo permetterà di fare swipe
+        // su una delle card per scoprire l'imageButton che permette di eliminarla
+        // Vanno definite le direzioni per lo swipe (ed eventualmente per il drag and drop)
         swipeHelper = ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(
             0,
-            ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT
-        ) {
+            ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT) {
 
-            //grandezza-410
-            private val limitScrollX = dipToPx(140f, binding.itemsList.context)
+            //questa variabile specifica di quanto bisogna scrollare perché lo swipe vada a buon
+            //fine (se l'utente scrolla troppo poco la card viene riportata alla posizione originale
+            //e il "menu extra" viene rinascosto
+            private val limitScrollX = (140f * context!!.resources.displayMetrics.density).toInt()
+
+            //specifica quanto l'utente ha scrollato a sinistra
             private var currentScrollX = 0
-            private var currentScrollXWhenInActive = 0
+            private var currentScrollXWhenInactive = 0
             private var initWhenActive = 0f
-            private var firstInActive = false
+            private var firstInactive = false
 
+            /**
+             * Questa funzione è utilizzata nel caso in cui si supporti il drag and drop
+             * per spostare una elemento dalla vecchia posizione alla nuova (nel nostro
+             * caso non verrò mai chiamato)
+             */
             override fun onMove(
                 recyclerView: RecyclerView,
                 viewHolder: RecyclerView.ViewHolder,
                 target: RecyclerView.ViewHolder
             ): Boolean {
-                return true
+                return false
             }
 
+            /**
+             * Questa funzione è utilizzata per definire il comportamento in seguito ad uno swipe
+             * Siccome nel nostro caso lo swipe serve solo per scoprire un menù aggiuntivo,
+             * non è definito alcun comportamento per questa operazione
+             */
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
             }
 
+            /**
+             * Questa funzione definisce di quanto l'utente deve trascinare la card (in frazione) perché sia rilevato lo swipe
+             * @param viewHolder il viewHolder che viene trascinato
+             * @return la percentuale (in frazione) corrispondente a quanto deve essere trascinata la card per rilevare lo swipe
+             */
             override fun getSwipeThreshold(viewHolder: RecyclerView.ViewHolder): Float {
                 return Integer.MAX_VALUE.toFloat()
             }
 
+            /**
+             * Questa funzione definisce la velocità minima con cui l'utente deve trascinare la
+             * card perché sia rilevato lo swipe. La velocità è misurata in pixel al secondo
+             * @param defaultValue valore di default della velocità usata dall'ItemTouchHelper
+             * @return la velocità minima di swipe
+             */
             override fun getSwipeEscapeVelocity(defaultValue: Float): Float {
                 return Integer.MAX_VALUE.toFloat()
             }
 
+            /**
+             * Questa funzione permette di definire il comportamento della View all'interazione dell'utente
+             * con essa. Nel caso specifico, se lo swipe viene rilevato correttamente, compare a destra
+             * della card swipata un menù in precedenza nascosto che permette di eliminarla
+             * @param c canvas che permette di disegnare sui figli della recyclerView (non utilizzato)
+             * @param recyclerView la recyclerView a cui è attaccata l'ItemTouchHelper
+             * @param viewHolder il viewHolder con cui l'utente sta interagendo
+             * @param dX indica lo spostamento orizzontale rispetto alla posizione originale causata dallo swipe
+             * @param dX indica lo spostamento verticale rispetto alla posizione originale causata dallo swipe
+             * @param actionState il tipo di interazione con la View. Nel nostro caso è solo ACTION_STATE_SWIPE
+             * @param isCurrentlyActive indica se la View sta venendo controllata dall'utente
+             */
             override fun onChildDraw(
                 c: Canvas,
                 recyclerView: RecyclerView,
@@ -377,42 +406,50 @@ class MainFragment : Fragment(), OnItemSwipeListener, CategoryListener {
                 if(actionState == ItemTouchHelper.ACTION_STATE_SWIPE) {
                     if(dX == 0f) {
                         currentScrollX = viewHolder.itemView.scrollX
-                        firstInActive = true
+                        firstInactive = true
                     }
 
+                    //controllo che l'utente stia facendo swipe
                     if(isCurrentlyActive) {
-                        //swipe with finger
                         var scrollOffset = currentScrollX + (-dX).toInt()
 
+                        //calcolo di quanto è stato scrollato ed in che direzione,
+                        //per evitare comportamenti non previsti
                         if(scrollOffset > limitScrollX)
                             scrollOffset = limitScrollX
                         else
                             if(scrollOffset < 0)
                                 scrollOffset = 0
 
+                        //si applica lo scroll alla view (in questo caso la card che l'utente ha trascinato)
                         viewHolder.itemView.scrollTo(scrollOffset, 0)
                     }
-                    else {
-                        //swipe with auto animation
-                        if(firstInActive) {
-                            firstInActive = false
-                            currentScrollXWhenInActive = viewHolder.itemView.scrollX
+                    else { //swipe fatto automaticamente senza l'intervento dell'utente
+                        if(firstInactive) {
+                            firstInactive = false
+                            currentScrollXWhenInactive = viewHolder.itemView.scrollX
                             initWhenActive = dX
                         }
 
+                        //questo riporta la card alla posizione originaria se l'utente non ha trascinato la card
+                        //abbastanza perché fosse rilevato lo swipe
                         if(viewHolder.itemView.scrollX < limitScrollX) {
-                            viewHolder.itemView.scrollTo((currentScrollXWhenInActive * dX / initWhenActive).toInt(), 0)
+                            viewHolder.itemView.scrollTo((currentScrollXWhenInactive * dX / initWhenActive).toInt(), 0)
                         }
                     }
                 }
             }
 
-            override fun clearView(
-                recyclerView: RecyclerView,
-                viewHolder: RecyclerView.ViewHolder
-            ) {
+            /**
+             * Funzione chiamata quando l'utente ha finito di interagire con una card e anche le animazioni sono concluse
+             * @param recyclerView la recyclerView a cui è attaccata l'ItemTouchHelper
+             * @param viewHolder il viewHolder con cui l'utente sta interagendo
+             *
+             */
+            override fun clearView(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder) {
                 super.clearView(recyclerView, viewHolder)
 
+                //si riporta la card alla posizione originale
                 if(viewHolder.itemView.scrollX > limitScrollX) {
                     viewHolder.itemView.scrollTo(limitScrollX, 0)
                 }
@@ -426,88 +463,64 @@ class MainFragment : Fragment(), OnItemSwipeListener, CategoryListener {
         swipeHelper.attachToRecyclerView(recyclerView)
 
         return binding.root
-}//OnCreateView
+    }//OnCreateView
 
 
-private fun dipToPx(dipValue: Float, context: Context) : Int {
-    return (dipValue * context.resources.displayMetrics.density).toInt()
-}
+    // create chip programmatically and add it to chip group
+    private fun ChipGroup.addChip(context: Context?, label: String, adapter : CategoryAdapter){
+        Chip(context).apply {
+            id = View.generateViewId()
+            text = label
+            isClickable = true
+            isCheckable = true
+            isCheckedIconVisible = true
+            isFocusable = true
+            addView(this)
 
-// create chip programmatically and add it to chip group
-private fun ChipGroup.addChip(context: Context?, label: String, adapter : CategoryAdapter){
- Chip(context).apply {
-     id = View.generateViewId()
-     text = label
-     isClickable = true
-     isCheckable = true
-     isCheckedIconVisible = true
-     isFocusable = true
-     addView(this)
-     this.setOnCloseIconClickListener{
-         val previous = adapter.itemCount
-         var success = 0
-         //Eliminazione dell'elemento dalla tabella
-         try {
-             toDoViewModel.deleteCategory(Category(this.text.toString().trim()))
-             success = adapter.itemCount
-         } catch(e : android.database.sqlite.SQLiteConstraintException) {
-             Toast.makeText(requireContext(), "Impossibile eliminare la category perché ci sono card con quella.  ", Toast.LENGTH_LONG).show()
-         }
+            this.setOnCloseIconClickListener {
+                val previous = adapter.itemCount
+                var success = 0
 
-         if(success == previous - 1) {
-             //Rimozione della chip
-             removeView(this)
-         }
-     }
- }
-}
+                //Eliminazione dell'elemento dalla tabella
+                toDoViewModel.deleteCategory(Category(this.text.toString().trim()))
+                success = adapter.itemCount
 
-/**
-* Funzione che modifica lo stato della card di cui si è premuta la check
-* @param card card di cui si vuole cambiare lo stato (da checked a unchecked o viceversa)
-*/
-override fun onCheckCardClick(card: Card) {
- //Si verifica lo stato della card e si invoca l'update con lo stato opposto
+                if(success == previous - 1) {
+                    //Rimozione della chip
+                    removeView(this)
+                }
+            }
+        }
+    }
 
- if(card.isDone)
-     toDoViewModel.updateCard(Card(card.id, card.name, card.category, card.deadline, false))
- else
-     toDoViewModel.updateCard(Card(card.id, card.name, card.category, card.deadline, true))
-}
+    /**
+     * Funzione che modifica lo stato della card di cui si è premuta la check
+     * @param card card di cui si vuole cambiare lo stato (da checked a unchecked o viceversa)
+     */
+    override fun onLongCardClick(card: Card) {
+        //Si verifica lo stato della card e si invoca l'update con lo stato opposto
+        if(card.isDone)
+            toDoViewModel.updateCard(Card(card.id, card.name, card.category, card.deadline, false))
+        else
+            toDoViewModel.updateCard(Card(card.id, card.name, card.category, card.deadline, true))
+    }
 
-/**
-* Funzione che triggera il messaggio di eliminazione nel caso in cui venga fatto uno swipe sulla card
-* @param card card su cui è stato lo swipe e per la quale si propone la cancellazione
-*/
-override fun onCardSwipe(card: Card) {
-    val builder = MaterialAlertDialogBuilder(requireContext())
- builder.setPositiveButton(R.string.yes) { _,_ ->
-     toDoViewModel.deleteCard(card)
-     Toast.makeText(requireContext(), getString(R.string.catRemoveSucc), Toast.LENGTH_LONG).show()
- }
+    /**
+    * Funzione che triggera il messaggio di eliminazione nel caso in cui venga fatto uno swipe sulla card
+    * @param card card su cui è stato lo swipe e per la quale si propone la cancellazione
+    */
+    override fun onCardSwipe(card: Card) {
+        toDoViewModel.deleteCard(card)
+        activity?.recreate()
+        Toast.makeText(requireContext(), getString(R.string.catRemoveSucc), Toast.LENGTH_LONG).show()
+    }
 
- builder.setNegativeButton("No") { _,_ ->
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.menu_filter,menu)
+        super.onCreateOptionsMenu(menu, inflater)
+    }
 
- }
+    override fun categoryEdit(category: Category) {}
 
-
-    val title = R.string.titleDelete
-    val message = getString(R.string.mexDelete)
-
-    builder.setTitle(title)
-    builder.setMessage("$message ${card.name}")
-    builder.setIcon(R.drawable.ic_baseline_delete_24_dark)
-    builder.create().show()
-
-}
-
-override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
- inflater.inflate(R.menu.menu_filter,menu)
- super.onCreateOptionsMenu(menu, inflater)
-}
-
-override fun categoryEdit(category: Category) {}
-
-override fun categoryDelete(category: Category) {}
-
+    override fun categoryDelete(category: Category) {}
 }

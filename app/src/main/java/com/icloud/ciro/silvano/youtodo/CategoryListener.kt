@@ -10,12 +10,14 @@ import com.icloud.ciro.silvano.youtodo.database.Category
  */
 interface CategoryListener  {
 
-    /**Funzione per la gestione della modifica della categoria
+    /**
+     * Funzione per la gestione della modifica della categoria
      * @param category la categoria che si vuole modificare
      */
     fun categoryEdit(category: Category)
 
-    /**Funzione per la gestione dell'eliminazione della categoria
+    /**
+     * Funzione per la gestione dell'eliminazione della categoria
      * @param category la categoria che si vuole eliminare
      */
     fun categoryDelete(category: Category)

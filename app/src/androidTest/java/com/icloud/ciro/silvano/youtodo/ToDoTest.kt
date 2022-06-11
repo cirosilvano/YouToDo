@@ -18,35 +18,28 @@ import com.google.android.material.chip.Chip
 import org.hamcrest.CoreMatchers.*
 import org.hamcrest.Matcher
 import org.hamcrest.Matchers
+import org.junit.FixMethodOrder
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.junit.runners.MethodSorters
 
 
+/**
+ * Classe che mira a testare le operazioni più comuni fatte utilizzando l'applicazione
+ * Siccome espresso potrebbe avere problemi nel trovare le View se si usano animazioni o transizioni,
+ * si consiglia di disattivarle. Per fare ciò, è sufficiente (supponendo che la lingua di sistema sia inglese)
+ * andare su settings -> developer options e nella sezione Drawing disabilitare:
+ * - window animation scale;
+ * - transition animation scale;
+ * - animator duration scale.
+ */
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 @RunWith(AndroidJUnit4::class)
 class ToDoTest {
 
     @get: Rule
     val activityRule = ActivityScenarioRule(MainActivity::class.java)
-
-    /*
-    @Test
-    fun navigationFromMainToAddTest() {
-        // Create a mock NavController
-        val mockNavController = mock(NavController::class.java)
-
-        // Create a graphical FragmentScenario for the TitleScreen
-        val titleScenario = launchFragmentInContainer<MainFragment>(themeResId = R.style.Base_Theme_YouToDo)
-
-        // Set the NavController property on the fragment
-        titleScenario.onFragment { fragment ->
-            Navigation.setViewNavController(fragment.requireView(), mockNavController)
-        }
-
-        // Verify that performing a click prompts the correct Navigation action
-        onView(ViewMatchers.withId(R.id.addFAB)).perform(click())
-        verify(mockNavController).navigate(R.id.action_mainFragment_to_addFragment)
-    }*/
 
     /**
      * Questo test ha lo scopo di verificare che l'addFragment crei correttamente una card
@@ -121,44 +114,39 @@ class ToDoTest {
         )
         onView(withId(android.R.id.button1)).perform(click())
 
-        //
         onView(allOf(withText(containsString("all")), isAssignableFrom(Chip::class.java))).perform(click())
 
         onView(withId(R.id.btnAdd)).perform(click())
 
-
-        //long click on the second item of the recyclerView to check if it's been selected
-        //onView(withId(R.id.itemsList)).perform(RecyclerViewActions.actionOnItemAtPosition<CardAdapter.MyViewHolder>(1,
-        //    longClick()))
-
-        //modo per verificare il numero di elementi della recyclerView
-        //onView(withId(R.id.itemsList)).check(matches(hasChildCount(5)))
-
         onView(withId(R.id.itemsList)).check(matches(hasChildCount(2)))
     }
 
+    /**
+     * Questo test ha lo scopo di verificare che premere sui chip relativi ad una certa categoria
+     * filtri correttamente le card in modo da mostrare solo quelle appartenenti alla data categoria
+     */
     @Test
-    fun filterCards() {
-        onView(withId(R.id.itemsList)).check(matches(hasChildCount(2)))
+    fun filterCardsByCategory() {
+        //provo a filtrare le card che hanno la categoria personal
+        onView(allOf(withText(containsString("personal")), not(withId(R.id.itemCategory)), isAssignableFrom(Chip::class.java))).perform(click())
 
-        onView(allOf(withText("all"), not(withId(R.id.itemCategory)), isAssignableFrom(Chip::class.java))).perform(click())
-        onView(withId(R.id.itemsList)).check(matches(hasChildCount(1)))
+        //controllo che ripremendo il chip si deselezioni e ricompaiano tutte le card
+        onView(allOf(withText(containsString("personal")), not(withId(R.id.itemCategory)), isAssignableFrom(Chip::class.java))).perform(click())
+
+        onView(allOf(withText(containsString("new value")), not(withId(R.id.itemCategory)), isAssignableFrom(Chip::class.java))).perform(click())
+
+        //controllo che ripremendo il chip si deselezioni e ricompaiano tutte le card
+        onView(allOf(withText(containsString("new value")), not(withId(R.id.itemCategory)), isAssignableFrom(Chip::class.java))).perform(click())
 
         onView(allOf(withText(containsString("personal")), not(withId(R.id.itemCategory)), isAssignableFrom(Chip::class.java))).perform(click())
-        onView(withId(R.id.itemsList)).check(matches(hasChildCount(1)))
-
-        /*
-        onView(withId(R.id.topAppBar)).perform(click())
-        //openActionBarOverflowOrOptionsMenu(ApplicationProvider.getApplicationContext())
-
-        //openActionBarOverflowOrOptionsMenu(InstrumentationRegistry.getInstrumentation().context)
-
-        //openContextualActionModeOverflowMenu()
-        //onView(withId(R.id.to_do_nav)).perform(click())
-        onView(withId(R.id.itemsList)).check(matches(hasChildCount(2)))
-        */
+        onView(allOf(withText(containsString("new value")), not(withId(R.id.itemCategory)), isAssignableFrom(Chip::class.java))).perform(click())
     }
 
+    /**
+     * Questo test ha lo scopo di verificare che premere su una card permetta di passare
+     * ad EditFragment e che la modifica di uno dei valori (nome, categoria o deadline) venga
+     * correttamente applicato una volta premuto sul bottone per la conferma delle modifiche
+     */
     @Test
     fun editCard() {
         //verifichiamo che la recyclerView sia visibile
@@ -203,10 +191,14 @@ class ToDoTest {
         onView(withId(R.id.itemsList)).perform(
             RecyclerViewActions.actionOnItemAtPosition<CardAdapter.MyViewHolder>(0, click()))
 
-        onView(allOf(withText(containsString("all")), isAssignableFrom(Chip::class.java))).perform(click())
+        onView(allOf(withText(containsString("personal")), isAssignableFrom(Chip::class.java))).perform(click())
         onView(withId(R.id.btnEdit)).perform(click())
     }
 
+    /**
+     * Questo test ha lo scopo di verificare che le card siano correttamente eliminate quando si usa
+     * l'ImageButton presente nell'EditFragment relativo alla card
+     */
     @Test
     fun deleteCard() {
         //verifichiamo che la recyclerView sia visibile
@@ -221,6 +213,10 @@ class ToDoTest {
         onView(withId(android.R.id.button1)).perform(click())
     }
 
+    /**
+     * Questo test ha lo scopo di verificare che creare una categoria tramite categoryFragment
+     * funzioni correttamente
+     */
     @Test
     fun addCategoryFromCategoryFragment() {
         //navigate to CategoryFragment
@@ -235,6 +231,10 @@ class ToDoTest {
         onView(withId(R.id.confirm)).perform(click())
     }
 
+    /**
+     * Questo test ha lo scopo di verificare la corretta modifica di una categoria
+     * tramite l'ImageButton specifico a destra del nome della categoria
+     */
     @Test
     fun editCategory() {
         //navigazione a CategoryFragment
@@ -266,6 +266,10 @@ class ToDoTest {
         onView(withId(R.id.confirm)).perform(click())
     }
 
+    /**
+     * Questo test ha lo scopo di verificare la corretta eliminazione di una categoria
+     * tramite l'ImageButton specifico a destra del nome della categoria
+     */
     @Test
     fun deleteCategory() {
         //navigazione a CategoryFragment
@@ -296,6 +300,10 @@ class ToDoTest {
         onView(withId(android.R.id.button1)).perform(click())
     }
 
+    /**
+     * Questo test ha lo scopo di verificare la corretta applicazione del tema scelto
+     * in SettingFragment all'applicazione
+     */
     @Test
     fun themesTest() {
         //navigazione a SettingsFragment
@@ -303,12 +311,32 @@ class ToDoTest {
 
         onView(withId(R.id.btnTheme1)).perform(click())
 
-        onView(withId(R.id.backSettingsButton)).perform(click())
+        onView(withId(R.id.home_nav)).perform(click())
+        onView(withId(R.id.category_nav)).perform(click())
+        onView(withId(R.id.settings_nav)).perform(click())
 
+        onView(withId(R.id.btnTheme2)).perform(click())
+
+        onView(withId(R.id.home_nav)).perform(click())
+        onView(withId(R.id.category_nav)).perform(click())
+        onView(withId(R.id.settings_nav)).perform(click())
+
+        onView(withId(R.id.btnDefault)).perform(click())
+
+        onView(withId(R.id.home_nav)).perform(click())
+        onView(withId(R.id.category_nav)).perform(click())
         onView(withId(R.id.settings_nav)).perform(click())
 
         onView(withId(R.id.btnDarkMode)).perform(click())
-        onView(withId(R.id.backSettingsButton)).perform(click())
+
+        onView(withId(R.id.home_nav)).perform(click())
+        onView(withId(R.id.category_nav)).perform(click())
+        onView(withId(R.id.settings_nav)).perform(click())
+
+        onView(withId(R.id.btnLightMode)).perform(click())
+
+        onView(withId(R.id.home_nav)).perform(click())
+        onView(withId(R.id.category_nav)).perform(click())
 
     }
 }

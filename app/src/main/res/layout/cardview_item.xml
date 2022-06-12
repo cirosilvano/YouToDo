@@ -74,9 +74,10 @@
             android:layout_height="120dp"
             android:layout_marginEnd="40dp"
             android:background="@drawable/roundcorner"
-            android:src="@drawable/ic_baseline_delete_24"
             android:contentDescription="@string/deleteImageButton"
+            android:src="@drawable/ic_baseline_delete_50"
             android:text="@string/button_placeholder"
+            android:tint="#FFFFFF"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

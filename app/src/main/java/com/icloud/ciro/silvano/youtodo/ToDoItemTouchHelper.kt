@@ -14,7 +14,7 @@ class ToDoItemTouchHelper(context: Context?): ItemTouchHelper.SimpleCallback(0, 
     //questa variabile specifica di quanto bisogna scrollare perché lo swipe vada a buon
     //fine (se l'utente scrolla troppo poco la card viene riportata alla posizione originale
     //e il "menu extra" viene rinascosto
-    private val limitScrollX = (140f * context!!.resources.displayMetrics.density).toInt()
+    private val limitScrollX = (120f * context!!.resources.displayMetrics.density).toInt()
 
     //specifica quanto l'utente ha scrollato a sinistra
     private var currentScrollX = 0

@@ -86,12 +86,12 @@ class EditFragment : Fragment(), DatePickerDialog.OnDateSetListener, TimePickerD
                 * Si è deciso di riporle ogni qualvolta l'utente elimina TUTTE le categorie esistenti nella tabella
                 * per far in modo che esista sempre come minimo una categoria che esso possa scegliere
                 */
-               toDoViewModel.addCategory(Category(getString(R.string.all)))
                toDoViewModel.addCategory(Category(getString(R.string.work)))
                toDoViewModel.addCategory(Category(getString(R.string.personal)))
-               chipGroupEdit.addChip(requireActivity(),getString(R.string.all))
+
+               /*
                chipGroupEdit.addChip(requireActivity(),getString(R.string.work))
-               chipGroupEdit.addChip(requireActivity(),getString(R.string.personal))
+               chipGroupEdit.addChip(requireActivity(),getString(R.string.personal))*/
            }
 
            for(i in cat){
@@ -145,6 +145,15 @@ class EditFragment : Fragment(), DatePickerDialog.OnDateSetListener, TimePickerD
         * Gestione click della chip: se una chip viene cliccata, si prende il suo
         * nome e lo si inserisce nella editText sottostante
         */
+        chipGroupEdit.setOnCheckedStateChangeListener { _, checkedIds ->
+            if(checkedIds.isNotEmpty()) {
+                (chipGroupEdit.findViewById<Chip>(checkedIds[0]))?.let {
+                    binding.editCategory.setText(it.text.toString())
+                }
+            }
+        }
+
+        /*
         chipGroupEdit.setOnCheckedChangeListener { _, checkedId ->
             (chipGroupEdit.findViewById<Chip>(checkedId))?.let {
                 it.setOnClickListener { chip ->
@@ -152,7 +161,7 @@ class EditFragment : Fragment(), DatePickerDialog.OnDateSetListener, TimePickerD
                     binding.editCategory.setText(myChip.text.toString())
                 }
             }
-        }
+        }*/
 
         /* Gestione inserimento nella tabella category della nuova categoria creata dall'utente*/
         binding.editCategory.setOnKeyListener {_, keyCode,event ->

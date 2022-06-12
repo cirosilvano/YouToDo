@@ -127,7 +127,5 @@ class DateTimeFormatHelper {
             if(ld.isAfter(ldToday) && period.days < 7) return "${weekDays(ld.dayOfWeek, res)}, ${generateTime(ldt.hour,ldt.minute)}"
             return generateDateTime(ldt.year,ldt.monthValue,ldt.dayOfMonth,ldt.hour, ldt.minute)
         }
-
-
     }
 }

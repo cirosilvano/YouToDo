@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Context.MODE_PRIVATE
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import androidx.fragment.app.Fragment
 import android.widget.*
@@ -103,6 +104,11 @@ class MainFragment : Fragment(), CardListener, CategoryListener {
             if(adapterCat.itemCount == 0){
                 toDoViewModel.addCategory(Category(getString(R.string.work)))
                 toDoViewModel.addCategory(Category(getString(R.string.personal)))
+
+                //Il controllo dei duplicati sotto inserisce direttamente anche le categorie sopra. In caso controlla ma mi pare funzioni sempre
+                /*
+                chipGroupEdit.addChip(requireActivity(),getString(R.string.work))
+                chipGroupEdit.addChip(requireActivity(),getString(R.string.personal))*/
             }
 
             //Controllo che verifica se esiste già una chip. Siccome a differenza del database è possibile creare
@@ -121,6 +127,76 @@ class MainFragment : Fragment(), CardListener, CategoryListener {
             }
         }
 
+        //Questo listener si attiva quando viene cliccata una qualsiasi delle chip
+        chipGroupMain.setOnCheckedStateChangeListener { _, checkedIds ->
+            Log.d("", "COSA CONTIENI? $checkedIds")
+            // Si seleziona la chip che è stata cliccata. Siccome gestiamo il caso di una singola chip cliccata,
+            // checkedIds contiene sempre al massimo un solo elemento (che si trova in posizione 0).
+            // Possiamo gestire quindi il controllo di chip selezionata o meno verificando che checkedIds contiene
+            // un elemento (l'id della chip selezionato) e in quel caso applicare il filtro, oppure se è vuota
+            // vengono rimostrate tutte le card che sono state create
+            if(checkedIds.isNotEmpty()) {
+                (chipGroupMain.findViewById<Chip>(checkedIds[0]))?.let { chipName ->
+                    //Rimozione di tutti gli observers che non riguardano la lista che vogliamo sia osservata
+                    toDoViewModel.showAllCards.removeObservers(viewLifecycleOwner)
+                    toDoViewModel.showCardsByStatus.removeObservers(viewLifecycleOwner)
+
+                    //Si invoca la select filtrando in base al nome della categoria specificata dalla chip
+                    toDoViewModel.setCategory(chipName.text.toString())
+
+                    toDoViewModel.showCardsByCategory.observe(viewLifecycleOwner) { filteredList ->
+                        adapter.setData(filteredList)
+
+                        if(adapter.itemCount>0){
+                            ivFreeDark.isVisible = false
+                            ivFreeLight.isVisible= false
+                            tvFree.isVisible=false
+                        }
+                        else{
+                            if(btnDarkState) {
+                                ivFreeDark.isVisible = true
+                                ivFreeLight.isVisible = false
+                            }
+                            else {
+                                ivFreeLight.isVisible = true
+                                ivFreeDark.isVisible = false
+                            }
+                            tvFree.text = getString(R.string.freeCategory, chipName.text.toString())
+                            tvFree.isVisible=true
+                        }
+                    }
+                }
+            }
+            else {
+                toDoViewModel.showAllCards.removeObservers(viewLifecycleOwner)
+                toDoViewModel.showCardsByStatus.removeObservers(viewLifecycleOwner)
+                toDoViewModel.showCardsByCategory.removeObservers(viewLifecycleOwner)
+
+                toDoViewModel.showAllCards.observe(viewLifecycleOwner) { toDoList ->
+                    adapter.setData(toDoList)
+
+                    if(adapter.itemCount>0){
+                        ivFreeDark.isVisible = false
+                        ivFreeLight.isVisible= false
+                        tvFree.isVisible=false
+                    }
+                    else{
+                        if(btnDarkState) {
+                            ivFreeDark.isVisible = true
+                            ivFreeLight.isVisible = false
+                        }
+                        else {
+                            ivFreeLight.isVisible = true
+                            ivFreeDark.isVisible = false
+                        }
+                        tvFree.text = getString(R.string.free)
+                        tvFree.isVisible=true
+                    }
+                }
+            }
+        }
+
+        /*
         //Questo listener si attiva quando viene cliccata una qualsiasi delle chip
         chipGroupMain.setOnCheckedChangeListener { _, checkedId ->
             var lastChipSelected = ""
@@ -189,6 +265,7 @@ class MainFragment : Fragment(), CardListener, CategoryListener {
                 }
             }
         }
+         */
 
         binding.addFAB.setOnClickListener {
             findNavController().navigate(R.id.action_mainFragment_to_addFragment)

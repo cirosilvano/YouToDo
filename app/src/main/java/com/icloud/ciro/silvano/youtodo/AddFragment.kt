@@ -140,6 +140,15 @@ class AddFragment : Fragment(), DatePickerDialog.OnDateSetListener, TimePickerDi
        * Gestione click della chip: se una chip viene cliccata, si prende il suo
        * nome e lo si inserisce nella editText sottostante
        */
+       chipGroupAdd.setOnCheckedStateChangeListener { _, checkedIds ->
+           if(checkedIds.isNotEmpty()) {
+               (chipGroupAdd.findViewById<Chip>(checkedIds[0]))?.let {
+                   binding.editAddCategory.setText(it.text.toString())
+               }
+           }
+       }
+
+       /*
        chipGroupAdd.setOnCheckedChangeListener { _, checkedId ->
            (chipGroupAdd.findViewById<Chip>(checkedId))?.let { it ->
                it.setOnClickListener { chip ->
@@ -147,7 +156,7 @@ class AddFragment : Fragment(), DatePickerDialog.OnDateSetListener, TimePickerDi
                    binding.editAddCategory.setText(myChip.text.toString())
                }
            }
-       }
+       }*/
 
        /* Gestione inserimento nella tabella category della nuova categoria creata dall'utente*/
        binding.editAddCategory.setOnKeyListener { _, keyCode, event ->

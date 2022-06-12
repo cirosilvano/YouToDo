@@ -10,7 +10,6 @@ import androidx.fragment.app.Fragment
 import android.widget.*
 import androidx.core.view.children
 import androidx.core.view.isVisible
-import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
@@ -511,7 +510,8 @@ class MainFragment : Fragment(), CardListener, CategoryListener {
     */
     override fun onCardSwipe(card: Card) {
         toDoViewModel.deleteCard(card)
-        activity?.recreate()
+        parentFragmentManager.beginTransaction().detach(this).commitNow()
+        parentFragmentManager.beginTransaction().attach(this).commitNow()
         Toast.makeText(requireContext(), getString(R.string.catRemoveSucc), Toast.LENGTH_LONG).show()
     }
 

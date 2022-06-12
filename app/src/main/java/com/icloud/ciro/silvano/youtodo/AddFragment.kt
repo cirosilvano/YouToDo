@@ -64,7 +64,7 @@ class AddFragment : Fragment(), DatePickerDialog.OnDateSetListener, TimePickerDi
        //Identificazione del bottone a forma di freccia in alto a sinistra che serve a tornare al MainFragment
        val btnBack = binding.backAddButton
 
-       //Inizializzaizone del chipGroup che ospiterà le chip conteneti le categorie
+       //Inizializzazione del chipGroup che ospiterà le chip contenenti le categorie
        chipGroupAdd=binding.chipGroupAdd
 
        //ViewModel per comunicare con la repository

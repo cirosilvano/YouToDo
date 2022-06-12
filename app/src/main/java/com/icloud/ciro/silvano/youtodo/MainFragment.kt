@@ -101,15 +101,9 @@ class MainFragment : Fragment(), CardListener, CategoryListener {
             //Nel caso in cui non siano presenti categorie, vengono inserite le 3 tipologie di default qua sotto
             //Ciò significa che se vengono eliminate tutte le chip, verranno ricreate automaticamente queste 3
             if(adapterCat.itemCount == 0){
-
-                toDoViewModel.addCategory(Category(getString(R.string.all)))
                 toDoViewModel.addCategory(Category(getString(R.string.work)))
                 toDoViewModel.addCategory(Category(getString(R.string.personal)))
-                chipGroupMain.addChip(requireActivity(),getString(R.string.all), adapterCat)
-                chipGroupMain.addChip(requireActivity(),getString(R.string.work), adapterCat)
-                chipGroupMain.addChip(requireActivity(),getString(R.string.personal), adapterCat)
             }
-
 
             //Controllo che verifica se esiste già una chip. Siccome a differenza del database è possibile creare
             //duplicati per le chip, è importante effettuare questa verifica
@@ -346,11 +340,10 @@ class MainFragment : Fragment(), CardListener, CategoryListener {
 
             this.setOnCloseIconClickListener {
                 val previous = adapter.itemCount
-                var success = 0
 
                 //Eliminazione dell'elemento dalla tabella
                 toDoViewModel.deleteCategory(Category(this.text.toString().trim()))
-                success = adapter.itemCount
+                val success: Int = adapter.itemCount
 
                 if(success == previous - 1) {
                     //Rimozione della chip

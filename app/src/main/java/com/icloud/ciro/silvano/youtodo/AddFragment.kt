@@ -148,15 +148,7 @@ class AddFragment : Fragment(), DatePickerDialog.OnDateSetListener, TimePickerDi
            }
        }
 
-       /*
-       chipGroupAdd.setOnCheckedChangeListener { _, checkedId ->
-           (chipGroupAdd.findViewById<Chip>(checkedId))?.let { it ->
-               it.setOnClickListener { chip ->
-                   val myChip: Chip = chip as Chip
-                   binding.editAddCategory.setText(myChip.text.toString())
-               }
-           }
-       }*/
+
 
        /* Gestione inserimento nella tabella category della nuova categoria creata dall'utente*/
        binding.editAddCategory.setOnKeyListener { _, keyCode, event ->

@@ -89,9 +89,6 @@ class EditFragment : Fragment(), DatePickerDialog.OnDateSetListener, TimePickerD
                toDoViewModel.addCategory(Category(getString(R.string.work)))
                toDoViewModel.addCategory(Category(getString(R.string.personal)))
 
-               /*
-               chipGroupEdit.addChip(requireActivity(),getString(R.string.work))
-               chipGroupEdit.addChip(requireActivity(),getString(R.string.personal))*/
            }
 
            for(i in cat){
@@ -153,15 +150,6 @@ class EditFragment : Fragment(), DatePickerDialog.OnDateSetListener, TimePickerD
             }
         }
 
-        /*
-        chipGroupEdit.setOnCheckedChangeListener { _, checkedId ->
-            (chipGroupEdit.findViewById<Chip>(checkedId))?.let {
-                it.setOnClickListener { chip ->
-                    val myChip:Chip = chip as Chip
-                    binding.editCategory.setText(myChip.text.toString())
-                }
-            }
-        }*/
 
         /* Gestione inserimento nella tabella category della nuova categoria creata dall'utente*/
         binding.editCategory.setOnKeyListener {_, keyCode,event ->

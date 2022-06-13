@@ -24,12 +24,12 @@ data class Card (
     @ColumnInfo(name = "name")
     val name : String,
 
-    @ColumnInfo(name = "category", defaultValue = "default")
+    @ColumnInfo(name = "category")
     val category : String,
 
     @ColumnInfo(name = "deadline")
     val deadline : String,
 
-    @ColumnInfo(name = "isDone", defaultValue = "false")
+    @ColumnInfo(name = "isDone")
     val isDone : Boolean
 ) : Parcelable

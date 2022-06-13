@@ -16,9 +16,6 @@ interface CategoryDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun addCategory(category: Category)
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
-    fun addCatLong(category: Category)
-
     @Delete
     fun deleteCategory(category: Category)
 

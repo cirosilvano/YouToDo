@@ -82,10 +82,4 @@ class ToDoViewModel(application: Application): AndroidViewModel(application) {
             repository.updateCategory(oldName, newName)
         }
     }
-
-    fun addCatLong(category: Category) {
-        viewModelScope.launch(Dispatchers.IO) {
-            repository.addCatLong(category)
-        }
-    }
 }

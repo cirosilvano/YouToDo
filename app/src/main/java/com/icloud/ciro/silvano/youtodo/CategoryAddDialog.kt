@@ -64,7 +64,7 @@ class CategoryAddDialog : DialogFragment() {
             }
             else{
                  if(newVal.isNotEmpty()) {
-                     toDoViewModel.addCatLong(Category(newVal))
+                     toDoViewModel.addCategory(Category(newVal))
                  }
 
             dismiss()

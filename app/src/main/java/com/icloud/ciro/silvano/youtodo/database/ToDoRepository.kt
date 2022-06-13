@@ -38,10 +38,6 @@ class ToDoRepository(private val cardDao: CardDao, private val categoryDao: Cate
         return cardDao.selectCardsByStatus(done)
     }
 
-    fun addCatLong(category: Category){
-        categoryDao.addCatLong(category)
-    }
-
     fun updateCategory(oldName:String,newName:String){
         categoryDao.updateCategory(oldName,newName)
     }

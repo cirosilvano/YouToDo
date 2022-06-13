@@ -114,13 +114,9 @@ class AddFragment : Fragment(), DatePickerDialog.OnDateSetListener, TimePickerDi
             * Si è deciso di riporle ogni qualvolta l'utente elimina TUTTE le categorie esistenti nella tabella
             * per far in modo che esista sempre come minimo una categoria che esso possa scegliere
             */
-           if(adapterCat.itemCount==0){
-               toDoViewModel.addCategory(Category(getString(R.string.all)))
+           if(adapterCat.itemCount == 0) {
                toDoViewModel.addCategory(Category(getString(R.string.work)))
                toDoViewModel.addCategory(Category(getString(R.string.personal)))
-               chipGroupAdd.addChip(requireActivity(),getString(R.string.all))
-               chipGroupAdd.addChip(requireActivity(),getString(R.string.work))
-               chipGroupAdd.addChip(requireActivity(),getString(R.string.personal))
            }
 
            for(i in cat){
@@ -145,6 +141,9 @@ class AddFragment : Fragment(), DatePickerDialog.OnDateSetListener, TimePickerDi
                (chipGroupAdd.findViewById<Chip>(checkedIds[0]))?.let {
                    binding.editAddCategory.setText(it.text.toString())
                }
+           }
+           else {
+               binding.editAddCategory.text?.clear()
            }
        }
 

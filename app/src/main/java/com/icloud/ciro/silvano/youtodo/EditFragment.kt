@@ -148,6 +148,9 @@ class EditFragment : Fragment(), DatePickerDialog.OnDateSetListener, TimePickerD
                     binding.editCategory.setText(it.text.toString())
                 }
             }
+            else {
+                binding.editCategory.text?.clear()
+            }
         }
 
 

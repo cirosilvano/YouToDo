@@ -381,6 +381,18 @@ class EditFragment : Fragment(), DatePickerDialog.OnDateSetListener, TimePickerD
         minute = cal.get(Calendar.MINUTE)
     }
 
+    /**
+     * Funzione che riscrive la data ottenuta dal DatePicker nel textfield
+     * apposito, e la segna a livello del fragment nella variabile dateString, per
+     * inserirla come parametro del to-do al click del pulsante di finalizzazione.
+     * La funzione viene chiamata quando "OK" è premuto nel TimePicker.
+     *
+     * @param p0: DatePicker
+     * @param p1: Int - anno scelto nel DatePicker.
+     * @param p2: Int - mese scelto nel DatePicker. I DatePicker segnano i mesi da 0 (gennaio) a 11 (dicembre), questa funzione
+     * vi sommerà 1 per rendere la data compatibile con il formato pareable da LocalDateTime
+     * @param p3: Int - anno scelto nel DatePicker.
+     */
     override fun onDateSet(p0: DatePicker?, p1: Int, p2: Int, p3: Int) {
         savedYear = p1
         savedMonth = p2+1
@@ -391,6 +403,15 @@ class EditFragment : Fragment(), DatePickerDialog.OnDateSetListener, TimePickerD
         Log.d("DATE SET", "set dateString to $dateString")
     }
 
+    /**
+     * Funzione che riscrive l'orario ottenuto dal DatePicker nel textfield
+     * apposito, e la segna a livello del fragment nella variabile timeString, per
+     * inserirla come parametro del to-do al click del pulsante di finalizzazione.
+     * La funzione viene chiamata quando "OK" è premuto nel TimePicker.
+     * @param p0: TimePicker
+     * @param p1: Int - l'ora scelta nel TimePicker.
+     * @param p2: Int - il minuto scelto nel TimePicker.
+     */
     override fun onTimeSet(p0: TimePicker?, p1: Int, p2: Int) {
         savedHour = p1
         savedMinute = p2

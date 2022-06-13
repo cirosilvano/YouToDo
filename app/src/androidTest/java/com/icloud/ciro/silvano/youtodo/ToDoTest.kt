@@ -27,12 +27,17 @@ import org.junit.runners.MethodSorters
 
 /**
  * Classe che mira a testare le operazioni più comuni fatte utilizzando l'applicazione
- * Siccome espresso potrebbe avere problemi nel trovare le View se si usano animazioni o transizioni,
- * si consiglia di disattivarle. Per fare ciò, è sufficiente (supponendo che la lingua di sistema sia inglese)
- * andare su settings -> developer options e nella sezione Drawing disabilitare:
- * - window animation scale;
- * - transition animation scale;
- * - animator duration scale.
+ *
+ * REQUISITI (IMPORTANTE):
+ * 1.   Siccome espresso potrebbe avere problemi nel trovare le View se si usano animazioni o transizioni,
+ *      è NECESSARIO disattivarle. Per fare ciò, è sufficiente (supponendo che la lingua di sistema sia inglese)
+ *      andare su settings -> developer options e nella sezione Drawing disabilitare:
+ *      - window animation scale;
+ *      - transition animation scale;
+ *      - animator duration scale.
+ *
+ * 2.   Inoltre, è NECESSARIO che, prima dell'esecuzione dei test, l'applicazione abbia
+ *      le categorie "personal" e "work".
  */
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 @RunWith(AndroidJUnit4::class)

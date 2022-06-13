@@ -22,7 +22,7 @@ interface CardDao {
     @Delete
     fun deleteCard(card: Card)
 
-    @Query("SELECT * FROM card")
+    @Query("SELECT * FROM card ORDER BY deadline ASC")
     fun showAllCards(): LiveData<List<Card>>
 
     @Query("SELECT * FROM card WHERE category = :category")

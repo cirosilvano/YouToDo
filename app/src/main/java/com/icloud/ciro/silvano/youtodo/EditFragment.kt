@@ -256,6 +256,7 @@ class EditFragment : Fragment(), DatePickerDialog.OnDateSetListener, TimePickerD
         if(inputCheck(name, category,deadline)){
             // Crezione della card
             val card = Card(args.currentCard.id, name, category, deadline, args.currentCard.isDone)
+
             GlobalScope.launch {
                 // crea nuova categoria (nel caso in cui non esista già)
                 toDoViewModel.addCategory(Category(category))
@@ -266,13 +267,10 @@ class EditFragment : Fragment(), DatePickerDialog.OnDateSetListener, TimePickerD
                 toDoViewModel.updateCard(card)
             }
 
-
             Toast.makeText(requireContext(), getString(R.string.cardUpdateSucc), Toast.LENGTH_LONG).show()
 
-
-                // Torna indietro al MainFragment
-                findNavController().navigate(R.id.action_editFragment_to_mainFragment)
-
+            // Torna indietro al MainFragment
+            findNavController().navigate(R.id.action_editFragment_to_mainFragment)
         }
         else{
             Toast.makeText(requireContext(),  getString(R.string.fillAllFields), Toast.LENGTH_LONG).show()

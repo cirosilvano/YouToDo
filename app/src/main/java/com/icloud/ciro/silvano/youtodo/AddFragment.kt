@@ -25,6 +25,9 @@ import com.icloud.ciro.silvano.youtodo.database.Category
 import com.icloud.ciro.silvano.youtodo.database.ToDoViewModel
 import com.icloud.ciro.silvano.youtodo.database.Card
 import com.icloud.ciro.silvano.youtodo.databinding.FragmentAddBinding
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 class AddFragment : Fragment(), DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener, CategoryListener {
 
@@ -225,10 +228,16 @@ class AddFragment : Fragment(), DatePickerDialog.OnDateSetListener, TimePickerDi
         if(inputCheck(name, category, deadline)){
             // Create Item Object
             val card = Card(0, name, category, deadline, false)
-            val cat = Category(category)
 
-            toDoViewModel.addCategory(cat)
-            toDoViewModel.addCard(card)
+            GlobalScope.launch {
+                // crea nuova categoria (nel caso in cui non esista già)
+                toDoViewModel.addCategory(Category(category))
+
+                delay(500) // In ms
+
+                // Aggiornamento della card nel database
+                toDoViewModel.addCard(card)
+            }
 
             Toast.makeText(requireContext(), getString(R.string.cardAddSucc), Toast.LENGTH_LONG).show()
 

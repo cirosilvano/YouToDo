@@ -4,7 +4,6 @@ import android.app.Application
 import androidx.lifecycle.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlin.properties.Delegates
 
 
 /*classe ItemViewModel

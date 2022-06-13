@@ -164,13 +164,13 @@ class AddFragment : Fragment(), DatePickerDialog.OnDateSetListener, TimePickerDi
                      }
                     else{
                         /*controllo che la lunghezza della categoria sia adeguata*/
-                        if(textVal.length>20){
+                        if(textVal.length>15){
                             Toast.makeText(requireContext(), getString(R.string.maxNumChar), Toast.LENGTH_LONG).show()
                          }
                         else{
-                        chipGroupAdd.addChip(requireActivity(), binding.editAddCategory.text.toString())
-                        toDoViewModel.addCategory(Category(binding.editAddCategory.text.toString()))
-                        chipGroupAdd.clearCheck()
+                            chipGroupAdd.addChip(requireActivity(), binding.editAddCategory.text.toString())
+                            toDoViewModel.addCategory(Category(binding.editAddCategory.text.toString()))
+                            chipGroupAdd.clearCheck()
                         }
                     }
                binding.editAddCategory.setText("")
@@ -191,7 +191,7 @@ class AddFragment : Fragment(), DatePickerDialog.OnDateSetListener, TimePickerDi
 
        /*controllo che la lunghezza della categoria: se l'utente sfora il numero massimo di caratteri, viene segnalato l'errore*/
        binding.editAddCategory.doOnTextChanged { text, _, _, _ ->
-           if(text!!.length>20){
+           if(text!!.length>15){
                binding.editAddCategoryLayout.error = getString(R.string.maxNumChar)
            }
            else{

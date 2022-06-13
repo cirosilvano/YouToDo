@@ -42,7 +42,7 @@ class CategoryEditDialog(category: Category) : DialogFragment() {
                 binding.confirm.isEnabled =
                     !(s!!.isEmpty() && s.toString().trim().lowercase() != cat.name.trim().lowercase())
 
-                if(s.length>20){
+                if(s.length>15){
                     binding.editCategory.error = getString(R.string.maxNumChar)
                     binding.textInputCategoryLayout.endIconMode = END_ICON_NONE
                 }
@@ -56,7 +56,7 @@ class CategoryEditDialog(category: Category) : DialogFragment() {
         binding.confirm.setOnClickListener {
             val newVal=binding.editCategory.text.toString().trim().lowercase()
 
-            if(newVal.length>20){
+            if(newVal.length>15){
                 Toast.makeText(requireContext(), getString(R.string.maxNumChar), Toast.LENGTH_SHORT).show()
 
             }

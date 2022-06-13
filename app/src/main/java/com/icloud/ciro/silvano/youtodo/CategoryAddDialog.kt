@@ -42,7 +42,7 @@ class CategoryAddDialog : DialogFragment() {
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 binding.confirm.isEnabled = s!!.isNotEmpty()
-                if(s.length>20){
+                if(s.length>15){
                     binding.addCategory.error = getString(R.string.maxNumChar)
                     binding.textInputCategoryLayout.endIconMode = TextInputLayout.END_ICON_NONE
 
@@ -58,7 +58,7 @@ class CategoryAddDialog : DialogFragment() {
         binding.confirm.setOnClickListener {
             val newVal=binding.addCategory.text.toString().trim().lowercase()
 
-            if(newVal.length>20){
+            if(newVal.length>15){
                 Toast.makeText(requireContext(), getString(R.string.maxNumChar), Toast.LENGTH_SHORT).show()
 
             }

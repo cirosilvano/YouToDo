@@ -174,7 +174,7 @@ class EditFragment : Fragment(), DatePickerDialog.OnDateSetListener, TimePickerD
                     }
                     else{
                         /*controllo che la lunghezza della categoria sia adeguata*/
-                        if(textVal.length>20){
+                        if(textVal.length>15){
                             Toast.makeText(requireContext(), getString(R.string.maxNumChar), Toast.LENGTH_LONG).show()
                         }
                         else{
@@ -206,7 +206,7 @@ class EditFragment : Fragment(), DatePickerDialog.OnDateSetListener, TimePickerD
 
         /*controllo che la lunghezza della categoria: se l'utente sfora il numero massimo di caratteri, viene segnalato l'errore*/
         binding.editCategory.doOnTextChanged { text, _, _, _ ->
-            if(text!!.length > 20){
+            if(text!!.length > 15){
                 binding.editCategoryLayout.error = getString(R.string.maxNumChar)
             }
             else{
@@ -218,6 +218,10 @@ class EditFragment : Fragment(), DatePickerDialog.OnDateSetListener, TimePickerD
         binding.btnEdit.setOnClickListener{
             if( binding.editName.text.toString().length>50){
                 Toast.makeText(requireContext(), getString(R.string.maxNumCharName), Toast.LENGTH_LONG).show()
+            }
+            if(binding.editCategory.text!!.length>15){
+                Toast.makeText(requireContext(), getString(R.string.maxNumChar), Toast.LENGTH_LONG).show()
+
             }
             else {
                 updateItem()
@@ -265,8 +269,10 @@ class EditFragment : Fragment(), DatePickerDialog.OnDateSetListener, TimePickerD
 
             Toast.makeText(requireContext(), getString(R.string.cardUpdateSucc), Toast.LENGTH_LONG).show()
 
-            // Torna indietro al MainFragment
-            findNavController().navigate(R.id.action_editFragment_to_mainFragment)
+
+                // Torna indietro al MainFragment
+                findNavController().navigate(R.id.action_editFragment_to_mainFragment)
+
         }
         else{
             Toast.makeText(requireContext(),  getString(R.string.fillAllFields), Toast.LENGTH_LONG).show()

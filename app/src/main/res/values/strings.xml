@@ -79,7 +79,7 @@
     <string name="ExCat"> Existing category!</string>
     <string name="ChooseCat"> Choose a Category!</string>
     <string name="required">*required</string>
-    <string name="maxNumChar">Max 20 characters</string>
+    <string name="maxNumChar">Max 15 characters</string>
     <string name="maxNumCharName">Max 50 characters</string>
     <string name="categoriesLabel">Categories</string>
 

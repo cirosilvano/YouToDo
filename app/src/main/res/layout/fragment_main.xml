@@ -133,6 +133,7 @@
         android:layout_marginBottom="100dp"
         android:clickable="true"
         android:contentDescription="@string/newToDoLabel"
+        android:minHeight="48dp"
         android:src="@drawable/ic_add_24"
         android:text="@string/newToDoLabel"
         app:layout_constraintBottom_toBottomOf="parent"

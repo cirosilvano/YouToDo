@@ -250,6 +250,9 @@ class EditFragment : Fragment(), DatePickerDialog.OnDateSetListener, TimePickerD
             // Crezione della card
             val card = Card(args.currentCard.id, name, category, deadline, args.currentCard.isDone)
 
+            // crea nuova categoria (nel caso in cui non esista già)
+            toDoViewModel.addCategory(Category(category))
+
             // Aggiornamento della card nel database
             toDoViewModel.updateCard(card)
 

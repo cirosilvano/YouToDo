@@ -37,7 +37,9 @@ import org.junit.runners.MethodSorters
  *      - animator duration scale.
  *
  * 2.   Inoltre, è NECESSARIO che, prima dell'esecuzione dei test, l'applicazione abbia
- *      le categorie "personal" e "work".
+ *      le categorie "personal" e "work". In generale è consigliato cancellare i dati
+ *      andando sulle impostazioni dell'app per evitare possibili conflitti non previsti
+ *      dai test
  */
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 @RunWith(AndroidJUnit4::class)
@@ -96,7 +98,7 @@ class ToDoTest {
         //ripetiamo l'aggiunta per avere una card con categoria diversa per il prossimo test
         onView(withId(R.id.addFAB)).perform(click())
 
-        onView(withId(R.id.addName)).perform(typeText("Prova2"), click(), closeSoftKeyboard())
+        onView(withId(R.id.addName)).perform(typeText("new cat"), click(), closeSoftKeyboard())
 
         onView(withId(R.id.addDate)).perform(click())
 
@@ -119,7 +121,7 @@ class ToDoTest {
         )
         onView(withId(android.R.id.button1)).perform(click())
 
-        onView(allOf(withText(containsString("all")), isAssignableFrom(Chip::class.java))).perform(click())
+        onView(allOf(withText(containsString("new cat")), isAssignableFrom(Chip::class.java))).perform(click())
 
         onView(withId(R.id.btnAdd)).perform(click())
 
@@ -133,17 +135,17 @@ class ToDoTest {
     @Test
     fun filterCardsByCategory() {
         //provo a filtrare le card che hanno la categoria personal
-        onView(allOf(withText(containsString("personal")), not(withId(R.id.itemCategory)), isAssignableFrom(Chip::class.java))).perform(click())
+        onView(allOf(withText(containsString("new cat")), not(withId(R.id.itemCategory)), isAssignableFrom(Chip::class.java))).perform(click())
 
         //controllo che ripremendo il chip si deselezioni e ricompaiano tutte le card
-        onView(allOf(withText(containsString("personal")), not(withId(R.id.itemCategory)), isAssignableFrom(Chip::class.java))).perform(click())
+        onView(allOf(withText(containsString("new cat")), not(withId(R.id.itemCategory)), isAssignableFrom(Chip::class.java))).perform(click())
 
         onView(allOf(withText(containsString("new value")), not(withId(R.id.itemCategory)), isAssignableFrom(Chip::class.java))).perform(click())
 
         //controllo che ripremendo il chip si deselezioni e ricompaiano tutte le card
         onView(allOf(withText(containsString("new value")), not(withId(R.id.itemCategory)), isAssignableFrom(Chip::class.java))).perform(click())
 
-        onView(allOf(withText(containsString("personal")), not(withId(R.id.itemCategory)), isAssignableFrom(Chip::class.java))).perform(click())
+        onView(allOf(withText(containsString("new cat")), not(withId(R.id.itemCategory)), isAssignableFrom(Chip::class.java))).perform(click())
         onView(allOf(withText(containsString("new value")), not(withId(R.id.itemCategory)), isAssignableFrom(Chip::class.java))).perform(click())
     }
 
@@ -295,8 +297,9 @@ class ToDoTest {
 
                     override fun perform(uiController: UiController?, view: View) {
                         val button: View = view.findViewById(R.id.btnDeleteCat)
-                        // Maybe check for null
-                        button.performClick()
+
+                        if(button != null)
+                            button.performClick()
                     }
                 }
             )

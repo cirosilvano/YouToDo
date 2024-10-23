@@ -9,12 +9,12 @@ customizable colors and themes.
 <img src="img/home_dark_mode.jpg" width="394" height="384">
 
 ## Create and manage to-do page
-<img src="img/add_todo_page.jpg" width="394" height="384">
-<img src="img/edit_todo_page.jpg" width="394" height="384">
+<img src="img/add_todo_page.jpg" width="179" height="392">
+<img src="img/edit_todo_page.jpg" width="179" height="392">
 
 ## Create and manage categories
-<img src="img/categories_page.jpg" width="394" height="384">
+<img src="img/categories_page.jpg" width="256" height="600">
 <img src="img/add_category.png" width="394" height="384">
 
 ## Settings page
-<img src="img/settings_page.jpg" width="394" height="384">
+![Settings page](img/settings_page.jpg)

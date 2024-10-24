@@ -14,7 +14,6 @@ customizable colors and themes.
 
 ## Create and manage categories
 <img src="img/categories_page.jpg" width="256" height="600">
-<img src="img/add_category.png" width="394" height="384">
 
 ## Settings page
 ![Settings page](img/settings_page.jpg)
